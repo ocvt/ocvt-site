@@ -1,0 +1,22 @@
+{
+  "name": "ocvt-site",
+  "version": "1.0.0",
+  "description": "OCVT Site Frontend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ocvt/ocvt-site.git"
+  },
+  "author": "Paul Walko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ocvt/ocvt-site/issues"
+  },
+  "homepage": "https://gitlab.com/ocvt/ocvt-site#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
