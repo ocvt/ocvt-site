@@ -1,1 +1,33 @@
-TODO
+extends base.pug
+
+block content
+  <div id="fullCenterColor">
+    <h2>Welcome to OCVT!</h2>
+  
+    <img class="photoRightColor" src="#{homePhoto.url}" alt="#{homePhoto.name}">
+  
+    <p>
+      | The Outdoor Club at Virginia Tech (OCVT) is a diverse group of outdoor
+      | enthusiasts comprised of undergraduate, and graduate students and other
+      | members of the Blacksburg community. The goal of the club is to get our
+      | members outside and active both physically and socially. OCVT strives to
+      | spread knowledge of the local area, to teach safe and responsible outdoor
+      | practices, to volunteer time to keep our section of the Appalachian Trail
+      | maintained and most importantly to have fun while doing it. If you're
+      | interested feel free to read more <a href="/about">about us</a> and if you
+      | like what you see <a href="/login">join us</a>!
+    </p>
+  
+  </div>
+  
+  <div id="rightSideLarge">
+    <h1 style="color:#872b18">News and Announcements</h1>
+      | NEWS_HERE
+    <hr>
+  </div>
+  
+  <div id="leftSideSmall">
+    <h2>Upcoming Trips</h2>
+      | TRIPS_HERE
+    <hr>
+  </div>

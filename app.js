@@ -1,6 +1,5 @@
+const path = require('path')
 const express = require('express');
-
-/* Import Routes */
 const indexRouter = require('./routes/index');
 
 /* Start app */
@@ -11,7 +10,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 /* Configure Routes */
-app.user('/', indexRouter);
+app.use('/', indexRouter);
 
 /* Error handling TODO */
 //// catch 404 and forward to error handler
@@ -30,4 +29,5 @@ app.user('/', indexRouter);
 //  res.render('error');
 //});
 //
-//module.exports = app;
+
+app.listen(4000, () => console.log('RUNNING'));
