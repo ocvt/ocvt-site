@@ -1,4 +1,4 @@
-extends base.pug
+extends _base
 
 block content
   <div id="fullCenterColor">
@@ -22,12 +22,29 @@ block content
   
   <div id="rightSideLarge">
     <h1 style="color:#872b18">News and Announcements</h1>
-      | NEWS_HERE
+      each newsItem in news
+        <h2>#{newsItem.title}</h2>
+        <div id="newsdate">#{newsItem.date}</div>
+        <br>
+        <p>#{newsItem.summary}</p>
+        <br>
+        <br>
+        <a href="/news/archive/#{newsItem.id}">Read More...</a>
+      else
+        <p>No News Items</p>
+
+      <a href="/news/archive">Older news items --></a>
     <hr>
   </div>
   
   <div id="leftSideSmall">
     <h2>Upcoming Trips</h2>
-      | TRIPS_HERE
+      each trip in trips
+        <h3 class="smallHeader2"><a href="/trips/#{trip.id}">#{trip.title}</a></h3>
+        <p>#{trip.date}</p>
+        <strong>Trip Type:</strong> #{trip.type}
+        <a href="/trips/#{trip.id}">Full Details</a>
+      else
+        <p>No Trips Scheduled</p>
     <hr>
   </div>

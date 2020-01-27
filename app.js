@@ -1,15 +1,16 @@
 const path = require('path')
 const express = require('express');
-const indexRouter = require('./routes/index');
 
 /* Start app */
 const app = express();
 
-/* Configure view engine */
+/* Configure app */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.use(express.static('static'));
 
 /* Configure Routes */
+const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
 /* Error handling TODO */
