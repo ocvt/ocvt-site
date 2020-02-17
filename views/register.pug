@@ -1,0 +1,104 @@
+extends _base
+
+block content
+  <div id="fullCenter">
+    if myAccount.status === 200
+      <strong>You are already logged on as #{myAccount.name}</strong>
+    else if myAccount.status === 400
+      <h3>Welcome! Please fill out the registration form.</h3>
+      <p>
+        | Please fill out this simple form. For medical condition you do not
+        | have to put a description if you do not want to; but please
+        | indicate "yes" if you have something that a trip leader should ask
+        | you about before you go somewhere. Only your name and gender will
+        | be publically accessible on the site.
+      </p>
+      <form action="" method="post">
+        <table id="tripform">
+          <tbody>
+            <tr>
+              <td valign="top">First Name:*</td>
+              <td><input type="text" name="FirstName" size="40" value=""></td>
+            </tr>
+            <tr>
+              <td valign="top">Last Name:*</td>
+              <td><input type="text" name="LastName" size="40" value=""></td>
+            </tr>
+            <tr>
+              <td valign="top">Email:*</td>
+              <td><input type="text" name="Email" size="40" value=""></td>
+            </tr>
+            <tr>
+              <td valign="top">Birth Year:*</td>
+              <td>
+                <select name="BirtyYear">
+                  <option value="" selected="selected">----</option>
+                  -
+                    const start = 1900;
+                    const end = new Date().getFullYear() - 14;
+                    const years = Array.from({length: end - start}, (v, k) => k + start);
+                  each year in years.reverse()
+                    <option value="#{year}">#{year}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">Gender:*</td>
+              <td>
+                <select name="Gender">
+                  <option value="" selected="selected">----</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="O">Other</option>
+                  <option value="P">Prefer not to say</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">Cell Number:</td>
+              <td><input type="text" name="CellNumber" size="40" value=""></td>
+            </tr>
+            <tr>
+              <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
+              <td>
+                <select name="MedicalCondition">
+                  <option value="" selected="selected">----</option>
+                  <option value="True">Yes</option>
+                  <option value="False">No</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
+              <td><textarea name="MedicalConditionDescription" rows="6" cols="35"></textarea></td>
+            </tr>
+            <tr>
+              <td valign="top">
+                | <strong>Terms Of Service Waiver</strong>: I have read and
+                | agree to the<br> <a href="/privacy">Privacy Policy and Terms of Use</a>.:*
+              </td>
+              <td><input type="checkbox" name="terms" value="TERMS"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          | Fields marked with "*" are required.
+        </p>
+        <button type="submit" name="Submit">Submit</button>
+      </form>
+    else if myAccount.status === 401
+      <div style="width:720px" align="center" id="login">
+        <h3>Please Choose A Logon Method:</h3>
+        
+        <table width="500" height="100">
+          <tr>
+            <td align="center">
+              <button onclick="loginGoogle()">Login with Google</button>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">If you previously used your VT PID so sign in, use your VT email with this method.</td>
+          </tr>
+        </table>
+      </div>
+  </div>

@@ -25,7 +25,7 @@
         </div>
       </a>
 
-      <a href="/login">
+      <a href="/register">
         <div id="navButton" class="nav1">
           <strong>JOIN US</strong>
         </div>
@@ -83,10 +83,12 @@
         <h2>#{header}</h2>
         <div id="logon">
           <strong>
-            if name
-              | Welcome #{name} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
+            if name.status === 200
+              | Welcome #{name.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
+            else if name.status === 400
+              | You are logged on but have not registered! | <a href="/logout">Logout</a> | <a href="/register">Register</a>
             else
-              | You are not logged on | <a href="/logon">LogIn</a> | <a href="/join">Register</a>
+              | You are not logged on | <a href="/login">LogIn</a> | <a href="/register">Register</a>
           </strong>
         </div>
       </div><!-- end miniheader -->

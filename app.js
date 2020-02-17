@@ -10,8 +10,10 @@ app.set('view engine', 'pug');
 app.use(express.static('static'));
 
 /* Configure Routes */
-const indexRouter = require('./routes/index');
-app.use('/', indexRouter);
+const rootRouter = require('./routes/root');
+app.use('/', rootRouter);
+const aboutRouter = require('./routes/about');
+app.use('/about', aboutRouter);
 
 /* Error handling TODO */
 //// catch 404 and forward to error handler

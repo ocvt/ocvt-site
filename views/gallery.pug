@@ -1,0 +1,19 @@
+extends _base
+
+block content
+  <script src="/js/jquery-3.4.1.min.js"></script>
+  <script src="/galleria-1.6.1/galleria.min.js"></script>
+  <style>.galleria { width: 700px; height: 400px; background: #000 }</style>
+
+  <div id="fullCenter">
+    <div class="galleria">
+      each image in images
+        <img src="#{image.url}">
+    </div>
+    <script>
+      |(function() {
+      |  Galleria.loadTheme('/galleria-1.6.1/themes/azur/galleria.azur.min.js');
+      |  Galleria.run('.galleria');
+      |}());
+    </script>
+  </div>
