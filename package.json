@@ -17,6 +17,7 @@
   },
   "homepage": "https://gitlab.com/ocvt/ocvt-site#readme",
   "dependencies": {
+    "connect-datadog": "0.0.9",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "node-fetch": "^2.6.0",

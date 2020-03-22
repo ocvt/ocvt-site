@@ -1,36 +1,37 @@
-const aH = require('express-async-handler')
+const aH = require('express-async-handler');
 const express = require('express');
-const fetch = require('node-fetch');
+
+const h = require('./helpers')
 
 const router = express.Router();
-const url = 'http://localhost:3000';
 
 /* Root Routes */
 router.get('/login', aH(async (req, res, next) => {
   res.render('login', {
     title: 'Login',
     header: 'LOGIN',
-    name: await fetch(url + '/myaccount/name')
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL
   });
 }));
 
 router.get('/register', aH(async (req, res, next) => {
-  let myAccount = await fetch(url + '/myaccount');
+  let myAccount = await h.fetchHelper(h.API_URL + '/myaccount', req);
   // 400 -> authed but not registered TODO check this everywhere
 
   res.render('register', {
     title: 'Register',
     header: 'REGISTER',
-    name: await fetch(url + '/myaccount/name'),
+    name: await h.getFirstName(req),
     myAccount: myAccount
   });
 }));
 
 router.get('/', aH(async (req, res, next) => {
   let [trips, homePhotos, news] = await Promise.all([
-    fetch(url + '/trips'),
-    fetch(url + '/homephotos'),
-    fetch(url + '/news')
+    h.fetchHelper(h.API_URL + '/trips', req),
+    h.fetchHelper(h.API_URL + '/homephotos', req),
+    h.fetchHelper(h.API_URL + '/news', req)
   ]);
 
   [trips, homePhotos, news] = await Promise.all([
@@ -43,7 +44,7 @@ router.get('/', aH(async (req, res, next) => {
   res.render('index', {
     title: 'Home',
     header: 'HOME',
-    name: await fetch(url + '/myaccount/name'),
+    name: await h.getFirstName(req),
     homePhoto: homePhoto,
     news: news.news,
     trips: trips.trips
@@ -52,8 +53,8 @@ router.get('/', aH(async (req, res, next) => {
 
 router.get('/gallery', aH(async (req, res, next) => {
   let [homePhotos, tripsPhotos] = await Promise.all([
-    fetch(url + '/homephotos'),
-    fetch(url + '/trips/photos')
+    h.fetchHelper(h.API_URL + '/homephotos', req),
+    h.fetchHelper(h.API_URL + '/trips/photos', req)
   ]);
   [homePhotos, tripsPhotos] = await Promise.all([
     homePhotos.json(),
@@ -64,7 +65,7 @@ router.get('/gallery', aH(async (req, res, next) => {
   res.render('gallery', {
     title: 'Gallery',
     header: 'GALLERY',
-    name: await fetch(url + '/myaccount/name'),
+    name: await h.getFirstName(req),
     images: images
   });
 }));
@@ -73,7 +74,7 @@ router.get('/resources', aH(async (req, res, next) => {
   res.render('resources', {
     title: 'Resources',
     header: 'RESOURCES',
-    name: await fetch(url + '/myaccount/name')
+    name: await h.getFirstName(req)
   });
 }));
 
@@ -81,7 +82,7 @@ router.get('/help', aH(async (req, res, next) => {
   res.render('help', {
     title: 'Help',
     header: 'HELP',
-    name: await fetch(url + '/myaccount/name')
+    name: await h.getFirstName(req)
   });
 }));
 
@@ -89,7 +90,7 @@ router.get('/privacy', aH(async (req, res, next) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',
     header: 'PRIVACY POLICY / TERMS OF USE',
-    name: await fetch(url + '/myaccount/name')
+    name: await h.getFirstName(req)
   });
 }));
 

@@ -1,5 +1,5 @@
-const path = require('path')
 const express = require('express');
+const path = require('path');
 
 /* Start app */
 const app = express();
@@ -11,9 +11,12 @@ app.use(express.static('static'));
 
 /* Configure Routes */
 const rootRouter = require('./routes/root');
-app.use('/', rootRouter);
 const aboutRouter = require('./routes/about');
+const tripsRouter = require('./routes/trips');
+
+app.use('/', rootRouter);
 app.use('/about', aboutRouter);
+app.use('/trips', tripsRouter);
 
 /* Error handling TODO */
 //// catch 404 and forward to error handler

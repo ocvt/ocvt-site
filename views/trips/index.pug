@@ -1,0 +1,73 @@
+extends ../_base
+
+block content
+  <div id="rightSideLarge">
+    <h2>Come Join Us!</h2>
+
+    <p>
+      | Trips and events are what we are all about, they are the life blood of
+      | OCVT. Here you can view and sign up for all our upcoming trips. If you
+      | don't see anything going on or anything you like please
+      | <a href="newtrip.php">lead a trip of your own</a>. All our members are
+      | encouraged to lead trips, being a leader will help you meet more people
+      | and increase your skills and confidence. If you have any questions take
+      | a look in the <a href="/help/help.php">help section</a> or
+      | <a href="/about/contact.php">contact an officer</a>, happy trails!
+    </p>
+  </div>
+
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+
+    <ul>
+      <li><a href="/trips/newtrip">Create a Trip</a></li>
+      <li><a href="/trips/tripadmin">My Trips</a></li>
+      <li><a href="/trips/attendance">My Trip Attendance</a></li>
+    </ul>
+  </div>
+
+  <div id="fullCenter">
+    <h2>Upcoming Trips</h2>
+      each trip in trips
+        <h3 class="smallHeader">
+          <a href="/trips/#{trip.id}">#{trip.name}</a>
+        </h3>
+        | #{trip.date}
+        | &nbsp;&nbsp;&nbsp;
+        <strong>Trip Type: </strong> #{trip.type}
+        | &nbsp;&nbsp;&nbsp;
+        <a href="/trips/#{trip.id}">Full Details</a>
+        if trip.admin
+          <span style="color:navy">
+            | &nbsp;|&nbsp;
+            | Attendance: #{trip.attending} / #{trip.maxPeople} +
+            | #{trip.forceAdded}.
+            | <a href="/trips/#{trip.id}/admin">Trip Admin</a>
+          </span>
+        <p>#{trip.summary}</p>
+      else
+        <p>No Upcoming Trips</p>
+
+    <h2>Recent Trips</h2>
+      each trip in recentTrips
+        <h3 class="smallHeader">
+          <a href="/trips/#{trip.id}">#{trip.name}</a>
+        </h3>
+        | #{trip.date}
+        | &nbsp;&nbsp;&nbsp;
+        <strong>Trip Type: </strong> #{trip.type}
+        | &nbsp;&nbsp;&nbsp;
+        <a href="/trips/#{trip.id}">Full Details</a>
+        if trip.admin
+          <span style="color:navy">
+            | &nbsp;|&nbsp;
+            | Attendance: #{trip.attending} / #{trip.maxPeople} +
+            | #{trip.forceAdded}.
+            | <a href="/trips/#{trip.id}/admin">Trip Admin</a>
+          </span>
+        <p>#{trip.summary}</p>
+      else
+        <p>No Recent Trips</p>
+
+    <center><a href="/trps/archive">View More Past Trips</a></center>
+  </div>

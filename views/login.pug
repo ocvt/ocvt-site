@@ -5,7 +5,7 @@ block content
     if name.status === 200
       <strong>You are already logged on as #{name.firstName}</strong>
     else if name.status === 400
-      <strong>You are already logged in but not yet regitered!. <a href="/register">Registere Here</a></strong>
+      <strong>You are already logged in but not yet regitered!. <a href="/register">Register Here</a></strong>
     else
       <div style="width:720px" align="center" id="login">
         <h3>Please Choose A Logon Method:</h3>
@@ -13,11 +13,12 @@ block content
         <table width="500" height="100">
           <tr>
             <td align="center">
-              <button onclick="loginGoogle()">Login with Google</button>
+              <button onclick="window.location.href = '#{API_URL}/auth/google\&state=' + window.location.href">Login with Google</button>
             </td>
           </tr>
           <tr>
-            <td align="center">If you previously used your VT PID so sign in, use your VT email with this method.</td>
+            <td align="center">If you previously used your VT PID so sign in, use your VT email with Google Login instead.</td>
           </tr>
         </table>
       </div>
+  </div>
