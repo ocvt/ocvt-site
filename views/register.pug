@@ -2,9 +2,17 @@ extends _base
 
 block content
   <div id="fullCenter">
+    <h2>Interested in joining the club?</h2>
+    <p>
+      | The first step is registering an account. Registration is
+      | <strong>Free</strong> and easy. When you are done you will
+      | automatically be set up to receive news about upcoming trips and events
+      | .
+    </p>
+
     if myAccount.status === 200
       <strong>You are already logged on as #{myAccount.name}</strong>
-    else if myAccount.status === 400
+    else if myAccount.status === 404
       <h3>Welcome! Please fill out the registration form.</h3>
       <p>
         | Please fill out this simple form. For medical condition you do not
@@ -88,16 +96,16 @@ block content
       </form>
     else if myAccount.status === 401
       <div style="width:720px" align="center" id="login">
-        <h3>Please Choose A Logon Method:</h3>
+        <h3>Please choose a login method first to register an account with us:</h3>
         
         <table width="500" height="100">
           <tr>
             <td align="center">
-              <button onclick="loginGoogle()">Login with Google</button>
+              <button onclick="window.location.href = '#{API_URL}/auth/google\?state=' + window.location.href">Login with Google</button>
             </td>
           </tr>
           <tr>
-            <td align="center">If you previously used your VT PID so sign in, use your VT email with this method.</td>
+            <td align="center">(If you previously used VT CAS, use your VT email with Google Login instead.)</td>
           </tr>
         </table>
       </div>

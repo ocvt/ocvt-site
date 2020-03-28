@@ -86,7 +86,7 @@
             if name.status === 200
               | Welcome #{name.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
             else if name.status === 404
-              | You are logged on but have not registered! | <a href="/logout">Logout</a> | <a href="/register">Register</a>
+              | You are logged in but have not registered! | <a href="/logout">Logout</a> | <a href="/register">Complete Registration</a>
             else
               | You are not logged on | <a href="/login">LogIn</a> | <a href="/register">Register</a>
           </strong>

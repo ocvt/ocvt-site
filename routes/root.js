@@ -17,13 +17,13 @@ router.get('/login', aH(async (req, res, next) => {
 
 router.get('/register', aH(async (req, res, next) => {
   let myAccount = await h.fetchHelper(h.API_URL + '/myaccount', req);
-  // 400 -> authed but not registered TODO check this everywhere
 
   res.render('register', {
     title: 'Register',
     header: 'REGISTER',
     name: await h.getFirstName(req),
-    myAccount: myAccount
+    myAccount: myAccount,
+    API_URL: h.API_URL
   });
 }));
 
@@ -39,7 +39,7 @@ router.get('/', aH(async (req, res, next) => {
   ]);
 
   homePhotos = homePhotos.images;
-  const homePhoto = homePhotos[Math.floor(Math.random() * homePhotos.length)];
+  const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
 
   res.render('index', {
     title: 'Home',
@@ -60,7 +60,7 @@ router.get('/gallery', aH(async (req, res, next) => {
     homePhotos.json(),
     tripsPhotos.json()
   ]);
-  const images = (homePhotos.images.concat(tripsPhotos.images)).reverse();
+  const images = []; // TODO (homePhotos.images.concat(tripsPhotos.images)).reverse();
   
   res.render('gallery', {
     title: 'Gallery',
