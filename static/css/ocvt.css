@@ -1,6 +1,15 @@
 /* CSS Document */
 
-/* CSS Document */
+/* Preload images */
+body:after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  content: url(/media/yellow.png);
+}
+
 body
 {
   text-align: center;
