@@ -7,10 +7,17 @@ const router = express.Router();
 
 /* Root Routes */
 router.get('/login', aH(async (req, res, next) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status === 404) {
+    res.redirect(302, '/register');
+    return;
+  }
+
   res.render('login', {
     title: 'Login',
     header: 'LOGIN',
-    name: await h.getFirstName(req),
+    name: name,
     API_URL: h.API_URL
   });
 }));
