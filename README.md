@@ -12,3 +12,4 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 * html / js linter
 * import js later to speed up load times
 * handle network errors or bad data in client side fetches
+* fix console errors
