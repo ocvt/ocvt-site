@@ -21,25 +21,25 @@ block content
         | you about before you go somewhere. Only your name and gender will
         | be publically accessible on the site.
       </p>
-      <form action="" method="post">
+      <form action="javascript:;" onsubmit="return myocvtRegister(this);">
         <table id="tripform">
           <tbody>
             <tr>
               <td valign="top">First Name:*</td>
-              <td><input type="text" name="FirstName" size="40" value=""></td>
+              <td><input type="text" name="FirstName" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Last Name:*</td>
-              <td><input type="text" name="LastName" size="40" value=""></td>
+              <td><input type="text" name="LastName" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Email:*</td>
-              <td><input type="text" name="Email" size="40" value=""></td>
+              <td><input type="text" name="Email" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Birth Year:*</td>
               <td>
-                <select name="BirtyYear">
+                <select name="BirtyYear" required>
                   <option value="" selected="selected">----</option>
                   -
                     const start = 1900;
@@ -53,7 +53,7 @@ block content
             <tr>
               <td valign="top">Gender:*</td>
               <td>
-                <select name="Gender">
+                <select name="Gender" required>
                   <option value="" selected="selected">----</option>
                   <option value="M">Male</option>
                   <option value="F">Female</option>
@@ -69,7 +69,7 @@ block content
             <tr>
               <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
               <td>
-                <select name="MedicalCondition">
+                <select name="MedicalCondition" required>
                   <option value="" selected="selected">----</option>
                   <option value="True">Yes</option>
                   <option value="False">No</option>
@@ -85,7 +85,7 @@ block content
                 | <strong>Terms Of Service Waiver</strong>: I have read and
                 | agree to the<br> <a href="/privacy">Privacy Policy and Terms of Use</a>.:*
               </td>
-              <td><input type="checkbox" name="terms" value="TERMS"></td>
+              <td><input type="checkbox" name="terms" value="TERMS" required></td>
             </tr>
           </tbody>
         </table>

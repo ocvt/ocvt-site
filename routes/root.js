@@ -73,6 +73,27 @@ router.get('/login', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/myocvt', aH(async (req, res, next) => {
+  let [name, myaccount] = await Promise.all([
+    h.getFirstName(req),
+    h.fetchHelper(h.API_URL + '/myaccount', req)
+  ]);
+  myaccount = await myaccount.json();
+
+  if (name.status !== 200) {
+    res.redirect(302, '/login');
+    return;
+  }
+
+  res.render('myocvt', {
+    title: 'My OCVT',
+    header: 'MY OCVT',
+    name: name,
+    API_URL: h.API_URL,
+    myaccount: myaccount
+  });
+}));
+
 router.get('/privacy', aH(async (req, res, next) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',
