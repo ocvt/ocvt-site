@@ -6,34 +6,6 @@ const h = require('./helpers')
 const router = express.Router();
 
 /* Root Routes */
-router.get('/login', aH(async (req, res, next) => {
-  const name = await h.getFirstName(req);
-
-  if (name.status === 404) {
-    res.redirect(302, '/register');
-    return;
-  }
-
-  res.render('login', {
-    title: 'Login',
-    header: 'LOGIN',
-    name: name,
-    API_URL: h.API_URL
-  });
-}));
-
-router.get('/register', aH(async (req, res, next) => {
-  let myAccount = await h.fetchHelper(h.API_URL + '/myaccount', req);
-
-  res.render('register', {
-    title: 'Register',
-    header: 'REGISTER',
-    name: await h.getFirstName(req),
-    myAccount: myAccount,
-    API_URL: h.API_URL
-  });
-}));
-
 router.get('/', aH(async (req, res, next) => {
   let [trips, homePhotos, news] = await Promise.all([
     h.fetchHelper(h.API_URL + '/trips', req),
@@ -77,14 +49,6 @@ router.get('/gallery', aH(async (req, res, next) => {
   });
 }));
 
-router.get('/resources', aH(async (req, res, next) => {
-  res.render('resources', {
-    title: 'Resources',
-    header: 'RESOURCES',
-    name: await h.getFirstName(req)
-  });
-}));
-
 router.get('/help', aH(async (req, res, next) => {
   res.render('help', {
     title: 'Help',
@@ -93,10 +57,46 @@ router.get('/help', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/login', aH(async (req, res, next) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status === 404) {
+    res.redirect(302, '/register');
+    return;
+  }
+
+  res.render('login', {
+    title: 'Login',
+    header: 'LOGIN',
+    name: name,
+    API_URL: h.API_URL
+  });
+}));
+
 router.get('/privacy', aH(async (req, res, next) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',
     header: 'PRIVACY POLICY / TERMS OF USE',
+    name: await h.getFirstName(req)
+  });
+}));
+
+router.get('/register', aH(async (req, res, next) => {
+  let myAccount = await h.fetchHelper(h.API_URL + '/myaccount', req);
+
+  res.render('register', {
+    title: 'Register',
+    header: 'REGISTER',
+    name: await h.getFirstName(req),
+    myAccount: myAccount,
+    API_URL: h.API_URL
+  });
+}));
+
+router.get('/resources', aH(async (req, res, next) => {
+  res.render('resources', {
+    title: 'Resources',
+    header: 'RESOURCES',
     name: await h.getFirstName(req)
   });
 }));
