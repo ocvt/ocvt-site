@@ -3,7 +3,7 @@ extends _base
 block content
   <div id="fullCenter">
     if name.status === 200
-      <strong>You are already logged on as #{name.firstName}</strong>
+      <strong>You are already logged on as #{name.json.firstName}</strong>
     else
       <div style="width:720px" align="center" id="login">
         <h3>Please choose a login method:</h3>

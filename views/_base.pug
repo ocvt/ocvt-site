@@ -89,7 +89,7 @@
         <div id="logon">
           <strong>
             if name.status === 200
-              | Welcome #{name.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
+              | Welcome #{name.json.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
             else if name.status === 404
               | You are logged in but have not registered! | <a href="/logout">Logout</a> | <a href="/register">Complete Registration</a>
             else

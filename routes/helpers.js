@@ -13,7 +13,9 @@ async function fetchHelper(url, req) {
 }
 
 async function getFirstName(req) {
-  return await fetchHelper(API_URL + '/myaccount/name', req)
+  const name = await fetchHelper(API_URL + '/myaccount/name', req);
+
+  return { status: name.status, json: await name.json() };
 }
 
 module.exports = {

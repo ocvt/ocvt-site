@@ -21,25 +21,25 @@ block content
         | you about before you go somewhere. Only your name and gender will
         | be publically accessible on the site.
       </p>
-      <form action="javascript:;" onsubmit="return myocvtRegister(this);">
+      <form onsubmit="myocvtRegister(this);return false">
         <table id="tripform">
           <tbody>
             <tr>
               <td valign="top">First Name:*</td>
-              <td><input type="text" name="FirstName" size="40" value="" required></td>
+              <td><input type="text" name="firstName" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Last Name:*</td>
-              <td><input type="text" name="LastName" size="40" value="" required></td>
+              <td><input type="text" name="lastName" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Email:*</td>
-              <td><input type="text" name="Email" size="40" value="" required></td>
+              <td><input type="text" name="email" size="40" value="" required></td>
             </tr>
             <tr>
               <td valign="top">Birth Year:*</td>
               <td>
-                <select name="BirtyYear" required>
+                <select name="birthyear" required>
                   <option value="" selected="selected">----</option>
                   -
                     const start = 1900;
@@ -53,7 +53,7 @@ block content
             <tr>
               <td valign="top">Gender:*</td>
               <td>
-                <select name="Gender" required>
+                <select name="gender" required>
                   <option value="" selected="selected">----</option>
                   <option value="M">Male</option>
                   <option value="F">Female</option>
@@ -64,21 +64,21 @@ block content
             </tr>
             <tr>
               <td valign="top">Cell Number:</td>
-              <td><input type="text" name="CellNumber" size="40" value=""></td>
+              <td><input type="text" name="cellNumber" size="40" value=""></td>
             </tr>
             <tr>
               <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
               <td>
-                <select name="MedicalCondition" required>
+                <select name="medicalCond" required>
                   <option value="" selected="selected">----</option>
-                  <option value="True">Yes</option>
-                  <option value="False">No</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
-              <td><textarea name="MedicalConditionDescription" rows="6" cols="35"></textarea></td>
+              <td><textarea name="medicalCondDesc" rows="6" cols="35"></textarea></td>
             </tr>
             <tr>
               <td valign="top">
