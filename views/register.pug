@@ -10,9 +10,9 @@ block content
       | .
     </p>
 
-    if myAccount.status === 200
-      <strong>You are already logged on as #{myAccount.name}</strong>
-    else if myAccount.status === 404
+    if name.status === 200
+      <strong>You are already logged on as #{name.json.firstName}</strong>
+    else if name.status === 404
       <h3>Welcome! Please fill out the registration form.</h3>
       <p>
         | Please fill out this simple form. For medical condition you do not
@@ -21,7 +21,7 @@ block content
         | you about before you go somewhere. Only your name and gender will
         | be publically accessible on the site.
       </p>
-      <form onsubmit="myocvtRegister(this);return false">
+      <form onsubmit="myocvtUpdateMyAccount('#{API_URL}', 'POST', true, '', '', this);return false">
         <table id="tripform">
           <tbody>
             <tr>
@@ -89,12 +89,10 @@ block content
             </tr>
           </tbody>
         </table>
-        <p>
-          | Fields marked with "*" are required.
-        </p>
+        <p>Fields marked with "*" are required.</p>
         <button type="submit" name="Submit">Submit</button>
       </form>
-    else if myAccount.status === 401
+    else if name.status === 401
       <div style="width:720px" align="center" id="login">
         <h3>Please choose a login method first to register an account with us:</h3>
         

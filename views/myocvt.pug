@@ -1,0 +1,232 @@
+extends _base
+
+block content
+  <div id="fullCenter">
+    <h2 id="user">Your Personal Information</h2>
+    <p>You can update your personal information here.</p>
+    <form onsubmit="myocvtUpdateMyAccount('#{API_URL}', 'PATCH', false, 'updatePersonalInfo', 'Success!', this);return false">
+      <table id="tripform">
+        <tbody>
+          <tr>
+            <td valign="top">First Name:*</td>
+            <td><input type="text" name="firstName" size="40" value="#{myAccount.firstName}"" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Last Name:*</td>
+            <td><input type="text" name="lastName" size="40" value="#{myAccount.lastName}" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Email:*</td>
+            <td><input type="text" name="email" size="40" value="#{myAccount.email}" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Birth Year:*</td>
+            <td>
+              <select name="birthyear" required>
+                -
+                  const start = 1900;
+                  const end = new Date().getFullYear() - 14;
+                  const years = Array.from({length: end - start}, (v, k) => k + start);
+                each year in years.reverse()
+                  if year === myAccount.birthyear
+                    <option value="#{year}" selected>#{year}</option>
+                  else
+                    <option value="#{year}">#{year}</option>
+              </select>
+            </td>
+            <td>
+          </tr>
+          <tr>
+            <td valign="top">Gender:*</td>
+            <td>
+              <select name="gender" required>
+                each key, value in { M: 'Male', F: 'Female', O: 'Other', P: 'Prefer not to say' }
+                  if key === myAccount.gender
+                    <option value="#{key}" selected>#{value}</option>
+                  else
+                    <option value="#{key}">#{value}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Cell Number:</td>
+            <td><input type="text" name="cellNumber" size="40" value="#{myAccount.cellNumber}"></td>
+          </tr>
+          <tr>
+            <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
+            <td>
+              <select name="medicalCond" required>
+                if myAccount.medicalCond === "true"
+                  <option value="True" selected>Yes</option>
+                  <option value="False">No</option>
+                else
+                  <option value="True">Yes</option>
+                  <option value="False" selected>No</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
+            <td><textarea name="medicalCondDesc" rows="6" cols="35" value="#{myAccount.medicalCondDesc}"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Fields marked with "*" are required.</p>
+      <button type="submit" name="user">Update Info</button>
+      <p id="updatePersonalInfo"></p>
+    </form>
+    <br>
+    <br>
+
+    <h2 id="emerg">Emergency Contact Information</h2>
+    if myAccount.emergencyContactName === ''
+      <p>You have no emergency contact information set. Fill out this form to add a contact.</p>
+    <form onsubmit="myocvtUpdateEmergency('#{API_URL}', this);return false">
+      <table id="tripform">
+        <tbody>
+          <tr>
+            <td valign="top">Name:*</td>
+            <td><input type="text" name="name" size="40" value="#{myAccount.emergencyContactName}" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Cell Number:*</td>
+            <td><input type="text" name="cellNumber" size="40" value="#{myAccount.emergencyContactNumber}" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Relationship:*</td>
+            <td>
+              <select name="relationship" required>
+                each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Fridnd', 'Other' ]
+                  if relation === myAccount.emergencyContactRelationship
+                    <option value="#{relation}" selected>#{relation}</option>
+                  <option value="#{relation}">#{relation}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Fields marked with "*" are required.</p>
+      <button type="submit" name="emerg">Create Contact</button>
+      <p id="updateEmergencyInfo"></p>
+    </form>
+    <br>
+    <br>
+    
+    <h2>Member Data</h2>
+    <p>
+      | Member ID: #{myAccount.id}
+      <br>
+      | Registration Date: #{new Date(Date.parse(myAccount.createDatetime)).toDateString()}
+      <br>
+      - const activeStatus = { 'true': 'Active', 'false': 'Inactive' }
+      | Account Status: #{activeStatus[myAccount.active]}
+      <br>
+      if Date.parse(myAccount.paidExpireDatetime) < Date.now()
+        | Member Type: Unpaid
+      else
+        | Member Type: Paid
+      <br>
+      | Paid Membership Expiration Date: #{new Date(Date.parse(myAccount.paidExpireDatetime)).toDateString()}
+    </p>
+    
+    <h2 id="notification">Notification Settings</h2>
+    <p>
+      | We have many different types of notices we will send out. You can check
+      | the ones that you <strong>DO NOT</strong> want to receive. If you are
+      | leaving the club please request to deactivate your account rather than
+      | check all the boxes.
+    </p>
+    <form action="" method="post">
+      <h4>General Announcements</h4>
+      <p>
+        | These are types of general annoucments. <strong>UNSUBSCRIBE</strong>
+        | from a type by putting a check in the box.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" name="OfficialMeetings" value="GENERAL-MEETING">Official Meetings</td>
+            <td><input type="checkbox" name="News" value="GENERAL-NEWS">News</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="ItemsofInterest" value="GENERAL-ITEMOFINTEREST">Items of Interest</td>
+            <td><input type="checkbox" name="Events" value="GENERAL-EVENT">Events</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="ItemsforSale" value="GENERAL-4SALE">Items for Sale</td>
+            <td><input type="checkbox" name="OtherAnnouncements" value="GENERAL-OTHER">Other Announcements</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Trip Announcements</h4>
+      <p>
+        | These are the notices sent from the trip system.
+        | <strong>UNSUBSCRIBE</strong> from a type by putting a check in the
+        | box.
+      </p>
+
+      <table>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" name="Dayhike" value="TRIP-TR01">Dayhike</td>
+            <td><input type="checkbox" name="Worktrip" value="TRIP-TR02">Worktrip</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="Backpacking" value="TRIP-TR03">Backpacking</td>
+            <td><input type="checkbox" name="Camping" value="TRIP-TR04">Camping</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="OfficialMeeting" value="TRIP-TR05">Official Meeting</td>
+            <td><input type="checkbox" name="Social" value="TRIP-TR06">Social</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="Rafting/Canoeing/Kayaking" value="TRIP-TR07">Rafting / Canoeing / Kayaking</td>
+            <td><input type="checkbox" name="Water/Other" value="TRIP-TR08">Water / Other</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="Biking" value="TRIP-TR09">Biking</td>
+            <td><input type="checkbox" name="TeamSports/Misc." value="TRIP-TR10">Team Sports / Misc.</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="Climbing" value="TRIP-TR11">Climbing</td>
+            <td><input type="checkbox" name="Skiing/Snowboarding" value="TRIP-TR12">  Skiing / Snowboarding</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="Snow/Other" value="TRIP-TR13">Snow / Other</td>
+            <td><input type="checkbox" name="RoadTrip" value="TRIP-TR14">Road Trip</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="SpecialEvent" value="TRIP-TR15">Special Event</td>
+            <td><input type="checkbox" name="Other" value="TRIP-TR16">Other</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="LaserTag" value="TRIP-TR17">Laser Tag</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <button type="submit" name="notice">Save Settings</button>
+    </form>
+    <hr>
+    
+    <h4>Deactivate Account</h4>
+    <p>
+      | If you no longer wish to be a member of the Outdoor club you can
+      | deactivate your account. You will no longer receive any notifications.
+      | Inactive accounts may be subject to deletion.
+    </p>
+    <form action="" method="post">
+      <table id="tripform">
+        <tbody>
+          <tr>
+            <td valign="top">Please Deactivate My Account:</td>
+            <td><input type="checkbox" name="PleaseDeactivateMyAccount" value="yes"></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Fields marked with "*" are required.<p>
+      <button type="submit" name="cancel">Deactivate</button>
+    </form>
+  </div>

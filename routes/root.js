@@ -73,16 +73,32 @@ router.get('/login', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/logout', aH(async (req, res, next) => {
+  res.render('logout', {
+    API_URL: h.API_URL
+  });
+}));
+
 router.get('/myocvt', aH(async (req, res, next) => {
-  let [name, myaccount] = await Promise.all([
+  let [name, myAccount] = await Promise.all([
     h.getFirstName(req),
     h.fetchHelper(h.API_URL + '/myaccount', req)
   ]);
-  myaccount = await myaccount.json();
+  myAccount = await myAccount.json();
 
   if (name.status !== 200) {
     res.redirect(302, '/login');
     return;
+  }
+
+  if (!('emergencyContactName' in myAccount)) {
+    myAccount.emergencyContact = '';
+  }
+  if (!('emergencyContactNumber' in myAccount)) {
+    myAccount.emergencyContact = '';
+  }
+  if (!('emergencyContactRelationship' in myAccount)) {
+    myAccount.emergencyContact = '';
   }
 
   res.render('myocvt', {
@@ -90,7 +106,7 @@ router.get('/myocvt', aH(async (req, res, next) => {
     header: 'MY OCVT',
     name: name,
     API_URL: h.API_URL,
-    myaccount: myaccount
+    myAccount: myAccount
   });
 }));
 
@@ -103,13 +119,10 @@ router.get('/privacy', aH(async (req, res, next) => {
 }));
 
 router.get('/register', aH(async (req, res, next) => {
-  let myAccount = await h.fetchHelper(h.API_URL + '/myaccount', req);
-
   res.render('register', {
     title: 'Register',
     header: 'REGISTER',
     name: await h.getFirstName(req),
-    myAccount: myAccount,
     API_URL: h.API_URL
   });
 }));

@@ -1,24 +1,52 @@
-function myocvtRegister(form) {
-  memberData = {
-    email: form.email.value,
+function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
+  const memberData = {
     firstName: form.firstName.value,
     lastName: form.lastName.value,
-    cellNumber: form.cellNumber.value,
-    gender: form.gender.value,
+    email: form.email.value,
     birthyear: parseInt(form.birthyear.value),
-    medicalCond: form.medicalCond.value === "true",
+    gender: form.gender.value,
+    cellNumber: form.cellNumber.value,
+    medicalCond: form.medicalCond.value === 'true',
     medicalCondDesc: form.medicalCondDesc.value
   };
 
-  console.log(JSON.stringify(memberData));
-  fetch('http://cabinet.seaturtle.pw:3000/myaccount', {
+  fetch(url + '/myaccount', {
     credentials: 'include',
-    method: 'POST',
+    method: method,
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(memberData)
   })
-  .then((respose) => console.log('STATUS: ' + response.status));
-  // TODO Add check for 400
+  .then((r) => {
+    if (r.status >= 200 && r.status < 300) {
+      if (redirect) {
+        window.location.href = '/';
+      } else {
+        document.getElementById(id).textContent = message;
+      }
+    }
+  });
+}
+
+function myocvtUpdateEmergency(url, form) {
+  const emergencyData = {
+    emergencyContactName: form.name.value,
+    emergencyContactNumber: form.cellNumber.value,
+    emergencyContactRelationship: form.relationship.value
+  };
+
+  fetch(url + '/myaccount/emergency', {
+    credentials: 'include',
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(emergencyData)
+  })
+  .then((r) => {
+    if (r.status === 204) {
+      document.getElementById('updateEmergencyInfo').textContent = 'Success!';
+    }
+  });
 }

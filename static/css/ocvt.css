@@ -176,17 +176,13 @@ body
 #logon {
   height:35px;
   float:right;
-  background-image:url(/media/mini-grad.png);
-  background-repeat:repeat-y;
+  background-image:linear-gradient(to right, rgba(255, 0, 0, 0), black);
   margin-top:-53px;
-  vertical-align:middle;
   padding-top:7px;
   padding-right:7px;
   color:#FFF;
   text-shadow: 3px 2px 2px #111;
   font-family:"Times New Roman", Times, serif;
-
-
 }
 
 #logon a{
