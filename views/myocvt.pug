@@ -206,7 +206,6 @@ block content
         </tbody>
       </table>
       <button type="submit" name="deactivate">Deactivate</button>
-      <p id="deactivateAccountInfo"></p>
     </form>
     <br>
 
@@ -217,7 +216,7 @@ block content
       | OCVT you can delete your account. This is <strong>NOT</strong>
       | reversible.
     </p>
-    <form onsubmit="myocvtDeleteAccount(this);return false">
+    <form onsubmit="myocvtDeleteAccount('#{API_URL}', this);return false">
       <table id="tripform">
         <tbody>
           <tr>
@@ -227,6 +226,5 @@ block content
         </tbody>
       </table>
       <button type="submit">Delete</button>
-      <p id="deleteAccountInfo"></p>
     </form>
   </div>

@@ -89,6 +89,22 @@ function myocvtDeactivateAccount(url, form) {
   });
 }
 
+function myocvtDeleteAccount(url, form) {
+  if (!form.deleteAccount.checked || !confirm('Are you sure you want to delete your account? This CANNOT be undone!')) {
+    window.location.href = '/';
+    return
+  }
+
+  fetch(url + '/myaccount', {
+    credentials: 'include',
+    method: 'DELETE'
+  })
+  .then((r) => {
+    window.location.href = '/logout';
+    return;
+  });
+}
+
 function myocvtReactivateAccount(url) {
   fetch(url + '/myaccount/reactivate', {
     credentials: 'include',
