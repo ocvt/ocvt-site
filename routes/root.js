@@ -79,37 +79,6 @@ router.get('/logout', aH(async (req, res, next) => {
   });
 }));
 
-router.get('/myocvt', aH(async (req, res, next) => {
-  let [name, myAccount] = await Promise.all([
-    h.getFirstName(req),
-    h.fetchHelper(h.API_URL + '/myaccount', req)
-  ]);
-  myAccount = await myAccount.json();
-
-  if (name.status !== 200) {
-    res.redirect(302, '/login');
-    return;
-  }
-
-  if (!('emergencyContactName' in myAccount)) {
-    myAccount.emergencyContact = '';
-  }
-  if (!('emergencyContactNumber' in myAccount)) {
-    myAccount.emergencyContact = '';
-  }
-  if (!('emergencyContactRelationship' in myAccount)) {
-    myAccount.emergencyContact = '';
-  }
-
-  res.render('myocvt', {
-    title: 'My OCVT',
-    header: 'MY OCVT',
-    name: name,
-    API_URL: h.API_URL,
-    myAccount: myAccount
-  });
-}));
-
 router.get('/privacy', aH(async (req, res, next) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',

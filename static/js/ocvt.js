@@ -50,3 +50,25 @@ function myocvtUpdateEmergency(url, form) {
     }
   });
 }
+
+function myocvtUpdateNotifications(url, notifications, form) {
+  notificationData = JSON.parse(notifications);
+
+  for (let key in notificationData) {
+    notificationData[key] = form[key].checked;
+  }
+
+  fetch(url + '/myaccount/notifications', {
+    credentials: 'include',
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(notificationData)
+  })
+  .then((r) => {
+    if (r.status === 204) {
+      document.getElementById('updateNotifications').textContent = 'Success!';
+    }
+  });
+}

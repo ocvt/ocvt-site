@@ -14,10 +14,12 @@ app.use(express.static('static'));
 /* Configure Routes */
 const rootRouter = require('./routes/root');
 const aboutRouter = require('./routes/about');
+const myocvtRouter = require('./routes/myocvt');
 const tripsRouter = require('./routes/trips');
 
 app.use('/', rootRouter);
 app.use('/about', aboutRouter);
+app.use('/myocvt', myocvtRouter);
 app.use('/trips', tripsRouter);
 
 /* Error handling TODO */

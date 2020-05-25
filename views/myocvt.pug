@@ -9,7 +9,7 @@ block content
         <tbody>
           <tr>
             <td valign="top">First Name:*</td>
-            <td><input type="text" name="firstName" size="40" value="#{myAccount.firstName}"" required></td>
+            <td><input type="text" name="firstName" size="40" value="#{myAccount.firstName}" required></td>
           </tr>
           <tr>
             <td valign="top">Last Name:*</td>
@@ -76,7 +76,7 @@ block content
       <p id="updatePersonalInfo"></p>
     </form>
     <br>
-    <br>
+
 
     <h2 id="emerg">Emergency Contact Information</h2>
     if myAccount.emergencyContactName === ''
@@ -110,8 +110,8 @@ block content
       <p id="updateEmergencyInfo"></p>
     </form>
     <br>
-    <br>
-    
+
+
     <h2>Member Data</h2>
     <p>
       | Member ID: #{myAccount.id}
@@ -128,7 +128,9 @@ block content
       <br>
       | Paid Membership Expiration Date: #{new Date(Date.parse(myAccount.paidExpireDatetime)).toDateString()}
     </p>
-    
+    <br>
+
+
     <h2 id="notification">Notification Settings</h2>
     <p>
       | We have many different types of notices we will send out. You can check
@@ -136,97 +138,93 @@ block content
       | leaving the club please request to deactivate your account rather than
       | check all the boxes.
     </p>
-    <form action="" method="post">
-      <h4>General Announcements</h4>
-      <p>
-        | These are types of general annoucments. <strong>UNSUBSCRIBE</strong>
-        | from a type by putting a check in the box.
-      </p>
+    <form onsubmit="myocvtUpdateNotifications('#{API_URL}', '#{JSON.stringify(notifications)}', this);return false">
+      <h3>General Announcements</h3>
       <table>
         <tbody>
-          <tr>
-            <td><input type="checkbox" name="OfficialMeetings" value="GENERAL-MEETING">Official Meetings</td>
-            <td><input type="checkbox" name="News" value="GENERAL-NEWS">News</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="ItemsofInterest" value="GENERAL-ITEMOFINTEREST">Items of Interest</td>
-            <td><input type="checkbox" name="Events" value="GENERAL-EVENT">Events</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="ItemsforSale" value="GENERAL-4SALE">Items for Sale</td>
-            <td><input type="checkbox" name="OtherAnnouncements" value="GENERAL-OTHER">Other Announcements</td>
-          </tr>
+          - let i = 0;
+          each type in generalTypes
+            - let state = ''
+            if notifications[type.id]
+              - state = 'checked'
+            if i % 2 === 0
+              <tr>
+              <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>
+            else
+              <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>
+              </tr>
+            - i++
         </tbody>
       </table>
 
-      <h4>Trip Announcements</h4>
+      <h3>Trip Announcements</h3>
       <p>
-        | These are the notices sent from the trip system.
-        | <strong>UNSUBSCRIBE</strong> from a type by putting a check in the
-        | box.
+        | The <strong>only</strong> way to disable Trip Alerts is to deactivate
+        | your account. These are very important alerts related to trips you
+        | sign up for (kicked, cancelled, etc).
       </p>
 
       <table>
         <tbody>
-          <tr>
-            <td><input type="checkbox" name="Dayhike" value="TRIP-TR01">Dayhike</td>
-            <td><input type="checkbox" name="Worktrip" value="TRIP-TR02">Worktrip</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="Backpacking" value="TRIP-TR03">Backpacking</td>
-            <td><input type="checkbox" name="Camping" value="TRIP-TR04">Camping</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="OfficialMeeting" value="TRIP-TR05">Official Meeting</td>
-            <td><input type="checkbox" name="Social" value="TRIP-TR06">Social</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="Rafting/Canoeing/Kayaking" value="TRIP-TR07">Rafting / Canoeing / Kayaking</td>
-            <td><input type="checkbox" name="Water/Other" value="TRIP-TR08">Water / Other</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="Biking" value="TRIP-TR09">Biking</td>
-            <td><input type="checkbox" name="TeamSports/Misc." value="TRIP-TR10">Team Sports / Misc.</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="Climbing" value="TRIP-TR11">Climbing</td>
-            <td><input type="checkbox" name="Skiing/Snowboarding" value="TRIP-TR12">  Skiing / Snowboarding</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="Snow/Other" value="TRIP-TR13">Snow / Other</td>
-            <td><input type="checkbox" name="RoadTrip" value="TRIP-TR14">Road Trip</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="SpecialEvent" value="TRIP-TR15">Special Event</td>
-            <td><input type="checkbox" name="Other" value="TRIP-TR16">Other</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="LaserTag" value="TRIP-TR17">Laser Tag</td>
-          </tr>
+          - let j = 0;
+          each type in tripTypes
+            - let state = ''
+            if notifications[type.id]
+              - state = 'checked'
+            if type.id === 'TRIP_ALERTS'
+              - state = 'checked disabled'
+            if j % 2 === 0
+              <tr>
+              <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>
+            else
+              <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>
+              </tr>
+            - j++
         </tbody>
       </table>
-      <br>
       <br>
       <button type="submit" name="notice">Save Settings</button>
+      <p id="updateNotifications"></p>
     </form>
-    <hr>
-    
-    <h4>Deactivate Account</h4>
+    <br>
+
+
+    <h2>Deactivate Account</h2>
     <p>
       | If you no longer wish to be a member of the Outdoor club you can
-      | deactivate your account. You will no longer receive any notifications.
-      | Inactive accounts may be subject to deletion.
+      | deactivate your account. You will no longer receive any notifications,
+      | however, you can reactivate your account in the future. Inactive
+      | accounts may be subject to deletion.
     </p>
-    <form action="" method="post">
+    <form onsubmit="myocvtDeactivateAccount(this);return false">
       <table id="tripform">
         <tbody>
           <tr>
             <td valign="top">Please Deactivate My Account:</td>
-            <td><input type="checkbox" name="PleaseDeactivateMyAccount" value="yes"></td>
+            <td><input type="checkbox" name="deactivateAccount" required></td>
           </tr>
         </tbody>
       </table>
-      <p>Fields marked with "*" are required.<p>
-      <button type="submit" name="cancel">Deactivate</button>
+      <button type="submit">Deactivate</button>
+    </form>
+    <br>
+
+
+    <h2>Delete Account</h2>
+    <p>
+      | If you wish to delete <strong>ALL</strong> your data associated with
+      | OCVT you can delete your account. This is <strong>NOT</strong>
+      | reversible.
+    </p>
+    <form onsubmit="myocvtDeleteAccount(this);return false">
+      <table id="tripform">
+        <tbody>
+          <tr>
+            <td valign="top">Please Delete My Account:</td>
+            <td><input type="checkbox" name="deleteAccount" required></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="submit">Delete</button>
     </form>
   </div>
