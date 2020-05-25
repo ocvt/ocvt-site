@@ -184,7 +184,7 @@ block content
       </table>
       <br>
       <button type="submit" name="notice">Save Settings</button>
-      <p id="updateNotifications"></p>
+      <p id="updateNotificationsInfo"></p>
     </form>
     <br>
 
@@ -196,7 +196,7 @@ block content
       | however, you can reactivate your account in the future. Inactive
       | accounts may be subject to deletion.
     </p>
-    <form onsubmit="myocvtDeactivateAccount(this);return false">
+    <form onsubmit="myocvtDeactivateAccount('#{API_URL}', this);return false">
       <table id="tripform">
         <tbody>
           <tr>
@@ -205,7 +205,8 @@ block content
           </tr>
         </tbody>
       </table>
-      <button type="submit">Deactivate</button>
+      <button type="submit" name="deactivate">Deactivate</button>
+      <p id="deactivateAccountInfo"></p>
     </form>
     <br>
 
@@ -226,5 +227,6 @@ block content
         </tbody>
       </table>
       <button type="submit">Delete</button>
+      <p id="deleteAccountInfo"></p>
     </form>
   </div>

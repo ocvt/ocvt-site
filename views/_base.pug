@@ -90,10 +90,14 @@
           <strong>
             if name.status === 200
               | Welcome #{name.json.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
+            else if name.status === 401
+              | You are not logged on | <a href="/login">LogIn</a> | <a href="/register">Register</a>
+            else if name.status === 403
+              | Your account is deactivated! | <a href="/logout">Logout</a> | <a href="/reactivate">Reactivate</a>
             else if name.status === 404
               | You are logged in but have not registered! | <a href="/logout">Logout</a> | <a href="/register">Complete Registration</a>
             else
-              | You are not logged on | <a href="/login">LogIn</a> | <a href="/register">Register</a>
+              | Error! Status #{name.status}
           </strong>
         </div>
       </div><!-- end miniheader -->

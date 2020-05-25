@@ -29,8 +29,14 @@ router.get('/', aH(async (req, res, next) => {
     }, {});
   generalTypes = JSON.parse(JSON.stringify(generalTypes));
 
-  if (name.status !== 200) {
+  if (name.status === 401) {
     res.redirect(302, '/login');
+    return
+  } else if (name.status === 403) {
+    res.redirect(302, '/reactivate');
+    return
+  } else if (name.status !== 200) {
+    res.redirect(302, '/');
     return;
   }
 

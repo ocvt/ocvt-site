@@ -5,6 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* on register.pug (& elsewhere) do http codes in A-Z order
 * Remove old html cruft
 * Fix header on privacy page
 * Properly handle API being down

@@ -68,7 +68,34 @@ function myocvtUpdateNotifications(url, notifications, form) {
   })
   .then((r) => {
     if (r.status === 204) {
-      document.getElementById('updateNotifications').textContent = 'Success!';
+      document.getElementById('updateNotificationsInfo').textContent = 'Success!';
     }
+  });
+}
+
+function myocvtDeactivateAccount(url, form) {
+  if (!form.deactivateAccount.checked) {
+    window.location.href = '/';
+    return
+  }
+
+  fetch(url + '/myaccount/deactivate', {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.href = '/';
+    return;
+  });
+}
+
+function myocvtReactivateAccount(url) {
+  fetch(url + '/myaccount/reactivate', {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.href = '/';
+    return;
   });
 }

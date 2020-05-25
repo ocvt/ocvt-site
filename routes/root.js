@@ -60,8 +60,8 @@ router.get('/help', aH(async (req, res, next) => {
 router.get('/login', aH(async (req, res, next) => {
   const name = await h.getFirstName(req);
 
-  if (name.status === 404) {
-    res.redirect(302, '/register');
+  if (name.status !== 401) {
+    res.redirect(302, '/');
     return;
   }
 
@@ -87,11 +87,40 @@ router.get('/privacy', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/reactivate', aH(async (req, res, next) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status !== 403) {
+    res.redirect(302, '/');
+    return;
+  }
+
+  res.render('reactivate', {
+    title: 'Reactivate',
+    header: 'REACTIVATE',
+    name: name,
+    API_URL: h.API_URL
+  });
+}));
+
 router.get('/register', aH(async (req, res, next) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status === 401) {
+    res.redirect(302, '/login');
+    return
+  } else if (name.status === 403) {
+    res.redirect(302, '/reactivate');
+    return
+  } else if (name.status !== 404) {
+    res.redirect(302, '/');
+    return
+  }
+
   res.render('register', {
     title: 'Register',
     header: 'REGISTER',
-    name: await h.getFirstName(req),
+    name: name,
     API_URL: h.API_URL
   });
 }));
