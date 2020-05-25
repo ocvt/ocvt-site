@@ -14,8 +14,8 @@ router.get('/', aH(async (req, res, next) => {
                             'Nov', 'Dec'];
 
   let [trips, recentTrips] = await Promise.all([
-    h.fetchHelper(h.API_URL + '/trips', req),
-    h.fetchHelper(h.API_URL + '/trips/archive', req)
+    h.fetchHelper(h.API_URL + '/noauth/trips', req),
+    h.fetchHelper(h.API_URL + '/noauth/trips/archive', req)
   ]);
 
   [trips, recentTrips] = await Promise.all([

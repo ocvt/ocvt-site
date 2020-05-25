@@ -8,7 +8,7 @@ const router = express.Router();
 /* Root Routes */
 router.get('/', aH(async (req, res, next) => {
   let [trips, homePhotos, news] = await Promise.all([
-    h.fetchHelper(h.API_URL + '/trips', req),
+    h.fetchHelper(h.API_URL + '/noauth/trips', req),
     h.fetchHelper(h.API_URL + '/homephotos', req),
     h.fetchHelper(h.API_URL + '/news', req)
   ]);
@@ -33,7 +33,7 @@ router.get('/', aH(async (req, res, next) => {
 router.get('/gallery', aH(async (req, res, next) => {
   let [homePhotos, tripsPhotos] = await Promise.all([
     h.fetchHelper(h.API_URL + '/homephotos', req),
-    h.fetchHelper(h.API_URL + '/trips/photos', req)
+    h.fetchHelper(h.API_URL + '/noauth/trips/photos', req)
   ]);
   [homePhotos, tripsPhotos] = await Promise.all([
     homePhotos.json(),

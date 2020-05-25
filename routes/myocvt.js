@@ -10,7 +10,7 @@ router.get('/', aH(async (req, res, next) => {
     h.getFirstName(req),
     h.fetchHelper(h.API_URL + '/myaccount', req),
     h.fetchHelper(h.API_URL + '/myaccount/notifications', req),
-    h.fetchHelper(h.API_URL + '/trips/types', req)
+    h.fetchHelper(h.API_URL + '/noauth/trips/types', req)
   ]);
   myAccount = await myAccount.json();
   notifications = await notifications.json();
@@ -31,10 +31,13 @@ router.get('/', aH(async (req, res, next) => {
 
   if (name.status === 401) {
     res.redirect(302, '/login');
-    return
+    return;
   } else if (name.status === 403) {
     res.redirect(302, '/reactivate');
-    return
+    return;
+  } else if (name.status === 404) {
+    res.redirect(302, '/register');
+    return;
   } else if (name.status !== 200) {
     res.redirect(302, '/');
     return;
