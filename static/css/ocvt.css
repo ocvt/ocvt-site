@@ -1,20 +1,9 @@
 /* CSS Document */
 
-/* Preload images */
-body:after {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  z-index: -1;
-  content: url(/media/yellow.png);
-}
-
 body
 {
   text-align: center;
-  background-color:#F3F2EB;
-  background-image:url(/media/tan.png);
+  background-color: #D7CEAE;
 }
 
 
@@ -38,6 +27,9 @@ body
 
 }
 
+#logo {
+  min-height: 283px;
+}
 
 #side img{
   margin-left:-20px;
@@ -62,8 +54,7 @@ body
   font-family:Tahoma, Geneva, sans-serif;
   text-shadow: 2px 1px #222;
   color:#FFF;
-  background-image:url(/media/green.png);
-
+  background-color: #137842;
 }
 
 
@@ -74,7 +65,7 @@ body
 
 
 #navButton:hover {
-  background-image:url(/media/yellow.png);
+  background-color: #7FA700;
 }
 
 /*used to "slice" up a photo into the nav area*/
@@ -128,7 +119,7 @@ body
   width:720px;
   height:100px;
   margin-top:-10px;
-  background-color:#AAA;
+  background-color:#FF4C00;
   box-shadow: 4px 4px 4px #555;
   float:right;
   text-align:center;
@@ -153,11 +144,10 @@ body
 #miniheader{
   height:36px;
   width:720px;
-  background-color:#12820F;
+  background-color:#137842;
   border-top:3px solid #000;
   border-bottom:2px solid #000;
   box-shadow: 0px 4px 2px #666;
-  background-image:url(/media/green.png);
   font-family:Tahoma, Geneva, sans-serif;
 
 }
@@ -211,16 +201,9 @@ body
 
 #content hr{
   width:80%;
-  background-image:url(/media/hr3.png);
-  background-position:center;
-  background-repeat:no-repeat;
-  border:0px;
-  height:17px;
   margin-bottom:5px;
-
-
+  border: 1px solid #005a18;
 }
-
 
 .photoRight{
   max-height:300px;
@@ -558,5 +541,3 @@ float: left; position: absolute;
 .help { background: #9FDAEE; border: 1px solid #2BB0D7;  }
 .info { background: #9FDAEE; border: 1px solid #2BB0D7;  }
 .warning { background: #FFFFAA; border: 1px solid #FFAD33; }
-
-
