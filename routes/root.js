@@ -7,17 +7,17 @@ const router = express.Router();
 
 /* Root Routes */
 router.get('/', aH(async (req, res, next) => {
-  let [trips, homePhotos, news] = await Promise.all([
+  let [trips, /*homePhotos, */news] = await Promise.all([
     h.fetchHelper(h.API_URL + '/noauth/trips', req),
-    h.fetchHelper(h.API_URL + '/homephotos', req),
+//    h.fetchHelper(h.API_URL + '/homephotos', req), TODO remove after testing
     h.fetchHelper(h.API_URL + '/news', req)
   ]);
 
-  [trips, homePhotos, news] = await Promise.all([
-    trips.json(), homePhotos.json(), news.json()
+  [trips, /*homePhotos, */news] = await Promise.all([
+    trips.json(), /*homePhotos.json(), */news.json()
   ]);
 
-  homePhotos = homePhotos.images;
+//  homePhotos = homePhotos.images;
   const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
 
   res.render('index', {
