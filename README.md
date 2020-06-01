@@ -5,8 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* Remove old html cruft
-* Fix header on privacy page
+* Remove old css/html cruft (waiting to finish everything else)
 * Properly handle API being down
 * Cache photos from gdrive
 * Performance analysis
