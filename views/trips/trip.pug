@@ -1,0 +1,105 @@
+extends ../_base
+
+block content
+  <div id="fullCenter">
+    <a href="/trips">&lt;--Return to Main Trips Page</a>
+    <br>
+    <br>
+
+    - const now = new Date().toISOString()
+    if trip.startDatetime < now
+      <h1>The Signup Period For This Trip Is Over</h1>
+    <h2>#{trip.name}</h2>
+    <h3>Trip Leader - #{trip.memberName}</h3>  
+        
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td><strong>Trip Date:</strong></td>
+          <td>#{trip.date}<br></td>
+          <td><strong>Max Attendees:</strong></td>
+          <td>#{trip.maxPeople} People</td> 
+        </tr>
+        
+        <tr>
+          <td><strong>Trip Type:</strong></td>
+          <td>#{tripTypeName}</td>
+          <td><strong>Pets:</strong></td>
+          if trip.petsAllowed
+            <td><span style="color:green">Pets OK</span></td>
+          else
+            <td><span style="color:red">Pets NOT Allowed</span></td>
+        </tr>
+        
+        
+        <tr>
+          <td><strong>Attendee Restrictions:</strong></td>
+          if trip.membersOnly
+            <td><span style="color:red">Member Only</span></td>
+          else
+            <td><span style="color:green">Open To Everyone</span></td>
+          <td><strong>Distance/Difficulty:</strong></td>
+          -
+            const diffs = [{color: 'black', desc: 'None'}, {color: 'black', desc: 'Trivial'},
+            {color: 'green', desc: 'Easy'}, {color: 'orange', desc: 'Moderate'},
+            {color: 'red', desc: 'Strenuous'}, {color: 'red', desc: 'Very Strenuous+'}];
+          <td>#{trip.distance} Miles - <span style="color:#{diffs[trip.difficulty].color}">#{diffs[trip.difficulty].desc}</span></td>
+        </tr>
+        
+        <tr>
+          <td><strong>Drivers Requested:</strong></td>
+          if trip.drivingRequested
+            <td>Yes</td>
+          else
+            <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+   
+    <h3 class="smallHeader">Description</h3>
+    <p>#{trip.description}</p>
+    <br>
+
+    <h3 class="smallHeader">Location</h3>
+    <p>#{trip.location}</p>
+    <br>
+
+    if trip.locationDirections
+      <h3 class="smallHeader">Driving Directions</h3>
+      <p>#{trip.locationDirections}</p>
+      <br>
+
+    <h3 class="smallHeader">Meetup Location</h3>
+    if signupStatus === 200
+      <p>#{trip.meetupLocation}</p>
+    <br>
+
+    <h3 class="smallHeader">What You Should Bring</h3>
+    <p>#{trip.instructions}</p>
+    <br>
+
+    if trip.petsDescription !== ''
+      <h3 class="smallHeader">Pet Instructions/Info</h3>
+      <p>#{trip.petsDescription}</p>
+      <br>
+
+    <h3 class="smallHeader">Send Message to Trip Leader</h3>
+    if name.status === 200
+      <p>Have a question or a concern about this trip? Send the trip leader a message.</p>
+      <form><!-- TODO -->
+        <table id="tripform">
+          <tbody>
+            <tr>
+              <td valign="top"><b>Message To Send</b>
+              <td><textarea name="messageBody" rows="4" cols="50" required></textarea>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <button type="submit" name="message">Send Message</button>
+      </form>
+    else
+      <h3>You must be registered to use this feature.</h3><hr>
+  </div>

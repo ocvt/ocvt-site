@@ -2,17 +2,12 @@ const aH = require('express-async-handler')
 const express = require('express');
 
 const h = require('./helpers')
+const d = require('./data.js')
 
 const router = express.Router();
 
 /* Trips Routes */
 router.get('/', aH(async (req, res, next) => {
-  const dayString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-                     'Friday', 'Saturday'];
-  const monthShortString = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
-                            'June', 'July', 'Aug', 'Sep', 'Oct',
-                            'Nov', 'Dec'];
-
   let [trips, recentTrips] = await Promise.all([
     h.fetchHelper(h.API_URL + '/noauth/trips', req),
     h.fetchHelper(h.API_URL + '/noauth/trips/archive', req)
@@ -29,15 +24,17 @@ router.get('/', aH(async (req, res, next) => {
   // Pretty print date strings
   for (let i = 0; i < trips.length; i++) {
     const date = new Date(trips[i].startDatetime);
-    trips[i].date = `${dayString[date.getDay()]},
-                     ${monthShortString[date.getMonth()]},
-                     ${date.getYear()}`;
+    trips[i].date = `${d.dayString[date.getDay()]},
+                     ${d.monthShortString[date.getMonth()]},
+                     ${date.getDate()},
+                     ${date.getFullYear()}`;
   }
   for (let i = 0; i < recentTrips.length; i++) {
     const date = new Date(recentTrips[i].startDatetime);
-    recentTrips[i].date = `${dayString[date.getDay()]},
-                           ${monthShortString[date.getMonth()]},
-                           ${date.getYear()}`;
+    recentTrips[i].date = `${d.dayString[date.getDay()]},
+                           ${d.monthShortString[date.getMonth()]},
+                           ${date.getDate()},
+                           ${date.getFullYear()}`;
   }
   // Remove filler trip
   recentTrips.pop();
@@ -50,5 +47,31 @@ router.get('/', aH(async (req, res, next) => {
     recentTrips: recentTrips
   });
 }));
+
+router.get('/:tripId', aH(async (req, res, next) => {
+  let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
+  const signupStatus = trip.status;
+  if (signupStatus <= 403) {
+    trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
+  }
+  trip = await trip.json();
+
+  const date = new Date(trip.startDatetime);
+  trip.date = `${d.dayString[date.getDay()]},
+               ${d.monthShortString[date.getMonth()]},
+               ${date.getDate()},
+               ${date.getFullYear()}`;
+
+  const tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  res.render('trips/trip', {
+    title: 'Trips',
+    header: 'VIEW TRIP',
+    name: await h.getFirstName(req),
+    signupStatus: signupStatus,
+    trip: trip,
+    tripTypeName: tripTypeName
+  });
+}))
 
 module.exports = router;
