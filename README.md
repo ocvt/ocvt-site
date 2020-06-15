@@ -5,6 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Don't use '+' to append vars into strings
 * Remove old css/html cruft (waiting to finish everything else)
 * Properly handle API being down
 * Cache photos from gdrive

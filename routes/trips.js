@@ -21,13 +21,14 @@ router.get('/', aH(async (req, res, next) => {
   recentTrips = recentTrips.trips.filter(x => !trips.includes(x));
 
 
-  // Pretty print date strings
+  // Pretty print date & type
   for (let i = 0; i < trips.length; i++) {
     const date = new Date(trips[i].startDatetime);
     trips[i].date = `${d.dayString[date.getDay()]},
                      ${d.monthShortString[date.getMonth()]},
                      ${date.getDate()},
                      ${date.getFullYear()}`;
+    trips[i].tripTypeName = d.tripTypes[trips[i].notificationTypeId].name;
   }
   for (let i = 0; i < recentTrips.length; i++) {
     const date = new Date(recentTrips[i].startDatetime);
@@ -35,9 +36,8 @@ router.get('/', aH(async (req, res, next) => {
                            ${d.monthShortString[date.getMonth()]},
                            ${date.getDate()},
                            ${date.getFullYear()}`;
+    recentTrips[i].tripTypeName = d.tripTypes[recentTrips[i].notificationTypeId].name;
   }
-  // Remove filler trip
-  recentTrips.pop();
 
   res.render('trips/index', {
     title: 'Trips',
@@ -45,6 +45,34 @@ router.get('/', aH(async (req, res, next) => {
     name: await h.getFirstName(req),
     trips: trips,
     recentTrips: recentTrips
+  });
+}));
+
+router.get('/archive/:startId?/:perPage?', aH(async (req, res, next) => {
+  let pastTrips;
+  if (req.params.startId && req.params.perPage) {
+    pastTrips = await h.fetchHelper(h.API_URL + `/noauth/trips/archive/${req.params.startId}/${req.params.perPage}`, req);
+  } else {
+    pastTrips = await h.fetchHelper(h.API_URL + `/noauth/trips/archive`, req);
+  }
+  pastTrips = await pastTrips.json();
+  pastTrips = pastTrips.trips;
+
+  // Pretty print date & type
+  for (let i = 0; i < pastTrips.length; i++) {
+    const date = new Date(pastTrips[i].startDatetime);
+    pastTrips[i].date = `${d.dayString[date.getDay()]},
+                           ${d.monthShortString[date.getMonth()]},
+                           ${date.getDate()},
+                           ${date.getFullYear()}`;
+    pastTrips[i].tripTypeName = d.tripTypes[pastTrips[i].notificationTypeId].name;
+  }
+
+  res.render('trips/archive', {
+    title: 'Trips',
+    header: 'TRIPS ARCHIVE',
+    name: await h.getFirstName(req),
+    pastTrips: pastTrips
   });
 }));
 

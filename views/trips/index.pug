@@ -34,7 +34,7 @@ block content
         </h3>
         | #{trip.date}
         | &nbsp;&nbsp;&nbsp;
-        <strong>Trip Type: </strong> #{trip.type}
+        <strong>Trip Type: </strong> #{trip.tripTypeName}
         | &nbsp;&nbsp;&nbsp;
         <a href="/trips/#{trip.id}">Full Details</a>
         if trip.admin
@@ -55,7 +55,7 @@ block content
         </h3>
         | #{trip.date}
         | &nbsp;&nbsp;&nbsp;
-        <strong>Trip Type: </strong> #{trip.type}
+        <strong>Trip Type: </strong> #{trip.tripTypeName}
         | &nbsp;&nbsp;&nbsp;
         <a href="/trips/#{trip.id}">Full Details</a>
         if trip.admin
@@ -69,5 +69,6 @@ block content
       else
         <p>No Recent Trips</p>
 
-    <center><a href="/trps/archive">View More Past Trips</a></center>
+    <br>
+    <center><a href="/trips/archive">View More Past Trips</a></center>
   </div>
