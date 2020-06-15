@@ -48,32 +48,6 @@ router.get('/', aH(async (req, res, next) => {
   });
 }));
 
-router.get('/:tripId', aH(async (req, res, next) => {
-  let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
-  const signupStatus = trip.status;
-  if (signupStatus <= 403) {
-    trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
-  }
-  trip = await trip.json();
-
-  const date = new Date(trip.startDatetime);
-  trip.date = `${d.dayString[date.getDay()]},
-               ${d.monthShortString[date.getMonth()]},
-               ${date.getDate()},
-               ${date.getFullYear()}`;
-
-  const tripTypeName = d.tripTypes[trip.notificationTypeId].name;
-
-  res.render('trips/trip', {
-    title: 'Trips',
-    header: 'VIEW TRIP',
-    name: await h.getFirstName(req),
-    signupStatus: signupStatus,
-    trip: trip,
-    tripTypeName: tripTypeName
-  });
-}))
-
 router.get('/archive/:startId?/:perPage?', aH(async (req, res, next) => {
   let pastTrips;
   if (req.params.startId && req.params.perPage) {
@@ -101,5 +75,31 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res, next) => {
     pastTrips: pastTrips
   });
 }));
+
+router.get('/:tripId', aH(async (req, res, next) => {
+  let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
+  const signupStatus = trip.status;
+  if (signupStatus <= 403) {
+    trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
+  }
+  trip = await trip.json();
+
+  const date = new Date(trip.startDatetime);
+  trip.date = `${d.dayString[date.getDay()]},
+               ${d.monthShortString[date.getMonth()]},
+               ${date.getDate()},
+               ${date.getFullYear()}`;
+
+  const tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  res.render('trips/trip', {
+    title: 'Trips',
+    header: 'VIEW TRIP',
+    name: await h.getFirstName(req),
+    signupStatus: signupStatus,
+    trip: trip,
+    tripTypeName: tripTypeName
+  });
+}))
 
 module.exports = router;
