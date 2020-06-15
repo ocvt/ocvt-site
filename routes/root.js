@@ -61,7 +61,7 @@ router.get('/login', aH(async (req, res, next) => {
   const name = await h.getFirstName(req);
 
   if (name.status !== 401) {
-    res.redirect(302, '/');
+    res.redirect(302, '/myocvt');
     return;
   }
 
@@ -91,7 +91,7 @@ router.get('/reactivate', aH(async (req, res, next) => {
   const name = await h.getFirstName(req);
 
   if (name.status !== 403) {
-    res.redirect(302, '/');
+    res.redirect(302, '/myocvt');
     return;
   }
 
@@ -106,14 +106,8 @@ router.get('/reactivate', aH(async (req, res, next) => {
 router.get('/register', aH(async (req, res, next) => {
   const name = await h.getFirstName(req);
 
-  if (name.status === 401) {
-    res.redirect(302, '/login');
-    return
-  } else if (name.status === 403) {
-    res.redirect(302, '/reactivate');
-    return
-  } else if (name.status !== 404) {
-    res.redirect(302, '/');
+  if (name.status !== 404) {
+    res.redirect(302, '/myocvt');
     return
   }
 

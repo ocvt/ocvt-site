@@ -2,21 +2,18 @@ extends _base
 
 block content
   <div id="fullCenter">
-    if name.status === 200
-      <strong>You are already logged on as #{name.json.firstName}</strong>
-    else
-      <div style="width:720px" align="center" id="login">
-        <h3>Please choose a login method:</h3>
-        
-        <table width="500" height="100">
-          <tr>
-            <td align="center">
-              <button onclick="window.location.href = '#{API_URL}/auth/google\?state=' + window.location.href">Login with Google</button>
-            </td>
-          </tr>
-          <tr>
-            <td align="center">(If you previously used VT CAS, use your VT email with Google Login instead.)</td>
-          </tr>
-        </table>
-      </div>
+    <div style="width:720px" align="center" id="login">
+      <h3>Please choose a login method:</h3>
+
+      <table width="500" height="100">
+        <tr>
+          <td align="center">
+            <button onclick="window.location.href = '#{API_URL}/auth/google\?state=' + window.location.href">Login with Google</button>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">(If you previously used VT CAS, use your VT email with Google Login instead.)</td>
+        </tr>
+      </table>
+    </div>
   </div>
