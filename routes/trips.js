@@ -76,6 +76,21 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/newtrip', aH(async (req, res, next) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status !== 200) {
+    res.redirect('/myocvt');
+    return;
+  }
+
+  res.render('trips/newtrip', {
+    title: 'Trips',
+    header: 'NEW TRIP',
+    name: name
+  });
+}))
+
 router.get('/:tripId', aH(async (req, res, next) => {
   let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
   const signupStatus = trip.status;
