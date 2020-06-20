@@ -4,7 +4,8 @@ const dayString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 const monthShortString = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
                           'June', 'July', 'Aug', 'Sep', 'Oct',
                           'Nov', 'Dec'];
-const tripTypes = {
+
+const generalTypes = {
   GENERAL_ANNOUNCEMENTS: {
     description: 'Important Club Announcements',
     id: 'GENERAL_ANNOUNCEMENTS',
@@ -14,7 +15,10 @@ const tripTypes = {
     description: 'Announcements about Club Meetings',
     id: 'GENERAL_MEETINGS',
     name: 'Official Meetings'
-  },
+  }
+}
+
+const tripTypes = {
   TRIP_ALERTS: {
     description: 'Important alerts about your status on trips',
     id: 'TRIP_ALERTS',
@@ -110,5 +114,6 @@ const tripTypes = {
 module.exports = {
   dayString,
   monthShortString,
+  generalTypes,
   tripTypes
 };

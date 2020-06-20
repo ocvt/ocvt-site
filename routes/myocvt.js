@@ -2,6 +2,7 @@ const aH = require('express-async-handler');
 const express = require('express');
 
 const h = require('./helpers')
+const d = require('./data.js')
 
 const router = express.Router();
 
@@ -9,25 +10,10 @@ router.get('/', aH(async (req, res, next) => {
   let [name, myAccount, notifications, genericTripTypes] = await Promise.all([
     h.getFirstName(req),
     h.fetchHelper(h.API_URL + '/myaccount', req),
-    h.fetchHelper(h.API_URL + '/myaccount/notifications', req),
-    h.fetchHelper(h.API_URL + '/noauth/trips/types', req)
+    h.fetchHelper(h.API_URL + '/myaccount/notifications', req)
   ]);
   myAccount = await myAccount.json();
   notifications = await notifications.json();
-  genericTripTypes = await genericTripTypes.json();
-  let generalTypes = Object.keys(genericTripTypes)
-    .filter(key => key.startsWith('GENERAL_'))
-    .reduce((obj, key) => {
-      obj[key] = genericTripTypes[key];
-      return obj;
-    }, {});
-  const tripTypes = Object.keys(genericTripTypes)
-    .filter(key => key.startsWith('TRIP_'))
-    .reduce((obj, key) => {
-      obj[key] = genericTripTypes[key];
-      return obj;
-    }, {});
-  generalTypes = JSON.parse(JSON.stringify(generalTypes));
 
   if (name.status === 401) {
     res.redirect(302, '/login');
@@ -60,8 +46,8 @@ router.get('/', aH(async (req, res, next) => {
     API_URL: h.API_URL,
     myAccount: myAccount,
     notifications: notifications.notifications,
-    generalTypes: generalTypes,
-    tripTypes: tripTypes
+    generalTypes: d.generalTypes,
+    tripTypes: d.tripTypes
   });
 }));
 
