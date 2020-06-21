@@ -1,3 +1,4 @@
+/* myocvt */
 function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
   const memberData = {
     firstName: form.firstName.value,
@@ -113,5 +114,57 @@ function myocvtReactivateAccount(url) {
   .then((r) => {
     window.location.href = '/';
     return;
+  });
+}
+
+/* trips */
+function tripsNewTrip(url, form) {
+  const startDate = form.startDate.value;
+  const startTime = form.startTime.value;
+  const endTime = form.endTime.value;
+
+  const startDatetime = new Date(`${form.startDate.value}T${form.startTime.value}:00`);
+  let endDatetime = new Date(`${form.startDate.value}T${form.endTime.value}:00`);
+  if (endDatetime.getTime() > startDatetime.getTime()) {
+    endDatetime.setDate(endDatetime.getDate() + 1);
+  }
+  const trip = {
+    membersOnly: form.membersOnly.value === 'true',
+    allowLateSignups: form.allowLateSignups.value === 'true',
+    drivingRequired: form.drivingRequired.value === 'true',
+    hasCost: form.hasCost.value === 'true',
+    costDescription: form.costDescription.value,
+    maxPeople: parseInt(form.maxPeople.value),
+    name: form.name.value,
+    notificationTypeId: form.notificationTypeId.value,
+    startDatetime: startDatetime.toISOString(),
+    endDatetime: endDatetime.toISOString(),
+    summary: form.summary.value,
+    description: form.description.value,
+    location: form.location.value,
+    locationDirections: form.locationDirections.value,
+    meetupLocation: form.meetupLocation.value,
+    distance: parseInt(form.distance.value),
+    difficulty: parseInt(form.difficulty.value),
+    difficultyDescription: form.difficultyDescription.value,
+    instructions: form.instructions.value,
+    petsAllowed: form.petsAllowed.value === 'true',
+    petsDescription: form.petsDescription.value
+  }
+
+  fetch(url + '/trips', {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(trip)
+  })
+  .then((r) => {
+    if (r.status === 201) {
+      r.json().then(d => {
+        window.location.href = `/trips/${d.tripId}`;
+      });
+    }
   });
 }

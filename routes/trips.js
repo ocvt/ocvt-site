@@ -87,7 +87,9 @@ router.get('/newtrip', aH(async (req, res, next) => {
   res.render('trips/newtrip', {
     title: 'Trips',
     header: 'NEW TRIP',
-    name: name
+    name: name,
+    API_URL: h.API_URL,
+    tripTypes: d.tripTypes
   });
 }))
 
@@ -104,6 +106,8 @@ router.get('/:tripId', aH(async (req, res, next) => {
                ${d.monthShortString[date.getMonth()]},
                ${date.getDate()},
                ${date.getFullYear()}`;
+  trip.startTime = date.toLocaleTimeString();
+  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
 
   const tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 

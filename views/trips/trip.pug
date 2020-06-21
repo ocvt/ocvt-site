@@ -16,7 +16,7 @@ block content
       <tbody>
         <tr>
           <td><strong>Trip Date:</strong></td>
-          <td>#{trip.date}<br></td>
+          <td>#{trip.date}<br>#{trip.startTime} - #{trip.endTime}</td>
           <td><strong>Max Attendees:</strong></td>
           <td>#{trip.maxPeople} People</td> 
         </tr>
@@ -30,7 +30,6 @@ block content
           else
             <td><span style="color:red">Pets NOT Allowed</span></td>
         </tr>
-        
         
         <tr>
           <td><strong>Attendee Restrictions:</strong></td>
@@ -47,8 +46,8 @@ block content
         </tr>
         
         <tr>
-          <td><strong>Drivers Requested:</strong></td>
-          if trip.drivingRequested
+          <td><strong>Driving Required:</strong></td>
+          if trip.drivingRequired
             <td>Yes</td>
           else
             <td>No</td>
@@ -57,32 +56,35 @@ block content
     </table>
     <br>
     <br>
-   
+
     <h3 class="smallHeader">Description</h3>
     <p>#{trip.description}</p>
     <br>
 
-    <h3 class="smallHeader">Location</h3>
-    <p>#{trip.location}</p>
-    <br>
+    if trip.location
+      <h3 class="smallHeader">Location</h3>
+      <p>#{trip.location}</p>
+      <br>
 
     if trip.locationDirections
       <h3 class="smallHeader">Driving Directions</h3>
       <p>#{trip.locationDirections}</p>
       <br>
 
-    <h3 class="smallHeader">Meetup Location</h3>
-    if signupStatus === 200
-      <p>#{trip.meetupLocation}</p>
-    else
-      <h3>You must be signed up for this trip to view this.</h3>
-    <br>
+    if trip.meetupLocation
+      <h3 class="smallHeader">Meetup Location</h3>
+      if signupStatus === 200
+        <p>#{trip.meetupLocation}</p>
+      else
+        <h3>You must be signed up for this trip to view this.</h3>
+      <br>
 
-    <h3 class="smallHeader">What You Should Bring</h3>
-    <p>#{trip.instructions}</p>
-    <br>
+    if trip.instructions
+      <h3 class="smallHeader">What You Should Bring</h3>
+      <p>#{trip.instructions}</p>
+      <br>
 
-    if trip.petsDescription !== ''
+    if trip.petsDescription
       <h3 class="smallHeader">Pet Instructions/Info</h3>
       <p>#{trip.petsDescription}</p>
       <br>
