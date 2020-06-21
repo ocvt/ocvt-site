@@ -1,0 +1,133 @@
+extends ../_base
+
+block content
+  <div id="fullCenter">
+    <p>
+      | Interested in leading a trip? to start just fill out this form. It may
+      | seem daunting but many fields are optional to accommodate many different
+      | types of trips and events. When you are done the website will announce
+      | your trip and manage attendees for you.
+    </p>
+
+    <h2>Create a New OCVT Trip</h2>
+    <form onsubmit="tripsNewTrip('#{API_URL}', this);return false">
+      <table id="tripform">
+        <tbody>
+          <tr>
+            <td valign="top">Trip for paid members only?:*</td>
+            <td><input type="checkbox" name="membersOnly"></td>
+          </tr>
+          <tr>
+            <td valign="top">Driving Required for this trip?:*</td>
+            <td><input type="checkbox" name="drivingRequired"></td>
+          </tr>
+          <tr>
+            <td valign="top">Allow late signups?:*<br><span id="mild">(Otherwise cuts off 12 hours before trip)</span></td>
+            <td><input type="checkbox" name="allowLateSignups"></td>
+          </tr>
+          <tr>
+            <td valign="top">Max Attendees:*</td>
+            <td>
+              <select name="maxPeople" required>
+                <option value="" selected>----</option>
+                <option value="1000000">No Limit</option>
+                - const people = Array.from(Array(101).keys())
+                each count in people
+                  <option value="#{count}">#{count}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Trip Name:*</td>
+            <td><input type="" name="name" size="50" value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Trip Type:*</td>
+            <td>
+              <select name="notificationTypeId" required>
+                <option value="" selected>----</option>
+                each type in tripTypes
+                  if type.id !== 'TRIP_ALERTS'
+                    <option value="#{type.id}">#{type.name}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Meet-up Date (YYYY-MM-DD):*<br><span id="mild">ex 2050-02-05</span></td>
+            <td><input type="text" name="startDate" size="10" value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Meet-up Time (HH:MM):*<br><span id="mild">24 hour time ex. 13:25</span></td>
+            <td><input type="text" name="startTime" size="5 value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">End Time (HH:MM):*<br><span id="mild">24 hour time ex. 13:25</span></td>
+            <td><input type="text" name="endTime" size="5 value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Brief Trip Summary:*<br><span id="mild">(max 200 characters)</span></td>
+            <td><textarea name="summary" rows="4" cols="50" required></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Full Trip Description:*</td>
+            <td><textarea name="description" rows="10" cols="50" required></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Trip Location Description<br><span id="mild">(Optional)</span>:</td>
+            <td><textarea name="location" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Driving Directions<br><span id="mild">(Optional)</span>:</td>
+            <td><textarea name="locationDirections" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Trip Distance:</td>
+            <td><input type="number" name="distance" value="0"></td>
+          </tr>
+          <tr>
+            <td valign="top">Difficulty <span id="mild">(Optional)</span>:</td>
+            <td>
+              <select name="difficulty">
+                <option value="" selected="selected">----</option>
+                <option value="0">None</option>
+                <option value="1">Trivial</option>
+                <option value="2">Easy</option>
+                <option value="3">Moderate</option>
+                <option value="4">Strenuous</option>
+                <option value="5">Very Strenuous+</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td valign="top">Difficulty Description <br><span id="mild"> (Optional)</span>:</td>
+            <td><textarea name="difficultyDescription" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Instructions or notes for attendees.<br>Ex. Bring water, boots etc.<br><span id="mild">(Optional)</span>:</td>
+            <td><textarea name="instructions" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Meet-up Location description<br>(visible only to the attending list)<br><span id="mild"> (Optional)</span>:</td>
+            <td><textarea name="meetupLocation" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Any costs required?:*<br><span id="mild">ex. Renting gear</span></td>
+            <td><input type="checkbox" name="hasCost"></td>
+          </tr>
+          <tr>
+            <td valign="top">Costs Description:<br><span id="mild">(max 200 characters, optional)</span></td>
+            <td><textarea name="costDescription" rows="4" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <td valign="top">Pets OK?:*</td>
+            <td><input type="checkbox" name="petsAllowed"></td>
+          </tr>
+          <tr>
+            <td valign="top">Instructions for pet owners <br> <span id="mild">(Optional):</span></td>
+            <td><textarea name="petsDescription" rows="4" cols="50"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Fields marked with "*" are required.</p>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
