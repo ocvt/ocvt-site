@@ -7,9 +7,9 @@
         "airbnb-base"
     ],
     "ignorePatterns": [
+      "app.js",
       "static/galleria-1.6.1/**",
-      "static/js/jquery-3.4.1.min.js",
-      "static/js/unfetch-4.1.0.min.js"
+      "static/js/*"
     ],
     "parserOptions": {
         "ecmaVersion": 11,

@@ -1,119 +1,119 @@
 const dayString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-                   'Friday', 'Saturday'];
+  'Friday', 'Saturday'];
 
 const monthShortString = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
-                          'June', 'July', 'Aug', 'Sep', 'Oct',
-                          'Nov', 'Dec'];
+  'June', 'July', 'Aug', 'Sep', 'Oct',
+  'Nov', 'Dec'];
 
 const generalTypes = {
   GENERAL_ANNOUNCEMENTS: {
     description: 'Important Club Announcements',
     id: 'GENERAL_ANNOUNCEMENTS',
-    name: 'Club Updates / News / Events'
+    name: 'Club Updates / News / Events',
   },
   GENERAL_MEETINGS: {
     description: 'Announcements about Club Meetings',
     id: 'GENERAL_MEETINGS',
-    name: 'Official Meetings'
-  }
-}
+    name: 'Official Meetings',
+  },
+};
 
 const tripTypes = {
   TRIP_ALERTS: {
     description: 'Important alerts about your status on trips',
     id: 'TRIP_ALERTS',
-    name: 'Trip Status Alerts'
+    name: 'Trip Status Alerts',
   },
   TRIP_BACKPACKING: {
     description: 'Multi day hikes.',
     id: 'TRIP_BACKPACKING',
-    name: 'Backpacking'
+    name: 'Backpacking',
   },
   TRIP_BIKING: {
     description: 'Road or mountain biking.',
     id: 'TRIP_BIKING',
-    name: 'Biking'
+    name: 'Biking',
   },
   TRIP_CAMPING: {
     description: 'Single overnight trips.',
     id: 'TRIP_CAMPING',
-    name: 'Camping'
+    name: 'Camping',
   },
   TRIP_CLIMBING: {
     description: 'Rock climbing or bouldering.',
     id: 'TRIP_CLIMBING',
-    name: 'Climbing'
+    name: 'Climbing',
   },
   TRIP_DAYHIKE: {
     description: 'In and out on the same day.',
     id: 'TRIP_DAYHIKE',
-    name: 'Dayhike'
+    name: 'Dayhike',
   },
   TRIP_LASER_TAG: {
     description: 'Laser Tag with LCAT',
     id: 'TRIP_LASER_TAG',
-    name: 'Laser Tag'
+    name: 'Laser Tag',
   },
   TRIP_OFFICIAL_MEETING: {
     description: 'An official OCVT meeting',
     id: 'TRIP_OFFICIAL_MEETING',
-    name: 'Official Meeting'
+    name: 'Official Meeting',
   },
   TRIP_OTHER: {
     description: 'Anything else not covered. ',
     id: 'TRIP_OTHER',
-    name: 'Other'
+    name: 'Other',
   },
   TRIP_RAFTING_CANOEING_KAYAKING: {
     description: 'Rafting / Canoeing / Kayaking',
     id: 'TRIP_RAFTING_CANOEING_KAYAKING',
-    name: 'Rafting / Canoeing / Kayaking'
+    name: 'Rafting / Canoeing / Kayaking',
   },
   TRIP_ROAD_TRIP: {
     description: 'Just getting out and about, Ex a trip to Busch Gardens or DC etc',
     id: 'TRIP_ROAD_TRIP',
-    name: 'Road Trip'
+    name: 'Road Trip',
   },
   TRIP_SKIING_SNOWBOARDING: {
     description: 'Skiing / Snowboarding',
     id: 'TRIP_SKIING_SNOWBOARDING',
-    name: 'Skiing / Snowboarding'
+    name: 'Skiing / Snowboarding',
   },
   TRIP_SNOW_OTHER: {
     description: 'Sledding snowshoeing etc',
     id: 'TRIP_SNOW_OTHER',
-    name: 'Snow / Other'
+    name: 'Snow / Other',
   },
   TRIP_SOCIAL: {
     description: 'Strictly social, potluck, movie nights, games or other casual gatherings',
     id: 'TRIP_SOCIAL',
-    name: 'Social'
+    name: 'Social',
   },
   TRIP_SPECIAL_EVENT: {
     description: 'A special event.',
     id: 'TRIP_SPECIAL_EVENT',
-    name: 'Special Event'
+    name: 'Special Event',
   },
   TRIP_TEAM_SPORTS_MISC: {
     description: 'Football, basketball ultimate Frisbee etc.',
     id: 'TRIP_TEAM_SPORTS_MISC',
-    name: 'Team Sports / Misc.'
+    name: 'Team Sports / Misc.',
   },
   TRIP_WATER_OTHER: {
     description: 'Swimming, tubing anything else in the water.',
     id: 'TRIP_WATER_OTHER',
-    name: 'Water / Other'
+    name: 'Water / Other',
   },
   TRIP_WORK_TRIP: {
     description: 'Trail work or other maintenance.',
     id: 'TRIP_WORK_TRIP',
-    name: 'Worktrip'
-  }
-}
+    name: 'Worktrip',
+  },
+};
 
 module.exports = {
   dayString,
   monthShortString,
   generalTypes,
-  tripTypes
+  tripTypes,
 };
