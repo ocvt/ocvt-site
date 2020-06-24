@@ -8,7 +8,7 @@ block content
 
     - const now = new Date().toISOString()
     if trip.startDatetime < now
-      <h1>The Signup Period For This Trip Is Over</h1>
+      <h1>The Signup Period For This Trip Is Over TODO FIX THIS</h1>
     <h2>#{trip.name}</h2>
     <h3>Trip Leader - #{trip.memberName}</h3>  
         
@@ -23,7 +23,7 @@ block content
         
         <tr>
           <td><strong>Trip Type:</strong></td>
-          <td>#{tripTypeName}</td>
+          <td>#{trip.tripTypeName}</td>
           <td><strong>Pets:</strong></td>
           if trip.petsAllowed
             <td><span style="color:green">Pets OK</span></td>
@@ -106,4 +106,10 @@ block content
       </form>
     else
       <h3>You must be registered to use this feature.</h3><hr>
+
+    <hr>
+    if signupStatus === 200
+      <h3>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/mytrip">here</a>.</h3>
+    else
+      <h1><a href="/trips/#{trip.id}/jointrip">Signup For This Trip ---></a></h1>
   </div>

@@ -100,7 +100,7 @@ router.get('/newtrip', aH(async (req, res, next) => {
 router.get('/:tripId', aH(async (req, res, next) => {
   let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
   const signupStatus = trip.status;
-  if (signupStatus === 401 || signupStatus === 403) {
+  if (signupStatus !== 200) {
     trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
   }
   trip = await trip.json();
@@ -112,16 +112,40 @@ router.get('/:tripId', aH(async (req, res, next) => {
                ${date.getFullYear()}`;
   trip.startTime = date.toLocaleTimeString();
   trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
-
-  const tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+  trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
   res.render('trips/trip', {
     title: 'Trips',
     header: 'VIEW TRIP',
     name: await h.getFirstName(req),
     signupStatus: signupStatus,
-    trip: trip,
-    tripTypeName: tripTypeName
+    trip: trip
+  });
+}))
+
+router.get('/:tripId/jointrip', aH(async (req, res, next) => {
+  let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
+//  const signupStatus = trip.status;
+//  if (signupStatus === 401 || signupStatus === 403) {
+//    trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
+//  }
+  trip = await trip.json();
+
+  const date = new Date(trip.startDatetime);
+  trip.date = `${d.dayString[date.getDay()]},
+               ${d.monthShortString[date.getMonth()]},
+               ${date.getDate()},
+               ${date.getFullYear()}`;
+  trip.startTime = date.toLocaleTimeString();
+  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  res.render('trips/jointrip', {
+    title: 'Join A Trip',
+    header: 'JOIN A TRIP',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    trip: trip
   });
 }))
 

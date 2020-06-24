@@ -5,6 +5,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Add check on archived trips saying signups are closed
+* Properly output message on js errors
 * Validate browser support
 * Validate HTML5 (ie td valign, etc)
 * Validate trip form date & time string data

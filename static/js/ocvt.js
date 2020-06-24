@@ -195,3 +195,30 @@ function tripsNewTrip(url, form) {
     })
   });
 }
+
+function tripsJoinTrip(url, tripId, form) {
+  const tripSignup = {
+    shortNotice: form.shortNotice.value === 'true',
+    driver: form.isDriver.value === 'true',
+    carpool: form.canCarpool.value === 'true',
+    carCapacity: parseInt(form.carCapacity.value),
+    notes: form.notes.value,
+    pet: form.pet.value === 'true'
+  };
+
+  fetch(url + `/trips/${tripId}/signup`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(tripSignup)
+  })
+  .then(r => {
+    if (r.status !== 204) {
+        console.error(`Invalid status code on trip signup: ${r.status}`);
+        return;
+    }
+    window.location.reload(true);
+  });
+}
