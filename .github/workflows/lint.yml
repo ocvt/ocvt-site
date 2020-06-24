@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Check for linting errors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Run eslint
+        run: yarn run lint
