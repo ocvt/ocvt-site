@@ -127,4 +127,12 @@ router.get('/resources', aH(async (req, res, next) => {
   });
 }));
 
+router.get('/tripagreement', aH(async (req, res, next) => {
+  res.render('tripagreement', {
+    title: 'Trip Agreement',
+    header: 'TRIP AGREEMENT',
+    name: await h.getFirstName(req)
+  });
+}));
+
 module.exports = router;

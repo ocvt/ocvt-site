@@ -11,7 +11,7 @@ block content
 
     <h2>Create a New OCVT Trip</h2>
     <form onsubmit="tripsNewTrip('#{API_URL}', this);return false">
-      <table id="tripform">
+      <table id="tripform" style="border-collapse: collapse;">
         <tbody>
           <tr>
             <td valign="top">Trip for paid members only?:*</td>
@@ -85,11 +85,10 @@ block content
             <td><input type="number" name="distance" value="0"></td>
           </tr>
           <tr>
-            <td valign="top">Difficulty <span id="mild">(Optional)</span>:</td>
+            <td valign="top">Difficulty:</td>
             <td>
               <select name="difficulty">
-                <option value="" selected="selected">----</option>
-                <option value="0">None</option>
+                <option value="0" selected>None</option>
                 <option value="1">Trivial</option>
                 <option value="2">Easy</option>
                 <option value="3">Moderate</option>
@@ -121,9 +120,37 @@ block content
             <td valign="top">Pets OK?:*</td>
             <td><input type="checkbox" name="petsAllowed"></td>
           </tr>
-          <tr>
+          <tr style="border-bottom: 3px solid green;">
             <td valign="top">Instructions for pet owners <br> <span id="mild">(Optional):</span></td>
             <td><textarea name="petsDescription" rows="4" cols="50"></textarea></td>
+          </tr>
+
+          <tr>
+            <td><h2>Your Signup</h2></td>
+          </tr>
+          <tr>
+            <td>I have read and agree to the <a target="_blank" rel="noopener noreferrer" href="/tripagreement">trip waiver terms</a>:*</td>
+            <td><input type="checkbox" required></td>
+          </tr>
+          <tr>
+            <td>Are you driving?</td>
+            <td><input type="checkbox" name="isDriver"></td>
+          </tr>
+          <tr>
+            <td>If you are driving,<br>are you willing to carpool?</td>
+            <td><input type="checkbox" name="canCarpool"></td>
+          </tr>
+          <tr>
+            <td valign="top">If you are driving, how many people<br>(including yourself) can you drive?</td>
+            <td><input type="number" name="carCapacity" value="0"></td>
+          </tr>
+          <tr>
+            <td valign="top">Are you bringing anything?<br><span id="mild">Notes for yourself and other trip leaders</span></td>
+            <td><textarea name="notes" rows="4" cols="50"></textarea>
+          </tr>
+          <tr>
+            <td valign="top">Are you bringing a pet?</td>
+            <td><input type="checkbox" name="pet"></td>
           </tr>
         </tbody>
       </table>

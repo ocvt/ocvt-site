@@ -5,6 +5,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Validate browser support
+* Validate HTML5 (ie td valign, etc)
 * Validate trip form date & time string data
 * Don't use '+' to append vars into strings
 * Remove old css/html cruft (waiting to finish everything else)

@@ -150,7 +150,17 @@ function tripsNewTrip(url, form) {
     instructions: form.instructions.value,
     petsAllowed: form.petsAllowed.value === 'true',
     petsDescription: form.petsDescription.value
-  }
+  };
+  const tripSignup = {
+    shortNotice: true,
+    driver: form.isDriver.value === 'true',
+    carpool: form.canCarpool.value === 'true',
+    carCapacity: parseInt(form.carCapacity.value),
+    notes: form.notes.value,
+    pet: form.pet.value === 'true'
+  };
+  console.log(JSON.stringify(trip));
+  console.log(JSON.stringify(tripSignup));
 
   fetch(url + '/trips', {
     credentials: 'include',
@@ -160,11 +170,28 @@ function tripsNewTrip(url, form) {
     },
     body: JSON.stringify(trip)
   })
-  .then((r) => {
-    if (r.status === 201) {
-      r.json().then(d => {
-        window.location.href = `/trips/${d.tripId}`;
-      });
+  .then(r => {
+    if (r.status !== 201) {
+      console.error(`Invalid status code on trip create: ${r.status}`);
+      return;
     }
+    return r.json();
+  })
+  .then(d => {
+    fetch(url + `/trips/${d.tripId}/signup`, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(tripSignup)
+    })
+    .then(r => {
+      if (r.status !== 204) {
+        console.error(`Invalid status code on trip signup: ${r.status}`);
+        return;
+      }
+      window.location.href = `/trips/${d.tripId}`;
+    })
   });
 }
