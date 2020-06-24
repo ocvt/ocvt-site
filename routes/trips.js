@@ -18,7 +18,11 @@ router.get('/', aH(async (req, res, next) => {
   ]);
 
   trips = trips.trips;
-  recentTrips = recentTrips.trips.filter(x => !trips.includes(x));
+  recentTrips = recentTrips.trips.filter(rT => {
+    return !trips.some(t => {
+      return rT.id === t.id;
+    });
+  });
 
 
   // Pretty print date & type
@@ -96,7 +100,7 @@ router.get('/newtrip', aH(async (req, res, next) => {
 router.get('/:tripId', aH(async (req, res, next) => {
   let trip = await h.fetchHelper(h.API_URL + '/trips/' + req.params.tripId, req);
   const signupStatus = trip.status;
-  if (signupStatus <= 403) {
+  if (signupStatus === 401 || signupStatus === 403) {
     trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
   }
   trip = await trip.json();
