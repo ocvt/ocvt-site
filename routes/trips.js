@@ -75,6 +75,22 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   });
 }));
 
+router.get('/attendance', aH(async (req, res) => {
+  const name = await h.getFirstName(req);
+
+  if (name.status !== 200) {
+    res.redirect('/myocvt');
+    return;
+  }
+
+  res.render('trips/attendance', {
+    title: 'Trip Attendance',
+    header: 'TRIP ATTENDANCE',
+    name,
+    API_URL: h.API_URL,
+  });
+}));
+
 router.get('/newtrip', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
