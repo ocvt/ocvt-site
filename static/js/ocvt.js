@@ -7,7 +7,7 @@ function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
     birthyear: parseInt(form.birthyear.value),
     gender: form.gender.value,
     cellNumber: form.cellNumber.value,
-    medicalCond: form.medicalCond.value === 'true',
+    medicalCond: form.medicalCond.checked,
     medicalCondDesc: form.medicalCondDesc.value
   };
 
@@ -129,10 +129,10 @@ function tripsNewTrip(url, form) {
     endDatetime.setDate(endDatetime.getDate() + 1);
   }
   const trip = {
-    membersOnly: form.membersOnly.value === 'true',
-    allowLateSignups: form.allowLateSignups.value === 'true',
-    drivingRequired: form.drivingRequired.value === 'true',
-    hasCost: form.hasCost.value === 'true',
+    membersOnly: form.membersOnly.checked,
+    allowLateSignups: form.allowLateSignups.checked,
+    drivingRequired: form.drivingRequired.checked,
+    hasCost: form.hasCost.checked,
     costDescription: form.costDescription.value,
     maxPeople: parseInt(form.maxPeople.value),
     name: form.name.value,
@@ -148,16 +148,16 @@ function tripsNewTrip(url, form) {
     difficulty: parseInt(form.difficulty.value),
     difficultyDescription: form.difficultyDescription.value,
     instructions: form.instructions.value,
-    petsAllowed: form.petsAllowed.value === 'true',
+    petsAllowed: form.petsAllowed.checked,
     petsDescription: form.petsDescription.value
   };
   const tripSignup = {
     shortNotice: true,
-    driver: form.isDriver.value === 'true',
-    carpool: form.canCarpool.value === 'true',
+    driver: form.driver.checked,
+    carpool: form.canCarpool.checked,
     carCapacity: parseInt(form.carCapacity.value),
     notes: form.notes.value,
-    pet: form.pet.value === 'true'
+    pet: form.pet.checked
   };
   console.log(JSON.stringify(trip));
   console.log(JSON.stringify(tripSignup));
@@ -198,12 +198,12 @@ function tripsNewTrip(url, form) {
 
 function tripsJoinTrip(url, tripId, form) {
   const tripSignup = {
-    shortNotice: form.shortNotice.value === 'true',
-    driver: form.isDriver.value === 'true',
-    carpool: form.canCarpool.value === 'true',
+    shortNotice: form.shortNotice.checked,
+    driver: form.driver.checked,
+    carpool: form.canCarpool.checked,
     carCapacity: parseInt(form.carCapacity.value),
     notes: form.notes.value,
-    pet: form.pet.value === 'true'
+    pet: (form.pet && form.pet.checked) || false
   };
 
   fetch(url + `/trips/${tripId}/signup`, {
@@ -220,5 +220,21 @@ function tripsJoinTrip(url, tripId, form) {
         return;
     }
     window.location.reload(true);
+  });
+}
+
+function tripsCancelSignup(url, tripId) {
+  if (!confirm('Are you sure you want to cancel your attendance? This cannot be undone!')) {
+    window.location.href = '/trips';
+    return
+  }
+
+  fetch(url + `/trips/${tripId}/signup/cancel`, {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.href = '/trips';
+    return;
   });
 }

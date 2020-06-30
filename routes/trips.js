@@ -110,20 +110,27 @@ router.get('/newtrip', aH(async (req, res) => {
 
 router.get('/:tripId', aH(async (req, res) => {
   let trip = await h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req);
+  // Only attending people can view trip details.
+  // GET /trips/{tripId}/mystatus also works here but this saves an api call in this case
   const signupStatus = trip.status;
   if (signupStatus !== 200) {
     trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   }
   trip = await trip.json();
 
-  const date = new Date(trip.startDatetime);
-  trip.date = `${d.dayString[date.getDay()]},
-               ${d.monthShortString[date.getMonth()]},
-               ${date.getDate()},
-               ${date.getFullYear()}`;
-  trip.startTime = date.toLocaleTimeString();
-  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  const startDate = new Date(trip.startDatetime);
+  const endDate = new Date(trip.endDatetime);
+  trip.date = `${d.dayString[startDate.getDay()]},
+               ${d.monthShortString[startDate.getMonth()]},
+               ${startDate.getDate()},
+               ${startDate.getFullYear()}`;
+  trip.startTime = startDate.toLocaleTimeString();
+  trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  const now = new Date();
+  const defaultSignupDate = new Date(startDate.getHours() - 12);
+  trip.pastSignupPeriod = (trip.allowLateSignups && startDate < now) || (!trip.allowLateSignups && defaultSignupDate < now);
 
   res.render('trips/trip', {
     title: 'Trips',
@@ -135,11 +142,7 @@ router.get('/:tripId', aH(async (req, res) => {
 }));
 
 router.get('/:tripId/jointrip', aH(async (req, res) => {
-  let trip = await h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req);
-  //  const signupStatus = trip.status;
-  //  if (signupStatus === 401 || signupStatus === 403) {
-  //    trip = await h.fetchHelper(h.API_URL + '/noauth/trips/' + req.params.tripId, req);
-  //  }
+  let trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   trip = await trip.json();
 
   const date = new Date(trip.startDatetime);
@@ -156,6 +159,54 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
     header: 'JOIN A TRIP',
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
+    trip,
+  });
+}));
+
+router.get('/:tripId/signup', aH(async (req, res) => {
+  let [myAccount, signup, status, trip] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/myaccount`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/signup`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
+  ]);
+
+  if (signup.status !== 200) {
+    res.redirect(`/trips/${req.params.tripId}`);
+    return;
+  }
+
+  [myAccount, signup, status, trip] = await Promise.all([
+    myAccount.json(),
+    signup.json(),
+    status.json(),
+    trip.json(),
+  ]);
+
+  const signupDate = new Date(signup.signupDatetime);
+  signup.date = `${d.dayString[signupDate.getDay()]},
+               ${d.monthShortString[signupDate.getMonth()]},
+               ${signupDate.getDate()},
+               ${signupDate.getFullYear()}`;
+  signup.time = signupDate.toLocaleTimeString();
+
+  const tripDate = new Date(trip.startDatetime);
+  trip.date = `${d.dayString[tripDate.getDay()]},
+               ${d.monthShortString[tripDate.getMonth()]},
+               ${tripDate.getDate()},
+               ${tripDate.getFullYear()}`;
+  trip.startTime = tripDate.toLocaleTimeString();
+  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  res.render('trips/signup', {
+    title: 'Trip Attendance',
+    header: 'TRIP ATTENDANCE',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    myAccount,
+    signup,
+    status,
     trip,
   });
 }));

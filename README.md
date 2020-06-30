@@ -5,6 +5,10 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
+* Change Medical condition option selector (and other similar cases) to simple checkbox
+* Consistently use Promise.all() for .json()
+* Fix account deletion bug
 * Showcase old OCVT data (ex. oldsite/gpx)
 * Add check on archived trips saying signups are closed
 * Properly output message on js errors

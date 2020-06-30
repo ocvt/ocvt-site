@@ -23,7 +23,7 @@ block content
           </tr>
           <tr>
             <td valign="top">Are you driving?</td>
-            <td><input type="checkbox" name="isDriver"></td>
+            <td><input type="checkbox" name="driver"></td>
           </tr>
           <tr>
             <td>If you are driving,<br>are you willing to carpool?</td>
@@ -37,10 +37,11 @@ block content
             <td valign="top">Are you bringing anything?<br><span id="mild">Notes for yourself and trip leaders</span></td>
             <td><textarea name="notes" rows="4" cols="50"></textarea>
           </tr>
-          <tr>
-            <td valign="top">Are you bringing a pet?</td>
-            <td><input type="checkbox" name="pet"></td>
-          </tr>
+          if trip.petsAllowed
+            <tr>
+              <td valign="top">Are you bringing a pet?</td>
+              <td><input type="checkbox" name="pet"></td>
+            </tr>
         </tbody>
       </table>
       <p>Fields marked with "*" are required.</p>

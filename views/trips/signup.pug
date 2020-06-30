@@ -1,0 +1,114 @@
+extends ../_base
+
+block content
+  <div id="fullCenter">
+    <a href="/trips">&lt;--Return to Main Trips Page</a>
+    <br>
+    <br>
+
+    <h2>#{trip.name}</h2>
+    | #{trip.date} | #{trip.startTime} - #{trip.endTime}
+    | &nbsp;&nbsp;&nbsp;
+    <strong>Trip Type: </strong> #{trip.tripTypeName}
+    | &nbsp;&nbsp;&nbsp;
+    <p>#{trip.summary}</p>
+
+    if status.attendingCode === 'FORCE'
+      <h2>My Attendance Information <span style="color:gray"> - Attending: Force Added</span></h2>
+    else if status.attendingCode === 'ATTEND'
+      <h2>My Attendance Information <span style="color:green"> - Attending</span></h2>
+    else if status.attendingCode === 'WAIT'
+      <h2>My Attendance Information <span style="color:red"> - On Waiting List</span></h2>
+    else
+      <h2>My Attendance Information <span style="color:black"> - Canceled</span></h2>
+
+    <table class="tripPerson" border="0" bgcolor="#D6EFD7">
+      <tbody>
+        <tr>
+          <td><strong style="color:#475278">Signup Date: </strong>#{signup.date}, #{signup.time}</td>
+          <td></td>
+          <td colspan="5" width="300px" align="center"></td>
+        </tr>
+        <tr>
+          <td colspan="2" width="340px"><strong style=" color:#475278">Name: </strong>#{myAccount.firstName} #{myAccount.lastName}</td>
+          <td rowspan="2" width="30px">
+            <span class="tooltip" title="">
+              if myAccount.gender === 'F'
+                <img class="tripPersonimg" src="/media/icon/female-bw.png">
+                <span class="custom info">
+                  <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee is Female</em>
+                </span>
+              else if myAccount.gender === 'M'
+                <img class="tripPersonimg" src="/media/icon/male-bw.png">
+                <span class="custom info">
+                  <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee is Male</em>
+                </span>
+              else
+                <img class="tripPersonimg" src="/media/icon/other-bw.png">
+                <span class="custom info">
+                  <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee does not identify as male or female, or did not disclose their gender.</em>
+                </span>
+            </span>
+          </td>
+          <td rowspan="2" width="59px">
+            if signup.driver
+              <span class="tooltip" title="">
+                <img class="tripPersonimg" src="/media/icon/car-bw.png"><br>  &nbsp;&nbsp;&nbsp;&nbsp;#{signup.carCapacity}
+                <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee can drive</em>
+                </span>
+              </span>
+          </td>
+          <td rowspan="2" width="29px">
+            if myAccount.medicalCond
+              <span class="tooltip" title="">
+                <img class="tripPersonimg" src="/media/icon/caduceus-bw.png">
+                <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee Has a Medical Condition:</em>
+                  if myAccount.medicalCondDesc
+                    | #{signup.medicalCondDesc}
+                  else
+                    | No details provided by member. Please ask them in person.
+                </span>
+              </span>
+          </td>
+          <td rowspan="2" width="36px">
+            if signup.notes
+              <span class="tooltip" title="">
+                <img class="tripPersonimg" src="/media/icon/bag-bw.png">
+                <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+                  <em>Attendee Is Bringing Something:</em> #{signup.notes}
+                </span>
+              </span>
+          </td>
+          <td rowspan="2" width="52px">
+            if signup.pet
+              <span class="tooltip" title="">
+              <img class="tripPersonimg" src="/media/icon/pet-bw.png">
+                <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" height="48" width="48">
+                  <em>Attendee Is Bringing a Pet</em>
+                </span>
+              </span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" width="340px"><strong style="color:#475278">Email:</strong>#{myAccount.email}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h2>Cancel My Trip Attendance</h2>
+    if status.tripCreator
+      <p>You cannot cancel your attendance because you are the trip creator. To cancel the trip, <a href="/trips/#{trip.id}/admin">go the the trip admin page</a></p>
+    else
+      <p>Click below to cancel your attendance on this trip. You will be removed from the attending roster or the waiting list.</p>
+      <div align="center">
+        <form onsubmit="tripsCancelSignup('#{API_URL}', #{trip.id});return false">
+          <button type="submit">Cancel</button>
+        </form>
+      </div>
+  </div>

@@ -107,9 +107,12 @@ block content
     else
       <h3>You must be registered to use this feature.</h3><hr>
 
-    <hr>
-    if signupStatus === 200
-      <h3>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/mytrip">here</a>.</h3>
+    if trip.cancel
+      <h1>This trip is canceled</h1>
+    else if trip.pastSignupPeriod
+      <h1>The signup period for this trip is over</h1>
+    else if signupStatus === 200
+      <h2>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/signup">here</a>.</h2>
     else
       <h1><a href="/trips/#{trip.id}/jointrip">Signup For This Trip ---></a></h1>
   </div>
