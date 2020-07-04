@@ -9,15 +9,15 @@ block content
         <tbody>
           <tr>
             <td valign="top">First Name:*</td>
-            <td><input type="text" name="firstName" size="40" value="#{myAccount.firstName}" required></td>
+            <td><input type="text" name="firstName" size="40" value="#{myaccount.firstName}" required></td>
           </tr>
           <tr>
             <td valign="top">Last Name:*</td>
-            <td><input type="text" name="lastName" size="40" value="#{myAccount.lastName}" required></td>
+            <td><input type="text" name="lastName" size="40" value="#{myaccount.lastName}" required></td>
           </tr>
           <tr>
             <td valign="top">Email:*</td>
-            <td><input type="text" name="email" size="40" value="#{myAccount.email}" required></td>
+            <td><input type="text" name="email" size="40" value="#{myaccount.email}" required></td>
           </tr>
           <tr>
             <td valign="top">Birth Year:*</td>
@@ -28,7 +28,7 @@ block content
                   const end = new Date().getFullYear() - 14;
                   const years = Array.from({length: end - start}, (v, k) => k + start);
                 each year in years.reverse()
-                  if year === myAccount.birthyear
+                  if year === myaccount.birthyear
                     <option value="#{year}" selected>#{year}</option>
                   else
                     <option value="#{year}">#{year}</option>
@@ -41,7 +41,7 @@ block content
             <td>
               <select name="gender" required>
                 each value, key in { M: 'Male', F: 'Female', O: 'Other', P: 'Prefer not to say' }
-                  if key === myAccount.gender
+                  if key === myaccount.gender
                     <option value="#{key}" selected>#{value}</option>
                   else
                     <option value="#{key}">#{value}</option>
@@ -50,13 +50,13 @@ block content
           </tr>
           <tr>
             <td valign="top">Cell Number:</td>
-            <td><input type="text" name="cellNumber" size="40" value="#{myAccount.cellNumber}"></td>
+            <td><input type="text" name="cellNumber" size="40" value="#{myaccount.cellNumber}"></td>
           </tr>
           <tr>
             <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
             <td>
               <select name="medicalCond" required>
-                if myAccount.medicalCond === "true"
+                if myaccount.medicalCond === "true"
                   <option value="True" selected>Yes</option>
                   <option value="False">No</option>
                 else
@@ -67,7 +67,7 @@ block content
           </tr>
           <tr>
             <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
-            <td><textarea name="medicalCondDesc" rows="6" cols="35" value="#{myAccount.medicalCondDesc}"></textarea></td>
+            <td><textarea name="medicalCondDesc" rows="6" cols="35" value="#{myaccount.medicalCondDesc}"></textarea></td>
           </tr>
         </tbody>
       </table>
@@ -79,25 +79,25 @@ block content
 
 
     <h2 id="emerg">Emergency Contact Information</h2>
-    if myAccount.emergencyContactName === ''
+    if myaccount.emergencyContactName === ''
       <p>You have no emergency contact information set. Fill out this form to add a contact.</p>
     <form onsubmit="myocvtUpdateEmergency('#{API_URL}', this);return false">
       <table id="tripform">
         <tbody>
           <tr>
             <td valign="top">Name:*</td>
-            <td><input type="text" name="name" size="40" value="#{myAccount.emergencyContactName}" required></td>
+            <td><input type="text" name="name" size="40" value="#{myaccount.emergencyContactName}" required></td>
           </tr>
           <tr>
             <td valign="top">Cell Number:*</td>
-            <td><input type="text" name="cellNumber" size="40" value="#{myAccount.emergencyContactNumber}" required></td>
+            <td><input type="text" name="cellNumber" size="40" value="#{myaccount.emergencyContactNumber}" required></td>
           </tr>
           <tr>
             <td valign="top">Relationship:*</td>
             <td>
               <select name="relationship" required>
                 each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Fridnd', 'Other' ]
-                  if relation === myAccount.emergencyContactRelationship
+                  if relation === myaccount.emergencyContactRelationship
                     <option value="#{relation}" selected>#{relation}</option>
                   <option value="#{relation}">#{relation}</option>
               </select>
@@ -114,19 +114,19 @@ block content
 
     <h2>Member Data</h2>
     <p>
-      | Member ID: #{myAccount.id}
+      | Member ID: #{myaccount.id}
       <br>
-      | Registration Date: #{new Date(Date.parse(myAccount.createDatetime)).toDateString()}
+      | Registration Date: #{new Date(Date.parse(myaccount.createDatetime)).toDateString()}
       <br>
       - const activeStatus = { 'true': 'Active', 'false': 'Inactive' }
-      | Account Status: #{activeStatus[myAccount.active]}
+      | Account Status: #{activeStatus[myaccount.active]}
       <br>
-      if Date.parse(myAccount.paidExpireDatetime) < Date.now()
+      if Date.parse(myaccount.paidExpireDatetime) < Date.now()
         | Member Type: Unpaid
       else
         | Member Type: Paid
       <br>
-      | Paid Membership Expiration Date: #{new Date(Date.parse(myAccount.paidExpireDatetime)).toDateString()}
+      | Paid Membership Expiration Date: #{new Date(Date.parse(myaccount.paidExpireDatetime)).toDateString()}
     </p>
     <br>
 

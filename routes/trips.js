@@ -9,12 +9,8 @@ const router = express.Router();
 /* Trips Routes */
 router.get('/', aH(async (req, res) => {
   let [trips, recentTrips] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/noauth/trips`, req),
-    h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req),
-  ]);
-
-  [trips, recentTrips] = await Promise.all([
-    trips.json(), recentTrips.json(),
+    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req).then((r) => r.json()),
   ]);
 
   trips = trips.trips;
@@ -162,6 +158,7 @@ router.get('/:tripId/admin', aH(async (req, res) => {
     admin.json(),
     trip.json(),
   ]);
+
   const signups = {
     attend: [], boot: [], cancel: [], force: [], wait: [],
   };
@@ -213,8 +210,7 @@ router.get('/:tripId/admin', aH(async (req, res) => {
 }));
 
 router.get('/:tripId/jointrip', aH(async (req, res) => {
-  let trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
-  trip = await trip.json();
+  const trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json());
 
   const date = new Date(trip.startDatetime);
   trip.date = `${d.dayString[date.getDay()]},

@@ -7,14 +7,11 @@ const router = express.Router();
 
 /* Root Routes */
 router.get('/', aH(async (req, res) => {
-  let [trips, /* homePhotos, */news] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/noauth/trips`, req),
-    //    h.fetchHelper(h.API_URL + '/homephotos', req), TODO remove after testing
-    h.fetchHelper(`${h.API_URL}/news`, req),
-  ]);
-
-  [trips, /* homePhotos, */news] = await Promise.all([
-    trips.json(), /* homePhotos.json(), */news.json(),
+  const [trips, /* homePhotos, */news] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
+    // TODO remove after testign
+    //    h.fetchHelper(h.API_URL + '/homephotos', req).then(h => h.json()),
+    h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()),
   ]);
 
   //  homePhotos = homePhotos.images;
@@ -31,13 +28,9 @@ router.get('/', aH(async (req, res) => {
 }));
 
 router.get('/gallery', aH(async (req, res) => {
-  let [homePhotos, tripsPhotos] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/homephotos`, req),
-    h.fetchHelper(`${h.API_URL}/noauth/trips/photos`, req),
-  ]);
-  [homePhotos, tripsPhotos] = await Promise.all([
-    homePhotos.json(),
-    tripsPhotos.json(),
+  const [homePhotos, tripsPhotos] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/homephotos`, req).then((p) => p.json()),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/photos`, req).then((t) => t.json()),
   ]);
   const images = []; // TODO (homePhotos.images.concat(tripsPhotos.images)).reverse();
 
