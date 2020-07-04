@@ -54,16 +54,7 @@ block content
           </tr>
           <tr>
             <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
-            <td>
-              <select name="medicalCond" required>
-                if myaccount.medicalCond === "true"
-                  <option value="True" selected>Yes</option>
-                  <option value="False">No</option>
-                else
-                  <option value="True">Yes</option>
-                  <option value="False" selected>No</option>
-              </select>
-            </td>
+            <td><input type="checkbox" name="medicalCond"></td>
           </tr>
           <tr>
             <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
