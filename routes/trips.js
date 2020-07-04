@@ -130,7 +130,8 @@ router.get('/:tripId', aH(async (req, res) => {
 
   const now = new Date();
   const defaultSignupDate = new Date(startDate.getHours() - 12);
-  trip.pastSignupPeriod = (trip.allowLateSignups && startDate < now) || (!trip.allowLateSignups && defaultSignupDate < now);
+  trip.pastSignupPeriod = (trip.allowLateSignups && startDate < now)
+    || (!trip.allowLateSignups && defaultSignupDate < now);
 
   res.render('trips/trip', {
     title: 'Trips',
@@ -158,15 +159,19 @@ router.get('/:tripId/admin', aH(async (req, res) => {
     mystatus.json(),
     trip.json(),
   ]);
-  const signups = { attend: [], boot: [], cancel: [], force: [], wait: [] };
+  const signups = {
+    attend: [], boot: [], cancel: [], force: [], wait: [],
+  };
   let carSeats = 0;
 
-  admin.tripSignups.forEach(signup => {
+  admin.tripSignups.forEach((signup) => {
     const signupDate = new Date(signup.signupDatetime);
+    // eslint-disable-next-line no-param-reassign
     signup.date = `${d.dayString[signupDate.getDay()]},
                        ${d.monthShortString[signupDate.getMonth()]},
                        ${signupDate.getDate()},
                        ${signupDate.getFullYear()}`;
+    // eslint-disable-next-line no-param-reassign
     signup.time = signupDate.toLocaleTimeString();
 
     if (signup.attendingCode === 'ATTEND') {
