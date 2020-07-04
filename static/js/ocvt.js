@@ -229,7 +229,7 @@ function tripsCancelSignup(url, tripId) {
     return
   }
 
-  fetch(url + `/trips/${tripId}/signup/cancel`, {
+  fetch(url + `/trips/${tripId}/mysignup/cancel`, {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -245,7 +245,7 @@ function tripsCancelTrip(url, tripId) {
     return
   }
 
-  fetch(url + `/trips/${tripId}/cancel`, {
+  fetch(url + `/trips/${tripId}/admin/cancel`, {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -256,7 +256,7 @@ function tripsCancelTrip(url, tripId) {
 }
 
 function tripsPublishTrip(url, tripId) {
-  fetch(url + `/trips/${tripId}/publish`, {
+  fetch(url + `/trips/${tripId}/admin/publish`, {
     credentials: 'include',
     method: 'PATCH'
   })

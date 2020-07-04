@@ -233,7 +233,7 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
 router.get('/:tripId/mysignup', aH(async (req, res) => {
   let [myAccount, mysignup, mystatus, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/myaccount`, req),
-    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/signup`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mysignup`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
   ]);
