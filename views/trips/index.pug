@@ -29,43 +29,13 @@ block content
   <div id="fullCenter">
     <h2>Upcoming Trips</h2>
       each trip in trips
-        <h3 class="smallHeader">
-          <a href="/trips/#{trip.id}">#{trip.name}</a>
-        </h3>
-        | #{trip.date}
-        | &nbsp;&nbsp;&nbsp;
-        <strong>Trip Type: </strong> #{trip.tripTypeName}
-        | &nbsp;&nbsp;&nbsp;
-        <a href="/trips/#{trip.id}">Full Details</a>
-        if trip.admin
-          <span style="color:navy">
-            | &nbsp;|&nbsp;
-            | Attendance: #{trip.attending} / #{trip.maxPeople} +
-            | #{trip.forceAdded}.
-            | <a href="/trips/#{trip.id}/admin">Trip Admin</a>
-          </span>
-        <p>#{trip.summary}</p>
+        include include/trip_list_summary.pug
       else
         <p>No Upcoming Trips</p>
 
     <h2>Recent Trips</h2>
       each trip in recentTrips
-        <h3 class="smallHeader">
-          <a href="/trips/#{trip.id}">#{trip.name}</a>
-        </h3>
-        | #{trip.date}
-        | &nbsp;&nbsp;&nbsp;
-        <strong>Trip Type: </strong> #{trip.tripTypeName}
-        | &nbsp;&nbsp;&nbsp;
-        <a href="/trips/#{trip.id}">Full Details</a>
-        if trip.admin
-          <span style="color:navy">
-            | &nbsp;|&nbsp;
-            | Attendance: #{trip.attending} / #{trip.maxPeople} +
-            | #{trip.forceAdded}.
-            | <a href="/trips/#{trip.id}/admin">Trip Admin</a>
-          </span>
-        <p>#{trip.summary}</p>
+        include include/trip_list_summary.pug
       else
         <p>No Recent Trips</p>
 

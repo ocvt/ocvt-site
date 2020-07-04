@@ -143,20 +143,18 @@ router.get('/:tripId', aH(async (req, res) => {
 }));
 
 router.get('/:tripId/admin', aH(async (req, res) => {
-  let [admin, mystatus, trip] = await Promise.all([
+  let [admin, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/admin`, req),
-    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
   ]);
 
-  if (mystatus.status !== 200) {
+  if (admin.status !== 200) {
     res.redirect(`/trips/${req.params.tripId}`);
     return;
   }
 
-  [admin, mystatus, trip] = await Promise.all([
+  [admin, trip] = await Promise.all([
     admin.json(),
-    mystatus.json(),
     trip.json(),
   ]);
   const signups = {
@@ -204,7 +202,6 @@ router.get('/:tripId/admin', aH(async (req, res) => {
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
     carSeats,
-    mystatus,
     signups,
     trip,
   });

@@ -2,11 +2,7 @@ extends ../_base
 
 block content
   <div id="fullCenter">
-    <h2>#{trip.name}</h2>
-    | #{trip.date} | #{trip.startTime} - #{trip.endTime} &nbsp;&nbsp;&nbsp; <strong>Trip Type: </strong> #{trip.tripTypeName}
-    <br>
-    <br>
-    #{trip.summary}
+    include include/trip_summary.pug
 
     <h2>Signup For This OCVT Trip</h2>
     <form onsubmit="tripsJoinTrip('#{API_URL}', '#{trip.id}', this);return false">

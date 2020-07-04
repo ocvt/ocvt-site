@@ -2,13 +2,7 @@ extends ../_base
 
 block content
   <div id="rightSideLarge">
-    <h2>#{trip.name}</h2>
-    | #{trip.date} | #{trip.startTime} - #{trip.endTime}
-    <br>
-    <strong>Trip Type: </strong> #{trip.tripTypeName}
-    <br>
-    <br>
-    | #{trip.summary}
+    include include/trip_summary.pug
   </div>
 
   <div id="leftSideSmall">
@@ -64,25 +58,25 @@ block content
     </p>
     <br>
     for signup in signups.force
-      include signup_info.pug
+      include include/signup_info.pug
     <br>
 
     if signups.attend.length != 0
       <h3 class="smallHeader">Normal Attending People</h3>
       for signup in signups.attend
-        include signup_info.pug
+        include include/signup_info.pug
       <br>
 
     if signups.wait.length != 0
       <h3 class="smallHeader">Waiting List</h3>
       for signup in signups.wait
-        include signup_info.pug
+        include include/signup_info.pug
       <br>
 
     if signups.attend.length != 0
       <h3 class="smallHeader">Canceled Users</h3>
       for signup in signups.cancel
-        include signup_info.pug
+        include include/signup_info.pug
       <br>
 
     if !trip.cancel

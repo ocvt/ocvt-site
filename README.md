@@ -5,7 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* Convert multi-line date / nbsp chunks to 1 line
+* trip pages nav
 * Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
 * Change Medical condition option selector (and other similar cases) to simple checkbox
 * Consistently use Promise.all() for .json()

@@ -6,12 +6,7 @@ block content
     <br>
     <br>
 
-    <h2>#{trip.name}</h2>
-    | #{trip.date} | #{trip.startTime} - #{trip.endTime}
-    | &nbsp;&nbsp;&nbsp;
-    <strong>Trip Type: </strong> #{trip.tripTypeName}
-    | &nbsp;&nbsp;&nbsp;
-    <p>#{trip.summary}</p>
+    include include/trip_summary.pug
 
     if mystatus.attendingCode === 'FORCE'
       <h2>My Attendance Information <span style="color:gray"> - Attending: Force Added</span></h2>
@@ -22,7 +17,7 @@ block content
     else
       <h2>My Attendance Information <span style="color:black"> - Canceled</span></h2>
 
-    include signup_info.pug
+    include include/signup_info.pug
     <br>
 
     <h2>Cancel My Trip Attendance</h2>
