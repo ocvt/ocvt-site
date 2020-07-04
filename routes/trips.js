@@ -109,14 +109,19 @@ router.get('/newtrip', aH(async (req, res) => {
 }));
 
 router.get('/:tripId', aH(async (req, res) => {
-  let trip = await h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req);
-  // Only attending people can view trip details.
-  // GET /trips/{tripId}/mystatus also works here but this saves an api call in this case
-  const signupStatus = trip.status;
-  if (signupStatus !== 200) {
+  let [mystatus, trip] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
+  ]);
+
+  if (trip.status !== 200) {
     trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   }
-  trip = await trip.json();
+
+  [mystatus, trip] = await Promise.all([
+    mystatus.json(),
+    trip.json(),
+  ]);
 
   const startDate = new Date(trip.startDatetime);
   const endDate = new Date(trip.endDatetime);
@@ -137,7 +142,7 @@ router.get('/:tripId', aH(async (req, res) => {
     title: 'Trips',
     header: 'VIEW TRIP',
     name: await h.getFirstName(req),
-    signupStatus,
+    mystatus,
     trip,
   });
 }));

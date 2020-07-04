@@ -1,17 +1,23 @@
 extends ../_base
 
 block content
-  <div id="fullCenter">
-    <a href="/trips">&lt;--Return to Main Trips Page</a>
-    <br>
-    <br>
-
-    - const now = new Date().toISOString()
-    if trip.startDatetime < now
-      <h1>The Signup Period For This Trip Is Over TODO FIX THIS</h1>
+  <div id="rightSideLarge">
     <h2>#{trip.name}</h2>
     <h3>Trip Leader - #{trip.memberName}</h3>  
+  </div>
         
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+    <ul>
+      <li><a href="/trips">Main Trips Page</a></li>
+      if mystatus.signedUp
+        <li><a href="/trips/#{trip.id}/mysignup">View My Signup Info</a></li>
+      if mystatus.tripLeader
+        <li><a href="/trips/#{trip.id}/admin">Manage Trip</a></li>
+    </ul>
+  </div>
+
+  <div id="fullCenter">
     <table width="100%">
       <tbody>
         <tr>
@@ -111,8 +117,8 @@ block content
       <h1>This trip is canceled</h1>
     else if trip.pastSignupPeriod
       <h1>The signup period for this trip is over</h1>
-    else if signupStatus === 200
-      <h2>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/signup">here</a>.</h2>
+    else if mystatus.signedUp
+      <h2>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/mysignup">here</a>.</h2>
     else
       <h1><a href="/trips/#{trip.id}/jointrip">Signup For This Trip ---></a></h1>
   </div>

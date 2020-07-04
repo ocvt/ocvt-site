@@ -1,13 +1,21 @@
 extends ../_base
 
 block content
-  <div id="fullCenter">
-    <a href="/trips">&lt;--Return to Main Trips Page</a>
-    <br>
-    <br>
-
+  <div id="rightSideLarge">
     include include/trip_summary.pug
+  </div>
 
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+    <ul>
+      <li><a href="/trips">Main Trips Page</a></li>
+      <li><a href="/trips/#{trip.id}">View Trip Details</a></li>
+      if mystatus.tripLeader
+        <li><a href="/trips/#{trip.id}/admin">Manage Trip</a></li>
+    </ul>
+  </div>
+
+  <div id="fullCenter">
     if mystatus.attendingCode === 'FORCE'
       <h2>My Attendance Information <span style="color:gray"> - Attending: Force Added</span></h2>
     else if mystatus.attendingCode === 'ATTEND'
