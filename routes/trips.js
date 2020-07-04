@@ -233,42 +233,42 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
 }));
 
 router.get('/:tripId/mysignup', aH(async (req, res) => {
-  let [myAccount, signup, status, trip] = await Promise.all([
+  let [myAccount, mysignup, mystatus, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/myaccount`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/signup`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
   ]);
 
-  if (signup.status !== 200) {
+  if (mysignup.status !== 200) {
     res.redirect(`/trips/${req.params.tripId}`);
     return;
   }
 
-  [myAccount, signup, status, trip] = await Promise.all([
+  [myAccount, mysignup, mystatus, trip] = await Promise.all([
     myAccount.json(),
-    signup.json(),
-    status.json(),
+    mysignup.json(),
+    mystatus.json(),
     trip.json(),
   ]);
 
-  signup.firstName = myAccount.firstName;
-  signup.lastname = myAccount.lastName;
-  signup.email = myAccount.email;
-  signup.gender = myAccount.gender;
+  mysignup.firstName = myAccount.firstName;
+  mysignup.lastname = myAccount.lastName;
+  mysignup.email = myAccount.email;
+  mysignup.gender = myAccount.gender;
   if (myAccount.medicalCond) {
-    signup.medicalCond = myAccount.medicalCond;
+    mysignup.medicalCond = myAccount.medicalCond;
   }
   if (myAccount.medicalCondDesc) {
-    signup.medicalCondDesc = myAccount.medicalCondDesc;
+    mysignup.medicalCondDesc = myAccount.medicalCondDesc;
   }
 
-  const signupDate = new Date(signup.signupDatetime);
-  signup.date = `${d.dayString[signupDate.getDay()]},
+  const signupDate = new Date(mysignup.signupDatetime);
+  mysignup.date = `${d.dayString[signupDate.getDay()]},
                ${d.monthShortString[signupDate.getMonth()]},
                ${signupDate.getDate()},
                ${signupDate.getFullYear()}`;
-  signup.time = signupDate.toLocaleTimeString();
+  mysignup.time = signupDate.toLocaleTimeString();
 
   const tripDate = new Date(trip.startDatetime);
   trip.date = `${d.dayString[tripDate.getDay()]},
@@ -284,8 +284,8 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
     header: 'TRIP ATTENDANCE',
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
-    signup,
-    status,
+    signup: mysignup,
+    mystatus,
     trip,
   });
 }));

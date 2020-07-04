@@ -5,8 +5,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* status -> mystatus where applicable
-* Change signup -> attendance where applicable
 * Convert multi-line date / nbsp chunks to 1 line
 * Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
 * Change Medical condition option selector (and other similar cases) to simple checkbox
