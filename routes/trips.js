@@ -227,7 +227,7 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
   });
 }));
 
-router.get('/:tripId/signup', aH(async (req, res) => {
+router.get('/:tripId/mysignup', aH(async (req, res) => {
   let [myAccount, signup, status, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/myaccount`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/signup`, req),
@@ -247,6 +247,17 @@ router.get('/:tripId/signup', aH(async (req, res) => {
     trip.json(),
   ]);
 
+  signup.firstName = myAccount.firstName;
+  signup.lastname = myAccount.lastName;
+  signup.email = myAccount.email;
+  signup.gender = myAccount.gender;
+  if (myAccount.medicalCond) {
+    signup.medicalCond = myAccount.medicalCond;
+  }
+  if (myAccount.medicalCondDesc) {
+    signup.medicalCondDesc = myAccount.medicalCondDesc;
+  }
+
   const signupDate = new Date(signup.signupDatetime);
   signup.date = `${d.dayString[signupDate.getDay()]},
                ${d.monthShortString[signupDate.getMonth()]},
@@ -263,12 +274,11 @@ router.get('/:tripId/signup', aH(async (req, res) => {
   trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
-  res.render('trips/signup', {
+  res.render('trips/mysignup', {
     title: 'Trip Attendance',
     header: 'TRIP ATTENDANCE',
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
-    myAccount,
     signup,
     status,
     trip,
