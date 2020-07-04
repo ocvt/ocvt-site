@@ -10,7 +10,7 @@ router.get('/', aH(async (req, res) => {
   const [trips, /* homePhotos, */news] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
     // TODO remove after testign
-    //    h.fetchHelper(h.API_URL + '/homephotos', req).then(h => h.json()),
+    //    h.fetchHelper(`${h.API_URL}/homephotos`, req).then(h => h.json()),
     h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()),
   ]);
 
