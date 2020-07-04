@@ -5,7 +5,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* A-Z order args in res.render?
 * status -> mystatus where applicable
 * Change signup -> attendance where applicable
 * Convert multi-line date / nbsp chunks to 1 line

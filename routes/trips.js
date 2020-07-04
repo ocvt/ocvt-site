@@ -42,8 +42,8 @@ router.get('/', aH(async (req, res) => {
     title: 'Trips',
     header: 'OCVT TRIPS',
     name: await h.getFirstName(req),
-    trips,
     recentTrips,
+    trips,
   });
 }));
 

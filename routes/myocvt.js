@@ -44,9 +44,9 @@ router.get('/', aH(async (req, res) => {
     header: 'MY OCVT',
     name,
     API_URL: h.API_URL,
+    generalTypes: d.generalTypes,
     myAccount,
     notifications: notifications.notifications,
-    generalTypes: d.generalTypes,
     tripTypes: d.tripTypes,
   });
 }));
