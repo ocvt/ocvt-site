@@ -1,0 +1,147 @@
+extends ../_base
+
+block content
+  <div id="rightSideLarge">
+    <h2>#{trip.name}</h2>
+    | #{trip.date} | #{trip.startTime} - #{trip.endTime}
+    <br>
+    <strong>Trip Type: </strong> #{trip.tripTypeName}
+    <br>
+    <br>
+    | #{trip.summary}
+  </div>
+
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+    <ul>
+      <li><a href="/trips/#{trip.id}">View Trip</a></li>
+      <li><a href="/trips">Main Page</a></li>
+      <li><a href="/trips/mytrips">My Trips</a></li>
+      <li><a href="/trips/#{trip.id}/signup">My Attendance Info</a></li>
+      <li><a href="/trips/#{trip.id}/printroster">Printable Roster</a></li>
+    </ul>
+  </div>
+  
+  <br>
+  <div id="fullCenter">
+    if trip.cancel
+      <h2>Your trip has been canceled</h2>
+      <p>
+        | This trip is canceled and can no longer be altered. Please create a new trip, thanks.
+        <br>
+        | The trip roster is still displayed for reference.
+      </p>
+    else if !trip.publish
+      <h2>Your Trip Has Not Been Published Yet!</h2>
+      <p>
+        | Your trip has been saved but not made public yet. Please review your trip information and
+        | when you are ready to announce your trip select the publish option below. After publishing
+        | your trip will be announced and appear on the trips  page for memebers to sign up for.
+      </p>
+      <br>
+      <div align="center">
+        <form onsubmit="tripsPublishTrip('#{API_URL}', '#{trip.id}');return false"><button type="submit">Publish!</button></form>
+      </div>
+
+    <h2>Trip Roster</h2>
+    <table>
+      <tbody>
+        <tr>
+          <td style="border-bottom:1px solid black;"><strong>Total/Maximum:</strong></td>
+          <td style="border-bottom:1px solid black;">#{signups.attend.length}/#{trip.maxPeople} +#{signups.force.length}</td>
+        </tr>
+        <tr>
+          <td><strong>Car Seats Available:</strong></td>
+          <td>#{carSeats}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="smallHeader">Force Added People</h3>
+    <p>
+      | These attendees are forced added to the trip. They bypass the normal list and do not count
+      | towards the maximum person limit.
+    </p>
+    <br>
+    for signup in signups.force
+      include signup_info.pug
+    <br>
+
+    if signups.attend.length != 0
+      <h3 class="smallHeader">Normal Attending People</h3>
+      for signup in signups.attend
+        include signup_info.pug
+      <br>
+
+    if signups.wait.length != 0
+      <h3 class="smallHeader">Waiting List</h3>
+      for signup in signups.wait
+        include signup_info.pug
+      <br>
+
+    if signups.attend.length != 0
+      <h3 class="smallHeader">Canceled Users</h3>
+      for signup in signups.cancel
+        include signup_info.pug
+      <br>
+
+    if !trip.cancel
+      <h2>Message Attendees</h2>
+      <br>
+      <h3 class="smallHeader">Send Reminder</h3>
+      <p>Click below to send a generic E-mail reminder to the all the trip attendees.</p>
+      <br>
+      <div align="center">
+        <form action="" method="post"> <button type="submit" name="reminder">Send Reminder</button></form>
+      </div>
+
+      <h3 class="smallHeader">Custom Message</h3>
+      <form action="" method="post">
+        <table id="tripform">
+          <tbody>
+            <tr>
+              <td valign="top"><strong>Send Message As:</strong>*</td>
+              <td>
+                <select name="SendAs">
+                  <option value="0">dougatwater@vt.edu</option>
+                  <option value="1">OCVT-Websystem@vt.edu</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top"><strong>Send Message To</strong>:*</td>
+              <td>
+                <select name="SendTo">
+                  <option value="ATTENDEES">Attendees</option>
+                  <option value="WAITING">Waiting List Only</option>
+                  <option value="ALL">Both Waiting and Attending</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top"><strong>Subject</strong>:*</td>
+              <td><input type="" name="Subject" size="50" value=""></td>
+            </tr>
+            <tr>
+              <td valign="top"><strong>Message To Send</strong>:*</td>
+              <td><textarea name="messagebody" rows="4" cols="50"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Fields marked with "*" are required.</p>
+        <br>
+        <button type="submit" name="message">Send Custom Message</button>
+      </form>
+      <br>
+
+    if !trip.cancel
+      <h2>Cancel Trip</h2>
+      <p>
+        | Click below to cancel this trip. All attendees and those on the waiting list will be notified
+        | of the cancellation. This action is <strong>irreversible</strong>!
+      </p>
+      <br>
+      <div align="center">
+        <form onsubmit="tripsCancelTrip('#{API_URL}', '#{trip.id}');return false"><button type="submit">Cancel</button></form>
+      </div>
+  </div>

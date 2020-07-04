@@ -238,3 +238,30 @@ function tripsCancelSignup(url, tripId) {
     return;
   });
 }
+
+function tripsCancelTrip(url, tripId) {
+  if (!confirm('Are you sure you want to cancel this trip? This cannot be undone!')) {
+    window.location.href = `/trips/${tripId}/admin`;
+    return
+  }
+
+  fetch(url + `/trips/${tripId}/cancel`, {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.href = `/trips/${tripId}/admin`;
+    return;
+  });
+}
+
+function tripsPublishTrip(url, tripId) {
+  fetch(url + `/trips/${tripId}/publish`, {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.href = `/trips/${tripId}/admin`;
+    return;
+  });
+}

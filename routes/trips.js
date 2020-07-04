@@ -141,6 +141,70 @@ router.get('/:tripId', aH(async (req, res) => {
   });
 }));
 
+router.get('/:tripId/admin', aH(async (req, res) => {
+  let [admin, mystatus, trip] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/admin`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
+  ]);
+
+  if (mystatus.status !== 200) {
+    res.redirect(`/trips/${req.params.tripId}`);
+    return;
+  }
+
+  [admin, mystatus, trip] = await Promise.all([
+    admin.json(),
+    mystatus.json(),
+    trip.json(),
+  ]);
+  const signups = { attend: [], boot: [], cancel: [], force: [], wait: [] };
+  let carSeats = 0;
+
+  admin.tripSignups.forEach(signup => {
+    const signupDate = new Date(signup.signupDatetime);
+    signup.date = `${d.dayString[signupDate.getDay()]},
+                       ${d.monthShortString[signupDate.getMonth()]},
+                       ${signupDate.getDate()},
+                       ${signupDate.getFullYear()}`;
+    signup.time = signupDate.toLocaleTimeString();
+
+    if (signup.attendingCode === 'ATTEND') {
+      carSeats += 1;
+      signups.attend.push(signup);
+    } else if (signup.attendingCode === 'FORCE') {
+      carSeats += 1;
+      signups.force.push(signup);
+    } else if (signup.attendingCode === 'BOOT') {
+      signups.boot.push(signup);
+    } else if (signup.attendingCode === 'CANCEL') {
+      signups.cancel.push(signup);
+    } else {
+      signups.wait.push(signup);
+    }
+  });
+
+  const tripDate = new Date(trip.startDatetime);
+  trip.date = `${d.dayString[tripDate.getDay()]},
+               ${d.monthShortString[tripDate.getMonth()]},
+               ${tripDate.getDate()},
+               ${tripDate.getFullYear()}`;
+  trip.startTime = tripDate.toLocaleTimeString();
+  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  res.render('trips/admin', {
+    title: 'Trip Admin',
+    header: 'TRIP ADMIN',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    carSeats,
+    mystatus,
+    signups,
+    trip,
+  });
+}));
+
 router.get('/:tripId/jointrip', aH(async (req, res) => {
   let trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   trip = await trip.json();
