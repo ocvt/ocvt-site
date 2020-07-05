@@ -10,9 +10,13 @@ block content
     <ul>
       <li><a href="/trips">Main Trips Page</a></li>
       <li><a href="/trips/#{trip.id}">View Trip Details</a></li>
-      if mystatus.tripLeader
-        <li><a href="/trips/#{trip.id}/admin">Manage Trip</a></li>
     </ul>
+
+    if mystatus.tripLeader
+      <h3>Manage This Trip</h3>
+      <ul>
+        <li><a href="/trips/#{trip.id}/admin">Manage Trip</a></li>
+      </ul>
   </div>
 
   <div id="fullCenter">

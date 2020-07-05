@@ -71,6 +71,56 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   });
 }));
 
+router.get('/mytrips', aH(async (req, res) => {
+  let mytrips = await h.fetchHelper(`${h.API_URL}/trips/mytrips`, req);
+
+  if (mytrips.status !== 200) {
+    res.redirect('/myocvt');
+    return;
+  }
+
+  mytrips = await mytrips.json().then((m) => m.trips);
+  const trips = {
+    canceled: [], past: [], upcoming: [], unpublished: [],
+  };
+
+  mytrips.forEach((trip) => {
+    const tripStartDate = new Date(trip.startDatetime);
+    const tripEndDate = new Date(trip.endDatetime);
+    // eslint-disable-next-line no-param-reassign
+    trip.date = `${d.dayString[tripStartDate.getDay()]},
+                 ${d.monthShortString[tripStartDate.getMonth()]},
+                 ${tripStartDate.getDate()},
+                 ${tripStartDate.getFullYear()}`;
+    // eslint-disable-next-line no-param-reassign
+    trip.startTime = tripStartDate.toLocaleTimeString();
+    // eslint-disable-next-line no-param-reassign
+    trip.endTime = tripEndDate.toLocaleTimeString();
+    // eslint-disable-next-line no-param-reassign
+    trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+    // eslint-disable-next-line no-param-reassign
+    trip.inPast = tripEndDate < Date.now();
+
+    if (trip.cancel) {
+      trips.canceled.push(trip);
+    } else if (!trip.publish) {
+      trips.unpublished.push(trip);
+    } else if (trip.inPast) {
+      trips.past.push(trip);
+    } else {
+      trips.upcoming.push(trip);
+    }
+  });
+
+  res.render('trips/mytrips', {
+    title: 'My Trips',
+    header: 'TRIP ADMINISTRATION',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    trips,
+  });
+}));
+
 router.get('/attendance', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -168,9 +218,9 @@ router.get('/:tripId/admin', aH(async (req, res) => {
     const signupDate = new Date(signup.signupDatetime);
     // eslint-disable-next-line no-param-reassign
     signup.date = `${d.dayString[signupDate.getDay()]},
-                       ${d.monthShortString[signupDate.getMonth()]},
-                       ${signupDate.getDate()},
-                       ${signupDate.getFullYear()}`;
+                   ${d.monthShortString[signupDate.getMonth()]},
+                   ${signupDate.getDate()},
+                   ${signupDate.getFullYear()}`;
     // eslint-disable-next-line no-param-reassign
     signup.time = signupDate.toLocaleTimeString();
 
