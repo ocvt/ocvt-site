@@ -5,6 +5,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Printable Roster
+* Ensure Phone is listed
 * Allow officers to access /admin for any trips
 * make helper function for pretty printing trip dates
 * Validate trip input data

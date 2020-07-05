@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 
 const { API_URL } = process.env;
 
+const d = require('./data.js');
+
 async function fetchHelper(url, req) {
   const opts = {
     credentials: 'include',
@@ -18,10 +20,19 @@ async function getFirstName(req) {
   return { status: name.status, json: await name.json() };
 }
 
+function prettyDate(dateString) {
+  const date = new Date(dateString);
+  return `${d.dayString[date.getDay()]},
+          ${d.monthShortString[date.getMonth()]},
+          ${date.getDate()},
+          ${date.getFullYear()}`;
+}
+
 module.exports = {
   API_URL,
   fetchHelper,
   getFirstName,
+  prettyDate,
 };
 // module.exports.API_URL = API_URL;
 // module.exports.fetchHelper = fetchHelper;

@@ -18,19 +18,11 @@ router.get('/', aH(async (req, res) => {
 
   // Pretty print date & type
   for (let i = 0; i < trips.length; i += 1) {
-    const date = new Date(trips[i].startDatetime);
-    trips[i].date = `${d.dayString[date.getDay()]},
-                     ${d.monthShortString[date.getMonth()]},
-                     ${date.getDate()},
-                     ${date.getFullYear()}`;
+    trips[i].date = h.prettyDate(trips[i].startDatetime);
     trips[i].tripTypeName = d.tripTypes[trips[i].notificationTypeId].name;
   }
   for (let i = 0; i < recentTrips.length; i += 1) {
-    const date = new Date(recentTrips[i].startDatetime);
-    recentTrips[i].date = `${d.dayString[date.getDay()]},
-                           ${d.monthShortString[date.getMonth()]},
-                           ${date.getDate()},
-                           ${date.getFullYear()}`;
+    recentTrips[i].date = h.prettyDate(recentTrips[i].startDatetime);
     recentTrips[i].tripTypeName = d.tripTypes[recentTrips[i].notificationTypeId].name;
   }
 
@@ -55,11 +47,7 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
 
   // Pretty print date & type
   for (let i = 0; i < pastTrips.length; i += 1) {
-    const date = new Date(pastTrips[i].startDatetime);
-    pastTrips[i].date = `${d.dayString[date.getDay()]},
-                           ${d.monthShortString[date.getMonth()]},
-                           ${date.getDate()},
-                           ${date.getFullYear()}`;
+    pastTrips[i].date = h.prettyDate(pastTrips[i].startDatetime);
     pastTrips[i].tripTypeName = d.tripTypes[pastTrips[i].notificationTypeId].name;
   }
 
@@ -84,20 +72,17 @@ router.get('/myattendance', aH(async (req, res) => {
 
   for (let i = 0; i < myattendance.trips.length; i += 1) {
     const trip = myattendance.trips[i];
-    const tripStartDate = new Date(trip.startDatetime);
-    const tripEndDate = new Date(trip.endDatetime);
+    const startDate = new Date(trip.startDatetime);
+    const endDate = new Date(trip.endDatetime);
 
-    trip.date = `${d.dayString[tripStartDate.getDay()]},
-                 ${d.monthShortString[tripStartDate.getMonth()]},
-                 ${tripStartDate.getDate()},
-                 ${tripStartDate.getFullYear()}`;
-    trip.startTime = tripStartDate.toLocaleTimeString();
-    trip.endTime = tripEndDate.toLocaleTimeString();
+    trip.date = h.prettyDate(trip.startDatetime);
+    trip.startTime = startDate.toLocaleTimeString();
+    trip.endTime = endDate.toLocaleTimeString();
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
     if (myattendance.tripSignups[i].attendingCode === 'CANCEL') {
       trips.cancel.push(trip);
-    } else if (tripEndDate < Date.now()) {
+    } else if (endDate < Date.now()) {
       trips.past.push(trip);
     } else {
       trips.upcoming.push(trip);
@@ -128,17 +113,14 @@ router.get('/mytrips', aH(async (req, res) => {
   };
 
   mytrips.forEach((trip) => {
-    const tripStartDate = new Date(trip.startDatetime);
-    const tripEndDate = new Date(trip.endDatetime);
+    const startDate = new Date(trip.startDatetime);
+    const endDate = new Date(trip.endDatetime);
     // eslint-disable-next-line no-param-reassign
-    trip.date = `${d.dayString[tripStartDate.getDay()]},
-                 ${d.monthShortString[tripStartDate.getMonth()]},
-                 ${tripStartDate.getDate()},
-                 ${tripStartDate.getFullYear()}`;
+    trip.date = h.prettyDate(trip.startDatetime);
     // eslint-disable-next-line no-param-reassign
-    trip.startTime = tripStartDate.toLocaleTimeString();
+    trip.startTime = startDate.toLocaleTimeString();
     // eslint-disable-next-line no-param-reassign
-    trip.endTime = tripEndDate.toLocaleTimeString();
+    trip.endTime = endDate.toLocaleTimeString();
     // eslint-disable-next-line no-param-reassign
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
@@ -146,7 +128,7 @@ router.get('/mytrips', aH(async (req, res) => {
       trips.canceled.push(trip);
     } else if (!trip.publish) {
       trips.unpublished.push(trip);
-    } else if (tripEndDate < Date.now()) {
+    } else if (endDate < Date.now()) {
       trips.past.push(trip);
     } else {
       trips.upcoming.push(trip);
@@ -196,10 +178,7 @@ router.get('/:tripId', aH(async (req, res) => {
 
   const startDate = new Date(trip.startDatetime);
   const endDate = new Date(trip.endDatetime);
-  trip.date = `${d.dayString[startDate.getDay()]},
-               ${d.monthShortString[startDate.getMonth()]},
-               ${startDate.getDate()},
-               ${startDate.getFullYear()}`;
+  trip.date = h.prettyDate(trip.startDatetime);
   trip.startTime = startDate.toLocaleTimeString();
   trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
@@ -242,10 +221,7 @@ router.get('/:tripId/admin', aH(async (req, res) => {
   admin.tripSignups.forEach((signup) => {
     const signupDate = new Date(signup.signupDatetime);
     // eslint-disable-next-line no-param-reassign
-    signup.date = `${d.dayString[signupDate.getDay()]},
-                   ${d.monthShortString[signupDate.getMonth()]},
-                   ${signupDate.getDate()},
-                   ${signupDate.getFullYear()}`;
+    signup.date = h.prettyDate(signup.signupDatetime);
     // eslint-disable-next-line no-param-reassign
     signup.time = signupDate.toLocaleTimeString();
 
@@ -264,13 +240,11 @@ router.get('/:tripId/admin', aH(async (req, res) => {
     }
   });
 
-  const tripDate = new Date(trip.startDatetime);
-  trip.date = `${d.dayString[tripDate.getDay()]},
-               ${d.monthShortString[tripDate.getMonth()]},
-               ${tripDate.getDate()},
-               ${tripDate.getFullYear()}`;
-  trip.startTime = tripDate.toLocaleTimeString();
-  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  const startDate = new Date(trip.startDatetime);
+  const endDate = new Date(trip.endDatetime);
+  trip.date = h.prettyDate(trip.startDatetime);
+  trip.startTime = startDate.toLocaleTimeString();
+  trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
   res.render('trips/admin', {
@@ -287,13 +261,11 @@ router.get('/:tripId/admin', aH(async (req, res) => {
 router.get('/:tripId/jointrip', aH(async (req, res) => {
   const trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json());
 
-  const date = new Date(trip.startDatetime);
-  trip.date = `${d.dayString[date.getDay()]},
-               ${d.monthShortString[date.getMonth()]},
-               ${date.getDate()},
-               ${date.getFullYear()}`;
-  trip.startTime = date.toLocaleTimeString();
-  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  const startDate = new Date(trip.startDatetime);
+  const endDate = new Date(trip.endDatetime);
+  trip.date = h.prettyDate(trip.startDatetime);
+  trip.startTime = startDate.toLocaleTimeString();
+  trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
   res.render('trips/jointrip', {
@@ -337,19 +309,14 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
   }
 
   const signupDate = new Date(mysignup.signupDatetime);
-  mysignup.date = `${d.dayString[signupDate.getDay()]},
-               ${d.monthShortString[signupDate.getMonth()]},
-               ${signupDate.getDate()},
-               ${signupDate.getFullYear()}`;
+  mysignup.date = h.prettyDate(mysignup.signupDatetime);
   mysignup.time = signupDate.toLocaleTimeString();
 
-  const tripDate = new Date(trip.startDatetime);
-  trip.date = `${d.dayString[tripDate.getDay()]},
-               ${d.monthShortString[tripDate.getMonth()]},
-               ${tripDate.getDate()},
-               ${tripDate.getFullYear()}`;
-  trip.startTime = tripDate.toLocaleTimeString();
-  trip.endTime = new Date(trip.endDatetime).toLocaleTimeString();
+  const startDate = new Date(trip.startDatetime);
+  const endDate = new Date(trip.endDatetime);
+  trip.date = h.prettyDate(trip.startDatetime);
+  trip.startTime = startDate.toLocaleTimeString();
+  trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
   res.render('trips/mysignup', {
