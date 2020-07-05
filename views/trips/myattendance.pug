@@ -1,0 +1,32 @@
+extends ../_base
+
+block content
+  <div id="rightSideLarge">
+    <p>This page lists all trips you've attended.</p>
+  </div>
+
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+
+    <ul>
+      <li><a href="/trips">Main Trips Page</a></li>
+      <li><a href="/trips/mytrips">View My Trips</a></li>
+    </ul>
+  </div>
+
+  <div id="fullCenter">
+    if trips.upcoming.length !== 0
+      <h2>Upcoming Trips I'm Signed Up For</h2>
+      for trip in trips.upcoming
+        include include/trip_list_summary.pug
+
+    if trips.past.length !== 0
+      <h2>Past Attended Trips</h2>
+      for trip in trips.past
+        include include/trip_list_summary.pug
+
+    if trips.canceled.length !== 0
+      <h2>Trips I've Canceled From</h2>
+      for trip in trips.canceled
+        include include/trip_list_summary.pug
+  </div>

@@ -5,6 +5,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Create separate sections for BOOT/WAIT codes in myattendance?
+* make helper function for pretty printing trip dates
 * Validate trip input data
 * Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
 * Showcase old OCVT data (ex. oldsite/gpx)

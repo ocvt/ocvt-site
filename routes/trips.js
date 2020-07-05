@@ -71,6 +71,49 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   });
 }));
 
+router.get('/myattendance', aH(async (req, res) => {
+  let myattendance = await h.fetchHelper(`${h.API_URL}/trips/myattendance`, req);
+
+  if (myattendance.status !== 200) {
+    res.redirect('/myocvt');
+    return;
+  }
+
+  myattendance = await myattendance.json();
+  const trips = { canceled: [], past: [], upcoming: [] };
+
+  for (let i = 0; i < myattendance.trips.length; i += 1) {
+    const trip = myattendance.trips[i];
+    const tripStartDate = new Date(trip.startDatetime);
+    const tripEndDate = new Date(trip.endDatetime);
+
+    trip.date = `${d.dayString[tripStartDate.getDay()]},
+                 ${d.monthShortString[tripStartDate.getMonth()]},
+                 ${tripStartDate.getDate()},
+                 ${tripStartDate.getFullYear()}`;
+    trip.startTime = tripStartDate.toLocaleTimeString();
+    trip.endTime = tripEndDate.toLocaleTimeString();
+    trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+    if (myattendance.tripSignups[i].attendingCode === 'CANCEL') {
+      trips.cancel.push(trip);
+    } else if (tripEndDate < Date.now()) {
+      trips.past.push(trip);
+    } else {
+      trips.upcoming.push(trip);
+    }
+  }
+
+  res.render('trips/myattendance', {
+    title: 'Trip Attendance',
+    header: 'TRIP ATTENDANCE',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    trips,
+    tripSignups: myattendance.tripSignups,
+  });
+}));
+
 router.get('/mytrips', aH(async (req, res) => {
   let mytrips = await h.fetchHelper(`${h.API_URL}/trips/mytrips`, req);
 
@@ -98,14 +141,12 @@ router.get('/mytrips', aH(async (req, res) => {
     trip.endTime = tripEndDate.toLocaleTimeString();
     // eslint-disable-next-line no-param-reassign
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
-    // eslint-disable-next-line no-param-reassign
-    trip.inPast = tripEndDate < Date.now();
 
     if (trip.cancel) {
       trips.canceled.push(trip);
     } else if (!trip.publish) {
       trips.unpublished.push(trip);
-    } else if (trip.inPast) {
+    } else if (tripEndDate < Date.now()) {
       trips.past.push(trip);
     } else {
       trips.upcoming.push(trip);
@@ -118,22 +159,6 @@ router.get('/mytrips', aH(async (req, res) => {
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
     trips,
-  });
-}));
-
-router.get('/attendance', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
-
-  if (name.status !== 200) {
-    res.redirect('/myocvt');
-    return;
-  }
-
-  res.render('trips/attendance', {
-    title: 'Trip Attendance',
-    header: 'TRIP ATTENDANCE',
-    name,
-    API_URL: h.API_URL,
   });
 }));
 
