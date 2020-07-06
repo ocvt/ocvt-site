@@ -2,7 +2,10 @@
   <tbody>
     <tr>
       <td><strong style="color:#475278">Signup Date: </strong>#{signup.date}, #{signup.time}</td>
-      <td></td>
+      if signup.cellNumber
+        <td><strong style="color:#475278">Phone:</strong> #{signup.cellNumber}</td>
+      else
+        <td></td>
       <td colspan="5" width="300px" align="center"></td>
     </tr>
     <tr>

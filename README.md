@@ -6,7 +6,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 ## TODO
 
 * Ensure all input is sanitized (signup notes, other free text fields)
-* Ensure Phone is listed
 * Allow officers to access /admin for any trips
 * Validate trip input data
 * Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
