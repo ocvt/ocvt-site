@@ -1,0 +1,32 @@
+<tr>
+  <td>#{signup.firstName} #{signup.lastName}</td>
+
+  <td>#{signup.cellNumber}</td>
+  - const genders = { M: 'Male', F: 'Female', O: 'Other', P: 'Prefer not to say' }
+  <td>#{genders[signup.gender]}</td>
+
+  if signup.medicalCond
+    <td>Yes</td>
+  else
+    <td>No</td>
+
+  if signup.medicalCondDesc
+    <td>#{signup.medicalCondDesc}</td>
+  else
+    <td></td>
+
+  if signup.driver
+    <td>Yes</td>
+  else
+    <td>No</td>
+
+  if signup.pet
+    <td>Yes</td>
+  else
+    <td>No</td>
+
+  if signup.notes
+    <td>#{signup.notes}</td>
+  else
+    <td>None</td>
+</tr>

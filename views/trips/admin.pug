@@ -64,26 +64,26 @@ block content
       include include/signup_info.pug
     <br>
 
-    if signups.attend.length != 0
+    if signups.attend.length !== 0
       <h3 class="smallHeader">Normal Attending People</h3>
       for signup in signups.attend
         include include/signup_info.pug
       <br>
 
-    if signups.wait.length != 0
+    if signups.wait.length !== 0
       <h3 class="smallHeader">Waiting List</h3>
       for signup in signups.wait
         include include/signup_info.pug
       <br>
 
-    if signups.cancel.length != 0
+    if signups.cancel.length !== 0
       <h3 class="smallHeader">Waiting List</h3>
       for signup in signups.cancel
         include include/signup_info.pug
       <br>
 
-    if signups.boot.length != 0
-      <h3 class="smallHeader">Canceled Users</h3>
+    if signups.boot.length !== 0
+      <h3 class="smallHeader">Booted Users</h3>
       for signup in signups.boot
         include include/signup_info.pug
       <br>

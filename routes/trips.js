@@ -197,13 +197,13 @@ router.get('/:tripId', aH(async (req, res) => {
   });
 }));
 
-router.get('/:tripId/admin', aH(async (req, res) => {
+router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   let [admin, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/admin`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
   ]);
 
-  if (admin.status !== 200) {
+  if (admin.status !== 200 || (req.params.print && req.params.print !== 'print')) {
     res.redirect(`/trips/${req.params.tripId}`);
     return;
   }
@@ -247,15 +247,23 @@ router.get('/:tripId/admin', aH(async (req, res) => {
   trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
-  res.render('trips/admin', {
-    title: 'Trip Admin',
-    header: 'TRIP ADMIN',
-    name: await h.getFirstName(req),
-    API_URL: h.API_URL,
-    carSeats,
-    signups,
-    trip,
-  });
+  if (!req.params.print) {
+    res.render('trips/admin', {
+      title: 'Trip Admin',
+      header: 'TRIP ADMIN',
+      name: await h.getFirstName(req),
+      API_URL: h.API_URL,
+      carSeats,
+      signups,
+      trip,
+    });
+  } else {
+    res.render('trips/admin_print', {
+      carSeats,
+      signups,
+      trip,
+    });
+  }
 }));
 
 router.get('/:tripId/jointrip', aH(async (req, res) => {
