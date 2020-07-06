@@ -1,4 +1,7 @@
 <h3 class="smallHeader"><a href="/trips/#{trip.id}">#{trip.name}</a></h3>
 | #{trip.date} <strong>Trip Type: </strong> #{trip.tripTypeName} &nbsp;&nbsp;&nbsp;
-<a href="/trips/#{trip.id}">Full Details</a>
+<a href="/trips/#{trip.id}">Full Details</a>&nbsp;&nbsp;&nbsp;
+if name.json.officer
+  <a href="/trips/#{trip.id}/admin">Manage Trip</a>
+
 <p>#{trip.summary}</p>

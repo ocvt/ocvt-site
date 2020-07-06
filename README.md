@@ -5,6 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* List attendance next to Full Details + admin link for leaders & officers
 * Ensure all input is sanitized (signup notes, other free text fields)
 * Allow officers to access /admin for any trips
 * Validate trip input data
