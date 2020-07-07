@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/ocvt.css">
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
+</head>
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Manual Order Entry</h2>
+
+  <h3>Select Order Type</h3>
+  | Generate Code for Non-Existent User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="generateCode" checked>&nbsp;&nbsp;
+  | Manual Order for Existing User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="manualOrder">
+  <br>
+  <br>
+
+  <div id="generateCode">
+    <h3>Generate Store Code</h3>
+    <form onsubmit="webtoolsGenerateCode('#{API_URL}', this);return false">
+      <table>
+        <tr>
+          <td>Store Item:</td>
+          <td>
+            <input type="radio" name="storeItemId" value="dues"></input> Basic Dues - $20.
+            <br>
+            <input type="radio" name="storeItemId" value="duesShirt"></input> Dues + Shirt - $30.
+            <br>
+            <input type="radio" name="storeItemId" value="duesSpecial" checked></input> Freshman Special - $65.
+            <br>
+            <input type="radio" name="storeItemId" value="shirt"></input> Shirt - $20.
+          </td>
+        </tr>
+        <tr>
+          <td>Item Count:</td>
+          <td><input type="number" name="storeItemCount" value="1"></input></td>
+        </tr>
+        <tr>
+          <td>Completed?</td>
+          <td><input type="checkbox" name="completed"></td>
+        </tr>
+        <tr>
+          <td>Notes:</td>
+          <td><textarea name="note" rows="4" cols="50"></textarea></td>
+        </tr>
+      </table>
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+
+  <div id="manualOrder">
+    <h3>Order Details</h3>
+    <form onsubmit="webtoolsSubmitOrder('#{API_URL}', this);return false">
+      <table>
+        <tr>
+          <td>Member Id:</td>
+          <td><input type="number" name="memberId"></td>
+        </tr>
+        <tr>
+          <td>Store Item:</td>
+          <td>
+            <input type="radio" name="storeItemId" value="dues"></input> Basic Dues - $20.
+            <br>
+            <input type="radio" name="storeItemId" value="duesShirt"></input> Dues + Shirt - $30.
+            <br>
+            <input type="radio" name="storeItemId" value="duesSpecial" checked></input> Freshman Special - $65.
+            <br>
+            <input type="radio" name="storeItemId" value="shirt"></input> Shirt - $20.
+          </td>
+        </tr>
+        <tr>
+          <td>Item Count:</td>
+          <td><input type="number" name="storeItemCount" value="1"></input></td>
+        </tr>
+        <tr>
+          <td>Completed?</td>
+          <td><input type="checkbox" name="completed"></td>
+        </tr>
+        <tr>
+          <td>Notes:</td>
+          <td><textarea name="note" rows="4" cols="50"></textarea></td>
+        </tr>
+      </table>
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</html

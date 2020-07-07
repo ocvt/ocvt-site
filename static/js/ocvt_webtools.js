@@ -1,3 +1,9 @@
+function webtoolsOrderToggle(showId) {
+  const hideId = { manualOrder: 'generateCode', generateCode: 'manualOrder' };
+  document.getElementById(hideId[showId]).style.display = 'none';
+  document.getElementById(showId).style.display = 'block';
+}
+
 function webtoolsAddOfficer(url, form) {
   const officerData = {
     memberId: parseInt(form.memberId.value),

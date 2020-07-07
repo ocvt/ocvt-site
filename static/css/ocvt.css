@@ -468,3 +468,7 @@ tripPerson strong {
 .webtools td, .webtools th {
   vertical-align: top;
 }
+
+.webtools #manualOrder {
+  display: none;
+}

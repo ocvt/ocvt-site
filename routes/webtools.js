@@ -106,4 +106,17 @@ router.get('/orders/incomplete', aH(async (req, res) => {
   });
 }));
 
+router.get('/orders/manual', aH(async (req, res) => {
+  const name = await h.getFirstName(req);
+
+  if (!name.json.officer) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('webtools/orders_manual', {
+    API_URL: h.API_URL,
+  });
+}));
+
 module.exports = router;
