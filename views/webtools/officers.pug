@@ -4,67 +4,65 @@
   <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
 </head>
 <body>
-  <div>
-    <a href="/webtools">&lt;-- Back to Webtools Home</a>
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
 
-    <h2>Officers</h2>
+  <h2>Officers</h2>
 
-    <h3>Add new officer</h3>
-    <form onsubmit="webtoolsAddOfficer('#{API_URL}', this);return false">
-      <table>
-        <tr>
-          <td>Member #:</td>
-          <td><input type="number" name="memberId"></input></td>
-        </tr>
-        <tr>
-          <td>Expiration (YYYY-MM-DD):</td>
-          <td><input type="text" name="expireDatetime"></input></td>
-        </tr>
-        <tr>
-          <td>Position:</td>
-          <td><input type="text" name="position"></input></td>
-        </tr>
-        <tr>
-          <td>Security (higher = more permissions):</td>
-          <td><input type="number" name="security"></input></td>
-        </tr>
-      </table>
-      <button type="submit">Submit</button>
-    </form>
-    <br>
-
-    <table cellpadding="2" cellspacing="0">
+  <h3>Add new officer</h3>
+  <form onsubmit="webtoolsAddOfficer('#{API_URL}', this);return false">
+    <table>
       <tr>
-        <th>&nbsp;</th>
-        <th>Member #&nbsp;</th>
-        <th>First Name&nbsp;</th>
-        <th>Last Name&nbsp;</th>
-        <th>Email&nbsp;</th>
-        <th>Cell Number&nbsp;</th>
-        <th>Position&nbsp;</th>
-        <th>Security (higher = more permissions)&nbsp;</th>
-        <th>Expiration</th>
+        <td>Member #:</td>
+        <td><input type="number" name="memberId"></input></td>
       </tr>
-
-      - let i = 0
-      each officer in officers
-        if i % 2 === 0
-          <tr bgcolor="#CCCCCC">
-        else
-          <tr>
-        - i += 1
-
-        <td><button onclick="webtoolsDeleteOfficer('#{API_URL}', '#{officer.memberId}')">Remove Officer</button></td>
-        <td>#{officer.memberId}</td>
-        <td>#{officer.firstName}</td>
-        <td>#{officer.lastName}</td>
-        <td>#{officer.email}</td>
-        <td>#{officer.cellNumber}</td>
-        <td>#{officer.position}</td>
-        <td>#{officer.security}</td>
-        <td>#{officer.expireDatetime}</td>
+      <tr>
+        <td>Expiration (YYYY-MM-DD):</td>
+        <td><input type="text" name="expireDatetime"></input></td>
+      </tr>
+      <tr>
+        <td>Position:</td>
+        <td><input type="text" name="position"></input></td>
+      </tr>
+      <tr>
+        <td>Security (higher = more permissions):</td>
+        <td><input type="number" name="security"></input></td>
       </tr>
     </table>
-  </div>
+    <button type="submit">Submit</button>
+  </form>
+  <br>
+
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>&nbsp;</th>
+      <th>Member #&nbsp;</th>
+      <th>First Name&nbsp;</th>
+      <th>Last Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Cell Number&nbsp;</th>
+      <th>Position&nbsp;</th>
+      <th>Security (higher = more permissions)&nbsp;</th>
+      <th>Expiration</th>
+    </tr>
+
+    - let i = 0
+    each officer in officers
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+
+      <td><button onclick="webtoolsDeleteOfficer('#{API_URL}', '#{officer.memberId}')">Remove Officer</button></td>
+      <td>#{officer.memberId}</td>
+      <td>#{officer.firstName}</td>
+      <td>#{officer.lastName}</td>
+      <td>#{officer.email}</td>
+      <td>#{officer.cellNumber}</td>
+      <td>#{officer.position}</td>
+      <td>#{officer.security}</td>
+      <td>#{officer.expireDatetime}</td>
+    </tr>
+  </table>
 </body>
 </html>

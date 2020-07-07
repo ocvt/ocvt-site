@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-  <div>
-    <a href="/webtools">&lt;-- Back to Webtools Home</a>
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
 
-    <h2>All Members (Paid and Unpaid)</h2>
+  <h2>All Members (Paid and Unpaid)</h2>
 
-    <table cellpadding="2" cellspacing="0">
-      <tr>
-        <th>Member #&nbsp;</th>
-        <th>Active?&nbsp;</th>
-        <th>First Name&nbsp;</th>
-        <th>Last Name&nbsp;</th>
-        <th>Email&nbsp;</th>
-        <th>Membership Expiration</th>
-      </tr>
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Member #&nbsp;</th>
+      <th>Active?&nbsp;</th>
+      <th>First Name&nbsp;</th>
+      <th>Last Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Membership Expiration</th>
+    </tr>
 
-      - let i = 0
-      each member in members
-        if i % 2 === 0
-          <tr bgcolor="#CCCCCC">
-        else
-          <tr>
-        - i += 1
+    - let i = 0
+    each member in members
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
 
-        <td>#{member.id}</td>
-        if member.active
-          <td>Yes</td>
-        else
-          <td>No</td>
-        <td>#{member.firstName}</td>
-        <td>#{member.lastName}</td>
-        <td>#{member.email}</td>
-        <td>#{member.paidExpireDatetime}</td>
-      </tr>
-    </table>
-    <h3>Total Members: #{i}</h3>
-  </div>
+      <td>#{member.id}</td>
+      if member.active
+        <td>Yes</td>
+      else
+        <td>No</td>
+      <td>#{member.firstName}</td>
+      <td>#{member.lastName}</td>
+      <td>#{member.email}</td>
+      <td>#{member.paidExpireDatetime}</td>
+    </tr>
+  </table>
+  <h3>Total Members: #{i}</h3>
 </body>
 </html>
