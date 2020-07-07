@@ -458,3 +458,9 @@ tripPerson strong {
   background: #FFFFAA;
   border: 1px solid #FFAD33;
 }
+
+/* webtools */
+#webtools {
+  text-align: left;
+  margin-left: 10px;
+}
