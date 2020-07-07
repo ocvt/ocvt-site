@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="/js/ocvt_quicksignup.js"></script>
+</head>
+<body>
+  <h2>OCVT Email Signup</h2>
+
+  <h3>Enter your email to get notified about upcoming trips!</h3>
+
+  <form onsubmit="quickSignup('#{API_URL}', this);return false">
+    | Email: <input name="email" size="50" type="text">
+    <button type="submit">Submit</button>
+  </form>
+</body>

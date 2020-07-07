@@ -81,6 +81,12 @@ router.get('/privacy', aH(async (req, res) => {
   });
 }));
 
+router.get('/quicksignup', aH(async (req, res) => {
+  res.render('quicksignup', {
+    API_URL: h.API_URL,
+  });
+}));
+
 router.get('/reactivate', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
