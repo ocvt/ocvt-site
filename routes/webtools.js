@@ -59,4 +59,19 @@ router.get('/officers', aH(async (req, res) => {
   });
 }));
 
+router.get('/orders/complete', aH(async (req, res) => {
+  let orders = await h.fetchHelper(`${h.API_URL}/webtools/payments`, req);
+
+  if (orders.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  orders = await orders.json().then((o) => o.payments.filter((o) => o.completed));
+
+  res.render('webtools/orders_complete', {
+    orders,
+  });
+}));
+
 module.exports = router;

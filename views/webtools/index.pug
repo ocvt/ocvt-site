@@ -1,7 +1,7 @@
 extends ../_base.pug
 
 block content
-  <div id="webtools">
+  <div class="webtools">
     <h3><a href="/quicksignup">Quick Sign-Up</a></h3>
     <p>Simple form to gather name and email from people at a PR event like Gobbler Fest</p>
 
@@ -26,12 +26,15 @@ block content
 
     <h2>Payments</h2>
 
-    <h3><a href="vieworders.php">Orders</a></h3>
-    <p>A list of all incomplete online orders.</p>
+    <h3><a href="/webtools/orders">Manual Order Entry</a></h3>
+    <p>For in person dues or other items.</p>
 
-    <h3><a href="manual_payments.php">Manual Payment Entry Page</a></h3>
-    <p>Entry form for dues paid in person.</p>
+    <h3><a href="/webtools/orders/incomplete">View/Manage Incomplete Orders</a></h3>
+    <p>View or manage incomplete orders.</p>
 
-    <h3><a href="view_manual_payments.php">Manual Payment Managment Page</a></h3>
-    <p>View all incomplete manual payments.</p>
+    <h3><a href="/webtools/orders/complete">View Complete Orders</a></h3>
+    <p>View complete orders.</p>
+
+    <h3><a href="/webtools/orders/codes">View Unredeemed Order Codes</a></h3>
+    <p>View all unclaimed order codes. Redeemed (completed or not) orders are viewable with the 2 prior links.</p>
   </div>

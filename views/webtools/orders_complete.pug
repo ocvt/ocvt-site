@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/ocvt.css">
+</head> 
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>All Complete Orders</h2>
+
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Member #&nbsp;</th>
+      <th>Member Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Store Item&nbsp;</th>
+      <th>Item Count&nbsp;</th>
+      <th>Amount Paid&nbsp;</th>
+      <th>Payment Id<br>(multiple items in same payment share the same id)&nbsp;</th>
+      <th>Payment Method&nbsp;</th>
+      <th>Member who entered order</th>
+    </tr>
+
+    - let i = 0
+    each order in orders
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+      
+      <td>#{order.memberId}</td>
+      <td>#{order.memberName}</td>
+      <td>#{order.email}</td>
+      <td>#{order.storeItemId}</td>
+      <td>#{order.storeItemCount}</td>
+      <td>#{order.amount}</td>
+      <td>#{order.paymentId}</td>
+      <td>#{order.EnteredByName}</td>
+    </tr>
+  </table>
+</body>

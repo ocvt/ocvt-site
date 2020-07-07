@@ -460,7 +460,7 @@ tripPerson strong {
 }
 
 /* webtools */
-#webtools {
+.webtools {
   text-align: left;
   margin-left: 10px;
 }
