@@ -22,6 +22,25 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+router.get('/members', aH(async (req, res) => {
+  let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
+
+  if (members.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  members = await members.json().then((m) => m.members);
+
+  res.render('webtools/members', {
+    title: 'Webtools - Members',
+    header: 'MEMBERS',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    members,
+  });
+}));
+
 router.get('/officers', aH(async (req, res) => {
   let officers = await h.fetchHelper(`${h.API_URL}/webtools/officers`, req);
 
