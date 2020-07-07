@@ -10,12 +10,14 @@
 
   <table cellpadding="2" cellspacing="0">
     <tr>
+      <th>Order Date&nbsp;</th>
       <th>Member #&nbsp;</th>
       <th>Member Name&nbsp;</th>
       <th>Email&nbsp;</th>
       <th>Store Item&nbsp;</th>
       <th>Item Count&nbsp;</th>
       <th>Amount Paid&nbsp;</th>
+      <th>Notes&nbsp;</th>
       <th>Payment Id<br>(multiple items in same payment share the same id)&nbsp;</th>
       <th>Payment Method&nbsp;</th>
       <th>Member who entered order</th>
@@ -28,13 +30,15 @@
       else
         <tr>
       - i += 1
-      
+
+      <td>#{order.createDatetime}</td>
       <td>#{order.memberId}</td>
       <td>#{order.memberName}</td>
       <td>#{order.email}</td>
       <td>#{order.storeItemId}</td>
       <td>#{order.storeItemCount}</td>
       <td>#{order.amount}</td>
+      <td>#{order.note}</td>
       <td>#{order.paymentId}</td>
       <td>#{order.EnteredByName}</td>
       </tr>

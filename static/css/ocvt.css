@@ -464,3 +464,7 @@ tripPerson strong {
   text-align: left;
   margin-left: 10px;
 }
+
+.webtools td, .webtools th {
+  vertical-align: top;
+}

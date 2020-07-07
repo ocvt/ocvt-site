@@ -59,6 +59,21 @@ router.get('/officers', aH(async (req, res) => {
   });
 }));
 
+router.get('/orders/codes', aH(async (req, res) => {
+  let codes = await h.fetchHelper(`${h.API_URL}/webtools/codes`, req);
+
+  if (codes.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  codes = await codes.json().then((c) => c.codes.filter((i) => !i.redeemed));
+
+  res.render('webtools/orders_codes', {
+    codes,
+  });
+}));
+
 router.get('/orders/complete', aH(async (req, res) => {
   let orders = await h.fetchHelper(`${h.API_URL}/webtools/payments`, req);
 
