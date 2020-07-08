@@ -64,3 +64,75 @@ function webtoolsAddYear(url, memberId) {
     window.location.reload(true);
   });
 }
+
+function generateCode(url, codeData) {
+  return fetch(`${url}/webtools/payments/generateCode`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(codeData)
+  })
+  .then((r) => r.json())
+  .then((c) => c.code);
+}
+
+function showCode(code) {
+  document.getElementById('generateCodeResult').textContent = code;
+}
+
+function webtoolsGenerateCode(url, form) {
+  const itemId = form.storeItemId.value;
+  const amounts = {
+    dues: 20,
+    duesShirt: 30,
+    duesSpecial: 65,
+    shirt: 20,
+  };
+
+  const codeData = {
+    storeItemCount: parseInt(form.storeItemCount.value),
+    completed: form.completed.checked,
+    note: form.note.value,
+    amount: amounts[itemId],
+    code: '',
+  };
+
+  if (itemId === 'dues') {
+    codeData.storeItemId = 'MEMBERSHIP';
+    generateCode(url, codeData)
+    .then((code) => {
+      codeData.code = code;
+      showCode(codeData.code);
+    });
+  } else if (itemId === 'duesShirt') {
+    codeData.storeItemId = 'SHIRT';
+    generateCode(url, codeData)
+    .then((code) => {
+      codeData.code = code;
+      codeData.storeItemId = 'MEMBERSHIP';
+      return generateCode(url, codeData);
+    })
+    // We already know code, this verified both requests went through
+    .then((code) => showCode(code));
+  } else if (itemId === 'duesSpecial') {
+    codeData.storeItemId = 'SHIRT';
+    generateCode(url, codeData)
+    .then((code) => {
+      codeData.code = code;
+      codeData.storeItemId = 'MEMBERSHIP';
+      codeData.storeItemCount *= 4;
+      return generateCode(url, codeData);
+    })
+    // We already know code, this verified both requests went through
+    .then((code) => showCode(code));
+  } else if (itemId === 'shirt') {
+    codeData.storeItemId = 'SHIRT';
+    generateCode(url, codeData)
+    .then((code) => {
+      codeData.code = code;
+      showCode(codeData.code);
+    });
+  }
+}
