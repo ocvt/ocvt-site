@@ -1,9 +1,24 @@
+/* Front-end */
 function webtoolsOrderToggle(showId) {
   const hideId = { manualOrder: 'generateCode', generateCode: 'manualOrder' };
   document.getElementById(hideId[showId]).style.display = 'none';
   document.getElementById(showId).style.display = 'block';
 }
 
+function sortMembers() {
+  const filter = document.getElementById('memberFilter').value.toLowerCase();
+  const rows = document.getElementsByTagName('tr');
+  // Skip header row
+  for (let i = 1; i < rows.length; i++) {
+    if (filter !== '' && rows[i].textContent.toLowerCase().indexOf(filter) <= 0) {
+      rows[i].style.display = 'none';
+    } else {
+      rows[i].style.display = '';
+    }
+  }
+}
+
+/* Officers */
 function webtoolsAddOfficer(url, form) {
   const officerData = {
     memberId: parseInt(form.memberId.value),
@@ -33,6 +48,17 @@ function webtoolsDeleteOfficer(url, memberId) {
   fetch(`${url}/webtools/officers/${memberId}`, {
     credentials: 'include',
     method: 'DELETE',
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
+/* Payments */
+function webtoolsAddYear(url, memberId) {
+  fetch(`${url}/webtools/members/${memberId}/dues/grant`, {
+    credentials: 'include',
+    method: 'POST',
   })
   .then((r) => {
     window.location.reload(true);

@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="/css/ocvt.css">
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
 </head>
 <body class="webtools">
   <a href="/webtools">&lt;-- Back to Webtools Home</a>
 
   <h2>All Members (Paid and Unpaid)</h2>
 
+  <strong>Filter Members: </strong> <input type="text" id="memberFilter" onkeyup="sortMembers()">
+
   <table cellpadding="2" cellspacing="0">
     <tr>
+      <th></th>
       <th>Member #&nbsp;</th>
       <th>Active?&nbsp;</th>
       <th>First Name&nbsp;</th>
@@ -26,6 +30,7 @@
         <tr>
       - i += 1
 
+      <td><button onclick="webtoolsAddYear('#{API_URL}', '#{member.id}')">Add 1 Year Membership</button></td>
       <td>#{member.id}</td>
       if member.active
         <td>Yes</td>
