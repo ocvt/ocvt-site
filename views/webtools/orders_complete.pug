@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/ocvt.css">
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
+</head> 
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>#{header}</h2>
+
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Order Date&nbsp;</th>
+      <th>Member #&nbsp;</th>
+      <th>Member Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Store Item&nbsp;</th>
+      <th>Item Count&nbsp;</th>
+      <th>Item Cost&nbsp;</th>
+      <th>Total Cost&nbsp;</th>
+      <th>Notes&nbsp;</th>
+      <th>Payment Id<br>(multiple items in same payment share the same id)&nbsp;</th>
+      <th>Payment Method&nbsp;</th>
+      <th>Member who entered order</th>
+    </tr>
+
+    - let i = 0
+    each order in orders
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+
+      <td>#{order.createDatetime}</td>
+      <td>#{order.memberId}</td>
+      <td>#{order.memberName}</td>
+      <td>#{order.email}</td>
+      <td>#{order.storeItemId}</td>
+      <td>#{order.storeItemCount}</td>
+      <td>#{order.amount}</td>
+      <td>#{order.storeItemCount * order.amount}</td>
+      <td>#{order.note}</td>
+      <td>#{order.paymentId}</td>
+      <td>#{order.paymentMethod}</td>
+      <td>#{order.enteredByName}</td>
+      </tr>
+  </table>
+</body>

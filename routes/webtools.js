@@ -84,7 +84,7 @@ router.get('/orders/complete', aH(async (req, res) => {
 
   orders = await orders.json().then((o) => o.payments.filter((p) => p.completed));
 
-  res.render('webtools/orders_view', {
+  res.render('webtools/orders_complete', {
     header: 'All Complete Orders',
     orders,
   });
@@ -100,7 +100,8 @@ router.get('/orders/incomplete', aH(async (req, res) => {
 
   orders = await orders.json().then((o) => o.payments.filter((p) => !p.completed));
 
-  res.render('webtools/orders_view', {
+  res.render('webtools/orders_incomplete', {
+    API_URL: h.API_URL,
     header: 'All Incomplete Orders',
     orders,
   });

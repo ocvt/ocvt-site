@@ -69,6 +69,17 @@ function webtoolsAddYear(url, memberId) {
   });
 }
 
+function webtoolsCompleteOrder(url, paymentRowId) {
+  fetch(`${url}/webtools/payments/${paymentRowId}/completed`, {
+    credentials: 'include',
+    method: 'PATCH',
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
+// Code Generation
 function generateCode(url, codeData) {
   return fetch(`${url}/webtools/payments/generateCode`, {
     credentials: 'include',
@@ -141,6 +152,7 @@ function webtoolsGenerateCode(url, form) {
   }
 }
 
+// Order Submission
 function submitOrder(url, orderData) {
   return fetch(`${url}/webtools/payments`, {
     credentials: 'include',

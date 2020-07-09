@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="/css/ocvt.css">
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
 </head> 
 <body class="webtools">
   <a href="/webtools">&lt;-- Back to Webtools Home</a>
@@ -10,6 +11,7 @@
 
   <table cellpadding="2" cellspacing="0">
     <tr>
+      <th></th>
       <th>Order Date&nbsp;</th>
       <th>Member #&nbsp;</th>
       <th>Member Name&nbsp;</th>
@@ -32,6 +34,7 @@
         <tr>
       - i += 1
 
+      <td><button onclick="webtoolsCompleteOrder('#{API_URL}', '#{order.id}')">Complete Order</button></td>
       <td>#{order.createDatetime}</td>
       <td>#{order.memberId}</td>
       <td>#{order.memberName}</td>
