@@ -227,3 +227,24 @@ function webtoolsSubmitOrder(url, form) {
     });
   }
 }
+
+/* News / Announcements */
+function webtoolsSubmitNews(url, form) {
+  const newsData = {
+    title: form.title.value,
+    summary: form.summary.value,
+    content: tinymce.activeEditor.getContent(),
+  }
+
+  fetch(`${url}/webtools/news`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newsData)
+  })
+  .then((r) => {
+    window.location.href = '/';
+  });
+}

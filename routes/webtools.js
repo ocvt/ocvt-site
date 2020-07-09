@@ -40,6 +40,19 @@ router.get('/members', aH(async (req, res) => {
   });
 }));
 
+router.get('/news', aH(async (req, res) => {
+  const name = await h.getFirstName(req);
+
+  if (!name.json.officer) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('webtools/news', {
+    API_URL: h.API_URL,
+  });
+}));
+
 router.get('/officers', aH(async (req, res) => {
   let officers = await h.fetchHelper(`${h.API_URL}/webtools/officers`, req);
 
