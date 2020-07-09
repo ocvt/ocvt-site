@@ -16,7 +16,8 @@
       <th>Email&nbsp;</th>
       <th>Store Item&nbsp;</th>
       <th>Item Count&nbsp;</th>
-      <th>Amount Paid&nbsp;</th>
+      <th>Item Cost&nbsp;</th>
+      <th>Total Cost&nbsp;</th>
       <th>Notes&nbsp;</th>
       <th>Payment Id<br>(multiple items in same payment share the same id)&nbsp;</th>
       <th>Payment Method&nbsp;</th>
@@ -38,9 +39,11 @@
       <td>#{order.storeItemId}</td>
       <td>#{order.storeItemCount}</td>
       <td>#{order.amount}</td>
+      <td>#{order.storeItemCount * order.amount}</td>
       <td>#{order.note}</td>
       <td>#{order.paymentId}</td>
-      <td>#{order.EnteredByName}</td>
+      <td>#{order.paymentMethod}</td>
+      <td>#{order.enteredByName}</td>
       </tr>
   </table>
 </body>

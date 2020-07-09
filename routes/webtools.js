@@ -107,15 +107,18 @@ router.get('/orders/incomplete', aH(async (req, res) => {
 }));
 
 router.get('/orders/manual', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
 
-  if (!name.json.officer) {
+  if (members.status !== 200) {
     res.redirect('/');
     return;
   }
 
+  members = await members.json().then((m) => m.members);
+
   res.render('webtools/orders_manual', {
     API_URL: h.API_URL,
+    members,
   });
 }));
 

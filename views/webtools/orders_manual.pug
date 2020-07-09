@@ -49,13 +49,15 @@
     </form>
   </div>
 
+
+
   <div id="manualOrder">
     <h3>Order Details</h3>
     <form onsubmit="webtoolsSubmitOrder('#{API_URL}', this);return false">
       <table>
         <tr>
           <td>Member Id:</td>
-          <td><input type="number" name="memberId"></td>
+          <td><input type="number" id="manualOrderMemberId" name="memberId"></td>
         </tr>
         <tr>
           <td>Store Item:</td>
@@ -84,5 +86,40 @@
       </table>
       <button type="submit">Submit</button>
     </form>
+    <br>
+
+
+    <strong>Filter Members: </strong> <input type="text" id="memberFilter" onkeyup="sortMembers()">
+
+    <table id="filterMembers" cellpadding="2" cellspacing="0">
+      <tr>
+        <th></th>
+        <th>Member #&nbsp;</th>
+        <th>Active?&nbsp;</th>
+        <th>First Name&nbsp;</th>
+        <th>Last Name&nbsp;</th>
+        <th>Email&nbsp;</th>
+        <th>Membership Expiration</th>
+      </tr>
+
+      - let i = 0
+      each member in members
+        if i % 2 === 0
+          <tr bgcolor="#CCCCCC">
+        else
+          <tr>
+        - i += 1
+        <td><button onclick="webtoolsOrderSelectMember('#{member.id}')">Select Member</button></td>
+        <td>#{member.id}</td>
+        if member.active
+          <td>Yes</td>
+        else
+          <td>No</td>
+        <td>#{member.firstName}</td>
+        <td>#{member.lastName}</td>
+        <td>#{member.email}</td>
+        <td>#{member.paidExpireDatetime}</td>
+        </tr>
+    </table>
   </div>
 </html

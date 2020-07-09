@@ -7,7 +7,7 @@ function webtoolsOrderToggle(showId) {
 
 function sortMembers() {
   const filter = document.getElementById('memberFilter').value.toLowerCase();
-  const rows = document.getElementsByTagName('tr');
+  const rows = document.getElementById('filterMembers').getElementsByTagName('tr');
   // Skip header row
   for (let i = 1; i < rows.length; i++) {
     if (filter !== '' && rows[i].textContent.toLowerCase().indexOf(filter) <= 0) {
@@ -16,6 +16,10 @@ function sortMembers() {
       rows[i].style.display = '';
     }
   }
+}
+
+function webtoolsOrderSelectMember(memberId) {
+  document.getElementById('manualOrderMemberId').value = memberId;
 }
 
 /* Officers */
@@ -133,6 +137,75 @@ function webtoolsGenerateCode(url, form) {
     .then((code) => {
       codeData.code = code;
       showCode(codeData.code);
+    });
+  }
+}
+
+function submitOrder(url, orderData) {
+  return fetch(`${url}/webtools/payments`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(orderData)
+  })
+  .then((r) => r.json())
+  .then((p) => p.paymentId);
+}
+
+function webtoolsSubmitOrder(url, form) {
+  const itemId = form.storeItemId.value;
+  const amounts = {
+    dues: 20,
+    duesShirt: 30,
+    duesSpecial: 65,
+    shirt: 20,
+  };
+
+  const orderData = {
+    memberId: parseInt(form.memberId.value),
+    storeItemCount: parseInt(form.storeItemCount.value),
+    completed: form.completed.checked,
+    note: form.note.value,
+    amount: amounts[itemId],
+    paymentId: '',
+  };
+
+  if (itemId === 'dues') {
+    orderData.storeItemId = 'MEMBERSHIP';
+    submitOrder(url, orderData)
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      showCode(orderData.paymentId);
+    });
+  } else if (itemId === 'duesShirt') {
+    orderData.storeItemId = 'SHIRT';
+    submitOrder(url, orderData)
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      orderData.storeItemId = 'MEMBERSHIP';
+      return submitOrder(url, orderData);
+    })
+    // We already know payment id, this verified both requests went through
+    .then((paymentId) => showCode(paymentId));
+  } else if (itemId === 'duesSpecial') {
+    orderData.storeItemId = 'SHIRT';
+    submitOrder(url, orderData)
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      orderData.storeItemId = 'MEMBERSHIP';
+      orderData.storeItemCount *= 4;
+      return submitOrder(url, orderData);
+    })
+    // We already know payment id, this verified both requests went through
+    .then((paymentId) => showCode(paymentId));
+  } else if (itemId === 'shirt') {
+    orderData.storeItemId = 'SHIRT';
+    submitOrder(url, orderData)
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      showCode(orderData.paymentId);
     });
   }
 }
