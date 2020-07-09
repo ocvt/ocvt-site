@@ -189,7 +189,7 @@ function webtoolsSubmitOrder(url, form) {
     submitOrder(url, orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
-      showCode(orderData.paymentId);
+      window.location.reload(false);
     });
   } else if (itemId === 'duesShirt') {
     orderData.storeItemId = 'SHIRT';
@@ -200,7 +200,10 @@ function webtoolsSubmitOrder(url, form) {
       return submitOrder(url, orderData);
     })
     // We already know payment id, this verified both requests went through
-    .then((paymentId) => showCode(paymentId));
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      window.location.reload(false);
+    });
   } else if (itemId === 'duesSpecial') {
     orderData.storeItemId = 'SHIRT';
     submitOrder(url, orderData)
@@ -211,13 +214,16 @@ function webtoolsSubmitOrder(url, form) {
       return submitOrder(url, orderData);
     })
     // We already know payment id, this verified both requests went through
-    .then((paymentId) => showCode(paymentId));
+    .then((paymentId) => {
+      orderData.paymentId = paymentId;
+      window.location.reload(false);
+    });
   } else if (itemId === 'shirt') {
     orderData.storeItemId = 'SHIRT';
     submitOrder(url, orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
-      showCode(orderData.paymentId);
+      window.location.reload(false);
     });
   }
 }

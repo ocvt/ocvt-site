@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="/css/ocvt.css">
+  <meta http-equiv="Cache-Control" content="no-store">
   <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
 </head>
 <body class="webtools">
@@ -10,8 +11,8 @@
   <h2>Manual Order Entry</h2>
 
   <h3>Select Order Type</h3>
-  | Generate Code for Non-Existent User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="generateCode" checked>&nbsp;&nbsp;
-  | Manual Order for Existing User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="manualOrder">
+  | Manual Order for Existing User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="manualOrder" checked>&nbsp;&nbsp;
+  | Generate Code for Non-Existent User <input type="radio" name="manualOrderEntry" onclick="webtoolsOrderToggle(this.value)" value="generateCode">
   <br>
   <br>
 
@@ -85,6 +86,7 @@
         </tr>
       </table>
       <button type="submit">Submit</button>
+      <p id="manualOrderResult"></p>
     </form>
     <br>
 
@@ -121,5 +123,7 @@
         <td>#{member.paidExpireDatetime}</td>
         </tr>
     </table>
+
+    <script>sortMembers();</script>
   </div>
 </html
