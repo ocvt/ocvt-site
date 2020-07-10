@@ -53,6 +53,23 @@ router.get('/news', aH(async (req, res) => {
   });
 }));
 
+router.get('/news/delete', aH(async (req, res) => {
+  const [name, news] = await Promise.all([
+    h.getFirstName(req),
+    h.fetchHelper(`${h.API_URL}/news/archive`, req).then((n) => n.json()).then((nn) => nn.news),
+  ]);
+
+  if (!name.json.officer) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('webtools/news_delete', {
+    API_URL: h.API_URL,
+    news,
+  });
+}));
+
 router.get('/officers', aH(async (req, res) => {
   let officers = await h.fetchHelper(`${h.API_URL}/webtools/officers`, req);
 

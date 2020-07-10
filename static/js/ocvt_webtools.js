@@ -229,6 +229,16 @@ function webtoolsSubmitOrder(url, form) {
 }
 
 /* News / Announcements */
+function webtoolsDeleteNews(url, newsId) {
+  fetch(`${url}/webtools/news/${newsId}`, {
+    credentials: 'include',
+    method: 'DELETE',
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
 function webtoolsSubmitNews(url, form) {
   const newsData = {
     title: form.title.value,

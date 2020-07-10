@@ -2,7 +2,6 @@ const aH = require('express-async-handler');
 const express = require('express');
 
 const h = require('./helpers');
-const d = require('./data.js');
 
 const router = express.Router();
 
@@ -18,6 +17,7 @@ router.get('/', aH(async (req, res) => {
   //  homePhotos = homePhotos.images;
   const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
   news.forEach((n) => {
+    // eslint-disable-next-line no-param-reassign
     n.date = h.prettyDate(n.createDatetime);
   });
 
@@ -26,7 +26,7 @@ router.get('/', aH(async (req, res) => {
     header: 'HOME',
     name: await h.getFirstName(req),
     homePhoto,
-    news: news,
+    news,
     trips: trips.trips,
   });
 }));
@@ -85,6 +85,7 @@ router.get('/news/:newsId', aH(async (req, res) => {
   }
 
   news.forEach((n) => {
+    // eslint-disable-next-line no-param-reassign
     n.date = h.prettyDate(n.createDatetime);
   });
 
