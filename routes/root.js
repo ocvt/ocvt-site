@@ -2,6 +2,7 @@ const aH = require('express-async-handler');
 const express = require('express');
 
 const h = require('./helpers');
+const d = require('./data.js');
 
 const router = express.Router();
 
@@ -11,18 +12,21 @@ router.get('/', aH(async (req, res) => {
     h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
     // TODO remove after testign
     //    h.fetchHelper(`${h.API_URL}/homephotos`, req).then(h => h.json()),
-    h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()),
+    h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()).then((nn) => nn.news),
   ]);
 
   //  homePhotos = homePhotos.images;
   const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
+  news.forEach((n) => {
+    n.date = h.prettyDate(n.createDatetime);
+  });
 
   res.render('index', {
     title: 'Home',
     header: 'HOME',
     name: await h.getFirstName(req),
     homePhoto,
-    news: news.news,
+    news: news,
     trips: trips.trips,
   });
 }));
@@ -70,6 +74,25 @@ router.get('/login', aH(async (req, res) => {
 router.get('/logout', aH(async (req, res) => {
   res.render('logout', {
     API_URL: h.API_URL,
+  });
+}));
+
+router.get('/news/:newsId', aH(async (req, res) => {
+  let news = await h.fetchHelper(`${h.API_URL}/news/archive`, req).then((n) => n.json()).then((nn) => nn.news);
+
+  if (req.params.newsId !== 'archive') {
+    news = news.filter((n) => n.id.toString() === req.params.newsId);
+  }
+
+  news.forEach((n) => {
+    n.date = h.prettyDate(n.createDatetime);
+  });
+
+  res.render('news', {
+    title: 'News',
+    header: 'NEWS ARCHIVE',
+    name: await h.getFirstName(req),
+    news,
   });
 }));
 

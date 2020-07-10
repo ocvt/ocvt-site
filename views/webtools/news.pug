@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
+  <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+  <title>News!</title>
+</head>
+<body style="background-color: #D7CEAE;">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Create a News Entry</h2>
+  <p>News Entries will appear on the front page of the website and in the news archives.</p>
+
+  <form onsubmit="webtoolsSubmitNews('#{API_URL}', this);return false">
+    <strong>Title</strong>:
+    <input type="text" name="title"   size="100">
+    <br>
+    <br>
+
+    <strong>Summary / Preview (formatting is ignored)</strong>:
+    <br>
+    <textarea name="summary" rows="4" cols="50"></textarea>
+    <br>
+    <br>
+
+    <strong>Content</strong>:
+    <br>
+    <textarea id="content" name="content"></textarea>
+    <br>
+    <br>
+
+    <button type="submit">Publish!</button>
+  </form>
+
+  <script>
+    | tinymce.init({
+    |   selector: '#content',
+    |   height: 600,
+    |   width: 900,
+    |   plugins: ['image'],
+    |   toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    |   image_advtab: true,
+    |   remove_script_host: false,
+    |   relative_urls: false,
+    |   convert_urls: false,
+    | });
+  </script>
+</body>

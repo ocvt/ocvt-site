@@ -23,16 +23,12 @@ block content
   <div id="rightSideLarge">
     <h1 style="color:#872b18">News and Announcements</h1>
       each newsItem in news
-        <h2>#{newsItem.title}</h2>
-        <div id="newsdate">#{newsItem.date}</div>
-        <br>
-        <p>#{newsItem.summary}</p>
-        <br>
-        <br>
-        <a href="/news/archive/#{newsItem.id}">Read More...</a>
+        include include/news_summary.pug
       else
         <p>No News Items</p>
 
+      <br>
+      <br>
       <a href="/news/archive">Older news items --></a>
     <hr>
   </div>

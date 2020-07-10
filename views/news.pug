@@ -1,0 +1,18 @@
+extends _base
+
+block content
+  <div id="rightSideLarge">
+    <h1 style="color:#872b18">News and Announcements</h1>
+      if news.length === 1
+        <h2>#{news[0].title}</h2>
+        <div id="newsdate">#{news[0].date}</div>
+        <p>#{news[0].summary}</p>
+        <div>!{news[0].content}</div>
+      else
+        each newsItem in news
+          include include/news_summary.pug
+        else
+          <p>No News Items</p>
+
+    <hr>
+  </div>

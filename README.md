@@ -5,6 +5,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Add .then where possible if getting property from json
+* Convert for to forEach where possible
 * List attendance next to Full Details + admin link for leaders & officers
 * Ensure all input is sanitized (signup notes, other free text fields)
 * Allow officers to access /admin for any trips
