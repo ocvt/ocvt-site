@@ -21,6 +21,34 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+router.get('/email', aH(async (req, res) => {
+  const name = await h.getFirstName(req);
+
+  if (!name.json.officer) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('webtools/email', {
+    API_URL: h.API_URL,
+  });
+}));
+
+router.get('/email/view', aH(async (req, res) => {
+  let emails = await h.fetchHelper(`${h.API_URL}/webtools/emails`, req);
+
+  if (emails.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  emails = await emails.json().then((e) => e.emails);
+
+  res.render('webtools/email_view', {
+    emails,
+  });
+}));
+
 router.get('/members', aH(async (req, res) => {
   let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
 

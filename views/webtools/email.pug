@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
+  <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+  <title>Email!</title>
+</head>
+<body style="background-color: #D7CEAE;">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Create an Email Announcement</h2>
+  <p>This will be sent to all members unless they turned off their notifications.</p>
+
+  <form onsubmit="webtoolsSubmitEmail('#{API_URL}', this);return false">
+    <strong>Subject</strong>:
+    <input type="text" name="subject"   size="100">
+    <br>
+    <br>
+
+    <strong>Body</strong>:
+    <br>
+    <textarea id="content" name="body"></textarea>
+    <br>
+    <br>
+
+    <button type="submit">Send!</button>
+  </form>
+
+  <script>
+    | tinymce.init({
+    |   selector: '#content',
+    |   height: 600,
+    |   width: 900,
+    |   plugins: ['image'],
+    |   toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    |   image_advtab: true,
+    |   remove_script_host: false,
+    |   relative_urls: false,
+    |   convert_urls: false,
+    | });
+  </script>
+</body>

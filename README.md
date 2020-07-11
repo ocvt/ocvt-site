@@ -5,6 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Reduce General Announcements to single type id -> GENERAL ANNOUNCEMENTS
 * Statically set API_URL in js files
 * Add .then where possible if getting property from json
 * Convert for to forEach where possible

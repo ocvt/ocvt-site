@@ -153,9 +153,8 @@ block content
 
       <h3>Trip Announcements</h3>
       <p>
-        | The <strong>only</strong> way to disable Trip Alerts is to deactivate
-        | your account. These are very important alerts related to trips you
-        | sign up for (kicked, cancelled, etc).
+        | Important trip alerts regarding you status on trips may not be turned off. These are very
+        | important alerts related to trips you sign up for (kicked, cancelled, etc).
       </p>
 
       <table>
@@ -165,8 +164,6 @@ block content
             - let state = ''
             if notifications[type.id]
               - state = 'checked'
-            if type.id === 'TRIP_ALERTS'
-              - state = 'checked disabled'
             if j % 2 === 0
               <tr>
               <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>

@@ -239,6 +239,25 @@ function webtoolsDeleteNews(url, newsId) {
   });
 }
 
+function webtoolsSubmitEmail(url, form) {
+  const emailData = {
+    subject: form.subject.value,
+    body: tinymce.activeEditor.getContent(),
+  }
+
+  fetch(`${url}/webtools/emails`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(emailData)
+  })
+  .then((r) => {
+    window.location.href = '/';
+  });
+}
+
 function webtoolsSubmitNews(url, form) {
   const newsData = {
     title: form.title.value,

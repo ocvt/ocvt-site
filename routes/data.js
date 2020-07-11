@@ -11,19 +11,9 @@ const generalTypes = {
     id: 'GENERAL_ANNOUNCEMENTS',
     name: 'Club Updates / News / Events',
   },
-  GENERAL_MEETINGS: {
-    description: 'Announcements about Club Meetings',
-    id: 'GENERAL_MEETINGS',
-    name: 'Official Meetings',
-  },
 };
 
 const tripTypes = {
-  TRIP_ALERTS: {
-    description: 'Important alerts about your status on trips',
-    id: 'TRIP_ALERTS',
-    name: 'Trip Status Alerts',
-  },
   TRIP_BACKPACKING: {
     description: 'Multi day hikes.',
     id: 'TRIP_BACKPACKING',
