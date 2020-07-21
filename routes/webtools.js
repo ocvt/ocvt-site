@@ -77,8 +77,6 @@ router.get('/members', aH(async (req, res) => {
   members = await members.json().then((m) => m.members);
 
   res.render('webtools/members', {
-    title: 'Webtools - Members',
-    header: 'MEMBERS',
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
     members,
@@ -126,8 +124,6 @@ router.get('/officers', aH(async (req, res) => {
   officers = await officers.json().then((o) => o.officers);
 
   res.render('webtools/officers', {
-    title: 'Webtools - Officers',
-    header: 'OFFICERS',
     name: await h.getFirstName(req),
     API_URL: h.API_URL,
     officers,
