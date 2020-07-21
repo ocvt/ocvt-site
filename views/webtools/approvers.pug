@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/ocvt.css">
+  <script type="text/javascript" src="/js/ocvt_webtools.js"></script>
+  <title>Trip Approvers!</title>
+</head>
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Trip Approvers</h2>
+
+  <h3>Add new trip approver</h3>
+  <form onsubmit="webtoolsAddApprover('#{API_URL}', this);return false">
+    <table>
+      <tr>
+        <td>Member #:</td>
+        <td><input type="number" name="memberId"></input></td>
+      </tr>
+      <tr>
+        <td>Expiration (YYYY-MM-DD):</td>
+        <td><input type="text" name="expireDatetime"></input></td>
+      </tr>
+    </table>
+    <button type="submit">Submit</button>
+  </form>
+  <br>
+
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>&nbsp;</th>
+      <th>Member #&nbsp;</th>
+      <th>First Name&nbsp;</th>
+      <th>Last Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Cell Number&nbsp;</th>
+      <th>Expiration</th>
+    </tr>
+
+    - let i = 0
+    each approver in approvers
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+
+      <td><button onclick="webtoolsDeleteApprover('#{API_URL}', '#{approver.memberId}')">Remove Approver</button></td>
+      <td>#{approver.memberId}</td>
+      <td>#{approver.firstName}</td>
+      <td>#{approver.lastName}</td>
+      <td>#{approver.email}</td>
+      <td>#{approver.cellNumber}</td>
+      <td>#{approver.expireDatetime}</td>
+      </tr>
+  </table>
+</body>
+</html>

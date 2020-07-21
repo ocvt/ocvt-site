@@ -21,6 +21,23 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+router.get('/approvers', aH(async (req, res) => {
+  let approvers = await h.fetchHelper(`${h.API_URL}/webtools/approvers`, req);
+
+  if (approvers.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  approvers = await approvers.json().then((a) => a.approvers);
+
+  res.render('webtools/approvers', {
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+    approvers,
+  });
+}));
+
 router.get('/email', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 

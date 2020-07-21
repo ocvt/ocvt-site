@@ -22,6 +22,40 @@ function webtoolsOrderSelectMember(memberId) {
   document.getElementById('manualOrderMemberId').value = memberId;
 }
 
+/* Trip Approvers */
+function webtoolsAddApprover(url, form) {
+  const approverData = {
+    memberId: parseInt(form.memberId.value),
+    expireDatetime: form.expireDatetime.value,
+  };
+
+  fetch(`${url}/webtools/approvers`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(approverData)
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
+function webtoolsDeleteApprover(url, memberId) {
+  if (!confirm('Are you sure you want to remove this trip approver?!?')) {
+    return;
+  }
+
+  fetch(`${url}/webtools/approvers/${memberId}`, {
+    credentials: 'include',
+    method: 'DELETE',
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
 /* Officers */
 function webtoolsAddOfficer(url, form) {
   const officerData = {
