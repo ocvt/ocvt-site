@@ -2,16 +2,17 @@ const aH = require('express-async-handler');
 const express = require('express');
 
 const h = require('./helpers');
+const d = require('./data');
 
 const router = express.Router();
 
 /* Root Routes */
 router.get('/', aH(async (req, res) => {
-  const [trips, /* homePhotos, */news] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
-    // TODO remove after testign
+  let [/* homePhotos, */news, trips] = await Promise.all([
+    // TODO remove after testing
     //    h.fetchHelper(`${h.API_URL}/homephotos`, req).then(h => h.json()),
     h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()).then((nn) => nn.news),
+    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
   ]);
 
   //  homePhotos = homePhotos.images;
@@ -21,13 +22,20 @@ router.get('/', aH(async (req, res) => {
     n.date = h.prettyDate(n.createDatetime);
   });
 
+  // Pretty print date & type
+  trips = trips.trips;
+  for (let i = 0; i < trips.length; i += 1) {
+    trips[i].date = h.prettyDate(trips[i].startDatetime);
+    trips[i].tripTypeName = d.tripTypes[trips[i].notificationTypeId].name;
+  }
+
   res.render('index', {
     title: 'Home',
     header: 'HOME',
     name: await h.getFirstName(req),
     homePhoto,
     news,
-    trips: trips.trips,
+    trips,
   });
 }));
 
