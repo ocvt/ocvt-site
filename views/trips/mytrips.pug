@@ -18,20 +18,20 @@ block content
     if trips.unpublished.length !== 0
       <h2>Unpublished trips</h2>
       for trip in trips.unpublished
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
 
     if trips.upcoming.length !== 0
       <h2>My Upcoming Trips</h2>
       for trip in trips.upcoming
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
 
     if trips.past.length !== 0
       <h2>My Past Trips</h2>
       for trip in trips.past
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
 
     if trips.canceled.length !== 0
       <h2>My Canceled Trips</h2>
       for trip in trips.canceled
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
   </div>

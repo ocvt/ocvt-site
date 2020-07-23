@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-  include include/trip_summary.pug
+  include include/trip_summary
 
   <h2>Force Added People</h2>
   <table>
-  include include/admin_print_header.pug
+  include include/admin_print_header
   for signup in signups.force
-    include include/signup_info_print.pug
+    include include/signup_info_print
   </table>
 
   if signups.attend.length !== 0
     <table>
     <h2>Normal Attending People</h2>
-    include include/admin_print_header.pug
+    include include/admin_print_header
     for signup in signups.attend
-      include include/signup_info_print.pug
+      include include/signup_info_print
     </table>
 
   if signups.wait.length !== 0
     <h2>Waiting List</h2>
     <table>
-    include include/admin_print_header.pug
+    include include/admin_print_header
     for signup in signups.wait
-      include include/signup_info_print.pug
+      include include/signup_info_print
     </table>
 
   if signups.cancel.length !== 0
     <h2>Canceled Users</h2>
     <table>
-    include include/admin_print_header.pug
+    include include/admin_print_header
     for signup in signups.cancel
-      include include/signup_info_print.pug
+      include include/signup_info_print
     </table>
 
   if signups.boot.length !== 0
     <h2>Booted Users</h2>
     <table>
-    include include/admin_print_header.pug
+    include include/admin_print_header
     for signup in signups.boot
-      include include/signup_info_print.pug
+      include include/signup_info_print
     </table>
 </body>
 </html>

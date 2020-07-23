@@ -29,13 +29,13 @@ block content
   <div id="fullCenter">
     <h2>Upcoming Trips</h2>
       each trip in trips
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
       else
         <p>No Upcoming Trips</p>
 
     <h2>Recent Trips</h2>
       each trip in recentTrips
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
       else
         <p>No Recent Trips</p>
 

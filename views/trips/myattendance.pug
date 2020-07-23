@@ -18,15 +18,15 @@ block content
     if trips.upcoming.length !== 0
       <h2>Upcoming Trips I'm Signed Up For</h2>
       for trip in trips.upcoming
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
 
     if trips.past.length !== 0
       <h2>Past Attended Trips</h2>
       for trip in trips.past
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
 
     if trips.canceled.length !== 0
       <h2>Trips I've Canceled From</h2>
       for trip in trips.canceled
-        include include/trip_list_summary.pug
+        include include/trip_list_summary
   </div>

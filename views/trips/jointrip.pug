@@ -2,7 +2,7 @@ extends ../_base
 
 block content
   <div id="fullCenter">
-    include include/trip_summary.pug
+    include include/trip_summary
 
     <h2>Signup For This OCVT Trip</h2>
     <form onsubmit="tripsJoinTrip('#{API_URL}', '#{trip.id}', this);return false">
