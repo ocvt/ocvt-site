@@ -8,6 +8,7 @@ const router = express.Router();
 
 /* Root Routes */
 router.get('/', aH(async (req, res) => {
+  // eslint-disable-next-line prefer-const
   let [/* homePhotos, */news, trips] = await Promise.all([
     // TODO remove after testing
     //    h.fetchHelper(`${h.API_URL}/homephotos`, req).then(h => h.json()),
