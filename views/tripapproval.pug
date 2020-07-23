@@ -1,0 +1,9 @@
+extends _base
+
+block content
+  <div class="webtools">
+    <h2>Trip Approval Info</h2>
+    <p>Link to trip: <a href="/trips/#{approval.tripId}">click here</a><p>
+    <p>Approval Status: #{approval.status}</p>
+    <p>Reason: #{approval.reason}</p>
+  </div>

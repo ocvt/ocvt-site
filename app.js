@@ -15,12 +15,14 @@ app.use(express.static('static'));
 const rootRouter = require('./routes/root');
 const aboutRouter = require('./routes/about');
 const myocvtRouter = require('./routes/myocvt');
+const tripapprovalRouter = require('./routes/tripapproval');
 const tripsRouter = require('./routes/trips');
 const webtoolsRouter = require('./routes/webtools');
 
 app.use('/', rootRouter);
 app.use('/about', aboutRouter);
 app.use('/myocvt', myocvtRouter);
+app.use('/tripapproval', tripapprovalRouter);
 app.use('/trips', tripsRouter);
 app.use('/webtools', webtoolsRouter);
 
