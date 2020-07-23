@@ -37,8 +37,11 @@ block content
     <h2>Upcoming Trips</h2>
       each trip in trips
         <h3 class="smallHeader2"><a href="/trips/#{trip.id}">#{trip.name}</a></h3>
-        <p>#{trip.date}</p>
-        <strong>Trip Type:</strong> #{trip.type}
+        | #{trip.date}
+        <br>
+        <br>
+        <strong>Trip Type:</strong> #{trip.tripTypeName}
+        <br>
         <a href="/trips/#{trip.id}">Full Details</a>
       else
         <p>No Trips Scheduled</p>
