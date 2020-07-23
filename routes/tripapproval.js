@@ -24,3 +24,5 @@ router.get('/:guidCode/:action', aH(async (req, res) => {
     approval: await approval.json(),
   });
 }));
+
+module.exports = router;

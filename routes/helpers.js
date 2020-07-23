@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const { API_URL } = process.env;
 
-const d = require('./data.js');
+const d = require('./data');
 
 async function fetchHelper(url, req) {
   const opts = {
