@@ -14,7 +14,7 @@ router.get('/', aH(async (req, res) => {
   ]);
 
   trips = trips.trips;
-  recentTrips = recentTrips.trips.filter((rT) => !trips.some((t) => rT.id === t.id));
+  recentTrips = recentTrips.trips.filter((rT) => !rT.cancel && !trips.some((t) => rT.id === t.id));
 
   // Pretty print date & type
   for (let i = 0; i < trips.length; i += 1) {

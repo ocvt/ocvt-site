@@ -5,6 +5,9 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* trip signups + status + emails
+* general trip admin actions
+* payments
 * Fix trip signup message if already on trip (or if owner?)
 * Unsubscribe page
 * Only load fetch polyfill if fetch does not exist
