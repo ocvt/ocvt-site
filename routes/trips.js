@@ -184,7 +184,8 @@ router.get('/:tripId', aH(async (req, res) => {
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
   const now = new Date();
-  const defaultSignupDate = new Date(startDate.getHours() - 12);
+  const defaultSignupDate = new Date(trip.startDatetime);
+  defaultSignupDate.setHours(defaultSignupDate.getHours() - 12);
   trip.pastSignupPeriod = (trip.allowLateSignups && startDate < now)
     || (!trip.allowLateSignups && defaultSignupDate < now);
 
