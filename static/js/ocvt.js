@@ -265,3 +265,14 @@ function tripsPublishTrip(url, tripId) {
     return;
   });
 }
+
+function tripsSendReminder(url, tripId) {
+  if (!confirm('Are you sure you want to send a reminder to everyone on the trip?')) {
+    return;
+  }
+
+  fetch(url + `/trips/${tripId}/admin/reminder`, {
+    credentials: 'include',
+    method: 'POST'
+  });
+}

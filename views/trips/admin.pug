@@ -92,10 +92,10 @@ block content
       <h2>Message Attendees</h2>
       <br>
       <h3 class="smallHeader">Send Reminder</h3>
-      <p>Click below to send a generic E-mail reminder to the all the trip attendees.</p>
+      <p>Click below to send a trip reminder to all trip attendees. An automated trip reminder is also sent 1 day before the trip</p>
       <br>
       <div align="center">
-        <form action="" method="post"> <button type="submit" name="reminder">Send Reminder</button></form>
+        <form onsubmit="tripsSendReminder('#{API_URL}', '#{trip.id}');return false"><button type="submit">Send Reminder</button></form>
       </div>
 
       <h3 class="smallHeader">Custom Message</h3>
