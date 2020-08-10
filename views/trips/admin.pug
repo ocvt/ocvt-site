@@ -92,42 +92,33 @@ block content
       <h2>Message Attendees</h2>
       <br>
       <h3 class="smallHeader">Send Reminder</h3>
-      <p>Click below to send a trip reminder to all trip attendees. An automated trip reminder is also sent 1 day before the trip</p>
+      <p>Click below to send a trip reminder to all trip attendees. An automated trip reminder is also sent 1 day before the trip.</p>
       <br>
       <div align="center">
         <form onsubmit="tripsSendReminder('#{API_URL}', '#{trip.id}');return false"><button type="submit">Send Reminder</button></form>
       </div>
 
       <h3 class="smallHeader">Custom Message</h3>
-      <form action="" method="post">
+      <form onsubmit="tripsSendMessage('#{API_URL}', '#{trip.id}', this);return false">
         <table id="tripform">
           <tbody>
             <tr>
-              <td valign="top"><strong>Send Message As:</strong>*</td>
-              <td>
-                <select name="SendAs">
-                  <option value="0">dougatwater@vt.edu</option>
-                  <option value="1">OCVT-Websystem@vt.edu</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
               <td valign="top"><strong>Send Message To</strong>:*</td>
               <td>
-                <select name="SendTo">
-                  <option value="ATTENDEES">Attendees</option>
-                  <option value="WAITING">Waiting List Only</option>
-                  <option value="ALL">Both Waiting and Attending</option>
+                <select name="notificationTypeId">
+                  <option value="TRIP_ALERT_ATTEND">Attendees</option>
+                  <option value="TRIP_ALERT_WAIT">Waiting List Only</option>
+                  <option value="TRIP_ALERT_ALL">Both Waiting and Attending</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td valign="top"><strong>Subject</strong>:*</td>
-              <td><input type="" name="Subject" size="50" value=""></td>
+              <td><input type="" name="subject" size="50" value="" required></td>
             </tr>
             <tr>
               <td valign="top"><strong>Message To Send</strong>:*</td>
-              <td><textarea name="messagebody" rows="4" cols="50"></textarea></td>
+              <td><textarea name="body" rows="4" cols="50" required></textarea></td>
             </tr>
           </tbody>
         </table>

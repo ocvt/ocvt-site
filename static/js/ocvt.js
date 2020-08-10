@@ -266,6 +266,27 @@ function tripsPublishTrip(url, tripId) {
   });
 }
 
+function tripsSendMessage(url, tripId, form) {
+  if (!confirm('Please confirm you want to send a custom message.')) {
+    return;
+  }
+
+  const emailData = {
+    body: form.body.value,
+    notificationTypeId: form.notificationTypeId.value,
+    subject: form.subject.value,
+  };
+
+  fetch(url + `/trips/${tripId}/admin/notify`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(emailData),
+  });
+}
+
 function tripsSendReminder(url, tripId) {
   if (!confirm('Are you sure you want to send a reminder to everyone on the trip?')) {
     return;
