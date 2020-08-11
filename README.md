@@ -5,8 +5,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* make separate boot function and also generic function
-* trip signup alerts -> attend/wait/boot/cancel
 * waitlist algorithm
 * payments
 * Unsubscribe page
