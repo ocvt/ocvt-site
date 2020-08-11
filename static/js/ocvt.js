@@ -297,3 +297,17 @@ function tripsSendReminder(url, tripId) {
     method: 'POST'
   });
 }
+
+function tripSignupStatusUpdate(url, tripId, memberId, action) {
+  if (action === 'boot' && !confirm('Are you sure you want to boot this member? This CANNOT be undone!')) {
+    return;
+  }
+
+  fetch(url + `/trips/${tripId}/admin/signup/${memberId}/${action}`, {
+    credentials: 'include',
+    method: 'PATCH'
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}

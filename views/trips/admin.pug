@@ -54,6 +54,7 @@ block content
       </tbody>
     </table>
 
+    - adminView = true
     <h3 class="smallHeader">Force Added People</h3>
     <p>
       | These attendees are forced added to the trip. They bypass the normal list and do not count
@@ -66,15 +67,19 @@ block content
 
     if signups.attend.length !== 0
       <h3 class="smallHeader">Normal Attending People</h3>
+      - attendSection = true
       for signup in signups.attend
         include include/signup_info
       <br>
+      - attendSection = false
 
     if signups.wait.length !== 0
       <h3 class="smallHeader">Waiting List</h3>
+      - waitlistSection = true
       for signup in signups.wait
         include include/signup_info
       <br>
+      - waistlistSection = false
 
     if signups.cancel.length !== 0
       <h3 class="smallHeader">Canceled Users</h3>

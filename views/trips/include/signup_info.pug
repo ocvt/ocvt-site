@@ -6,7 +6,15 @@
         <td><strong style="color:#475278">Phone:</strong> #{signup.cellNumber}</td>
       else
         <td></td>
-      <td colspan="5" width="300px" align="center"></td>
+      <td colspan="5" width="300px" align="center">
+        if adminView && (attendSection || waitlistSection)
+          <form style="display:inline">
+            <input type="button" value="Boot" onclick="tripSignupStatusUpdate('#{API_URL}', '#{signup.tripId}', '#{signup.id}', 'boot')">
+          </form>
+          <form style="display:inline">
+            <input type="button" value="Force Add" onclick="tripSignupStatusUpdate('#{API_URL}', '#{signup.tripId}', '#{signup.id}', 'forceadd')">
+          </form>
+      </td>
     </tr>
     <tr>
       <td colspan="2" width="340px"><strong style=" color:#475278">Name: </strong>#{signup.firstName} #{signup.lastName}</td>
