@@ -215,7 +215,7 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   ]);
 
   const signups = {
-    attend: [], boot: [], cancel: [], force: [], wait: [],
+    attend: [], boot: [], cancel: [], force: [], leader: [], wait: [],
   };
   let carSeats = 0;
 
@@ -229,6 +229,9 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
     if (signup.attendingCode === 'ATTEND') {
       carSeats += 1;
       signups.attend.push(signup);
+    } else if (signup.leader) {
+      carSeats += 1;
+      signups.leader.push(signup);
     } else if (signup.attendingCode === 'FORCE') {
       carSeats += 1;
       signups.force.push(signup);

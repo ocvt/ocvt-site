@@ -298,14 +298,29 @@ function tripsSendReminder(tripId) {
   });
 }
 
-function tripSignupStatusUpdate(tripId, memberId, action) {
-  if (action === 'boot' && !confirm('Are you sure you want to boot this member? This CANNOT be undone!')) {
+function tripSignupStatusBoot(tripId, memberId) {
+  const bootReason = prompt('Please enter a boot reason');
+  if (!bootReason) {
     return;
   }
 
+  fetch(API_URL + `/trips/${tripId}/admin/signup/${memberId}/boot`, {
+    credentials: 'include',
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ bootReason })
+  })
+  .then((r) => {
+    window.location.reload(true);
+  });
+}
+
+function tripSignupStatusGeneric(tripId, memberId, action) {
   fetch(API_URL + `/trips/${tripId}/admin/signup/${memberId}/${action}`, {
     credentials: 'include',
-    method: 'PATCH'
+    method: 'PATCH',
   })
   .then((r) => {
     window.location.reload(true);

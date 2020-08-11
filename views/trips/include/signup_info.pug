@@ -1,4 +1,4 @@
-if i % 2 == 0
+if typeof i === 'undefined' || i % 2 === 0
   <table class="tripPerson" border="0" bgcolor="#D6EFD7">
 else
   <table class="tripPerson" border="0" bgcolor="#FFFFFF">
@@ -12,10 +12,13 @@ else
     <td colspan="5" width="300px" align="center">
       if adminView && (attendSection || waitlistSection)
         <form style="display:inline">
-          <input type="button" value="Boot" onclick="tripSignupStatusUpdate('#{signup.tripId}', '#{signup.id}', 'boot')">
+          <input type="button" value="Boot" onclick="tripSignupStatusBoot('#{signup.tripId}', '#{signup.id}')">
         </form>
         <form style="display:inline">
-          <input type="button" value="Force Add" onclick="tripSignupStatusUpdate('#{signup.tripId}', '#{signup.id}', 'forceadd')">
+          <input type="button" value="Force Add" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'forceadd')">
+        </form>
+        <form style="display:inline">
+          <input type="button" value="Promote to leader" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'tripleader/1')">
         </form>
     </td>
   </tr>

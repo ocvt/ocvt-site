@@ -55,17 +55,26 @@ block content
     </table>
 
     - adminView = true
-    <h3 class="smallHeader">Force Added People</h3>
-    <p>
-      | These attendees are forced added to the trip. They bypass the normal list and do not count
-      | towards the maximum person limit.
-    </p>
+    <h3 class="smallHeader">Trip Leaders (count towards force added)</h3>
     <br>
     - i = 0
-    for signup in signups.force
+    for signup in signups.leader
       include include/signup_info
       - i += 1
     <br>
+
+    if signups.force.length !== 0
+      <h3 class="smallHeader">Force Added People</h3>
+      <p>
+        | These attendees are forced added to the trip. They bypass the normal list and do not count
+        | towards the maximum person limit.
+      </p>
+      <br>
+      - i = 0
+      for signup in signups.force
+        include include/signup_info
+        - i += 1
+      <br>
 
     if signups.attend.length !== 0
       <h3 class="smallHeader">Normal Attending People</h3>
