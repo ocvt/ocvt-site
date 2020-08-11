@@ -219,7 +219,7 @@ function tripsJoinTrip(url, tripId, form) {
         console.error(`Invalid status code on trip signup: ${r.status}`);
         return;
     }
-    window.location.reload(true);
+    window.location.href = `/trips/${tripId}/mysignup`;
   });
 }
 

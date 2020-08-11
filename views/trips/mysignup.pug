@@ -32,14 +32,15 @@ block content
     include include/signup_info
     <br>
 
-    <h2>Cancel My Trip Attendance</h2>
-    if mystatus.tripCreator
-      <p>You cannot cancel your attendance because you are the trip creator. To cancel the trip, <a href="/trips/#{trip.id}/admin">go the the trip admin page</a></p>
-    else
-      <p>Click below to cancel your attendance on this trip. You will be removed from the attending roster or the waiting list.</p>
-      <div align="center">
-        <form onsubmit="tripsCancelSignup('#{API_URL}', #{trip.id});return false">
-          <button type="submit">Cancel</button>
-        </form>
-      </div>
+    if mystatus.attendingCode !== 'CANCEL'
+      <h2>Cancel My Trip Attendance</h2>
+      if mystatus.tripCreator
+        <p>You cannot cancel your attendance because you are the trip creator. To cancel the trip, <a href="/trips/#{trip.id}/admin">go the the trip admin page</a></p>
+      else
+        <p>Click below to cancel your attendance on this trip. You will be removed from the attending roster or the waiting list.</p>
+        <div align="center">
+          <form onsubmit="tripsCancelSignup('#{API_URL}', #{trip.id});return false">
+            <button type="submit">Cancel</button>
+          </form>
+        </div>
   </div>
