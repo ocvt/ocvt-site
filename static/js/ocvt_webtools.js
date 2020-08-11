@@ -23,13 +23,13 @@ function webtoolsOrderSelectMember(memberId) {
 }
 
 /* Trip Approvers */
-function webtoolsAddApprover(url, form) {
+function webtoolsAddApprover(form) {
   const approverData = {
     memberId: parseInt(form.memberId.value),
     expireDatetime: form.expireDatetime.value,
   };
 
-  fetch(`${url}/webtools/approvers`, {
+  fetch(`${API_URL}/webtools/approvers`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -42,12 +42,12 @@ function webtoolsAddApprover(url, form) {
   });
 }
 
-function webtoolsDeleteApprover(url, memberId) {
+function webtoolsDeleteApprover(memberId) {
   if (!confirm('Are you sure you want to remove this trip approver?!?')) {
     return;
   }
 
-  fetch(`${url}/webtools/approvers/${memberId}`, {
+  fetch(`${API_URL}/webtools/approvers/${memberId}`, {
     credentials: 'include',
     method: 'DELETE',
   })
@@ -57,7 +57,7 @@ function webtoolsDeleteApprover(url, memberId) {
 }
 
 /* Officers */
-function webtoolsAddOfficer(url, form) {
+function webtoolsAddOfficer(form) {
   const officerData = {
     memberId: parseInt(form.memberId.value),
     expireDatetime: form.expireDatetime.value,
@@ -65,7 +65,7 @@ function webtoolsAddOfficer(url, form) {
     security: parseInt(form.security.value),
   };
 
-  fetch(`${url}/webtools/officers`, {
+  fetch(`${API_URL}/webtools/officers`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -78,12 +78,12 @@ function webtoolsAddOfficer(url, form) {
   });
 }
 
-function webtoolsDeleteOfficer(url, memberId) {
+function webtoolsDeleteOfficer(memberId) {
   if (!confirm('Are you sure you want to remove this officer?!?')) {
     return;
   }
 
-  fetch(`${url}/webtools/officers/${memberId}`, {
+  fetch(`${API_URL}/webtools/officers/${memberId}`, {
     credentials: 'include',
     method: 'DELETE',
   })
@@ -93,8 +93,8 @@ function webtoolsDeleteOfficer(url, memberId) {
 }
 
 /* Payments */
-function webtoolsAddYear(url, memberId) {
-  fetch(`${url}/webtools/members/${memberId}/dues/grant`, {
+function webtoolsAddYear(memberId) {
+  fetch(`${API_URL}/webtools/members/${memberId}/dues/grant`, {
     credentials: 'include',
     method: 'POST',
   })
@@ -103,8 +103,8 @@ function webtoolsAddYear(url, memberId) {
   });
 }
 
-function webtoolsCompleteOrder(url, paymentRowId) {
-  fetch(`${url}/webtools/payments/${paymentRowId}/completed`, {
+function webtoolsCompleteOrder(paymentRowId) {
+  fetch(`${API_URL}/webtools/payments/${paymentRowId}/completed`, {
     credentials: 'include',
     method: 'PATCH',
   })
@@ -114,8 +114,8 @@ function webtoolsCompleteOrder(url, paymentRowId) {
 }
 
 // Code Generation
-function generateCode(url, codeData) {
-  return fetch(`${url}/webtools/payments/generateCode`, {
+function generateCode(codeData) {
+  return fetch(`${API_URL}/webtools/payments/generateCode`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -131,7 +131,7 @@ function showCode(code) {
   document.getElementById('generateCodeResult').textContent = code;
 }
 
-function webtoolsGenerateCode(url, form) {
+function webtoolsGenerateCode(form) {
   const itemId = form.storeItemId.value;
   const amounts = {
     dues: 20,
@@ -150,35 +150,35 @@ function webtoolsGenerateCode(url, form) {
 
   if (itemId === 'dues') {
     codeData.storeItemId = 'MEMBERSHIP';
-    generateCode(url, codeData)
+    generateCode(codeData)
     .then((code) => {
       codeData.code = code;
       showCode(codeData.code);
     });
   } else if (itemId === 'duesShirt') {
     codeData.storeItemId = 'SHIRT';
-    generateCode(url, codeData)
+    generateCode(codeData)
     .then((code) => {
       codeData.code = code;
       codeData.storeItemId = 'MEMBERSHIP';
-      return generateCode(url, codeData);
+      return generateCode(codeData);
     })
     // We already know code, this verified both requests went through
     .then((code) => showCode(code));
   } else if (itemId === 'duesSpecial') {
     codeData.storeItemId = 'SHIRT';
-    generateCode(url, codeData)
+    generateCode(codeData)
     .then((code) => {
       codeData.code = code;
       codeData.storeItemId = 'MEMBERSHIP';
       codeData.storeItemCount *= 4;
-      return generateCode(url, codeData);
+      return generateCode(codeData);
     })
     // We already know code, this verified both requests went through
     .then((code) => showCode(code));
   } else if (itemId === 'shirt') {
     codeData.storeItemId = 'SHIRT';
-    generateCode(url, codeData)
+    generateCode(codeData)
     .then((code) => {
       codeData.code = code;
       showCode(codeData.code);
@@ -187,8 +187,8 @@ function webtoolsGenerateCode(url, form) {
 }
 
 // Order Submission
-function submitOrder(url, orderData) {
-  return fetch(`${url}/webtools/payments`, {
+function submitOrder(orderData) {
+  return fetch(`${API_URL}/webtools/payments`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -200,7 +200,7 @@ function submitOrder(url, orderData) {
   .then((p) => p.paymentId);
 }
 
-function webtoolsSubmitOrder(url, form) {
+function webtoolsSubmitOrder(form) {
   const itemId = form.storeItemId.value;
   const amounts = {
     dues: 20,
@@ -220,18 +220,18 @@ function webtoolsSubmitOrder(url, form) {
 
   if (itemId === 'dues') {
     orderData.storeItemId = 'MEMBERSHIP';
-    submitOrder(url, orderData)
+    submitOrder(orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
       window.location.reload(false);
     });
   } else if (itemId === 'duesShirt') {
     orderData.storeItemId = 'SHIRT';
-    submitOrder(url, orderData)
+    submitOrder(orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
       orderData.storeItemId = 'MEMBERSHIP';
-      return submitOrder(url, orderData);
+      return submitOrder(orderData);
     })
     // We already know payment id, this verified both requests went through
     .then((paymentId) => {
@@ -240,12 +240,12 @@ function webtoolsSubmitOrder(url, form) {
     });
   } else if (itemId === 'duesSpecial') {
     orderData.storeItemId = 'SHIRT';
-    submitOrder(url, orderData)
+    submitOrder(orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
       orderData.storeItemId = 'MEMBERSHIP';
       orderData.storeItemCount *= 4;
-      return submitOrder(url, orderData);
+      return submitOrder(orderData);
     })
     // We already know payment id, this verified both requests went through
     .then((paymentId) => {
@@ -254,7 +254,7 @@ function webtoolsSubmitOrder(url, form) {
     });
   } else if (itemId === 'shirt') {
     orderData.storeItemId = 'SHIRT';
-    submitOrder(url, orderData)
+    submitOrder(orderData)
     .then((paymentId) => {
       orderData.paymentId = paymentId;
       window.location.reload(false);
@@ -263,8 +263,8 @@ function webtoolsSubmitOrder(url, form) {
 }
 
 /* News / Announcements */
-function webtoolsDeleteNews(url, newsId) {
-  fetch(`${url}/webtools/news/${newsId}`, {
+function webtoolsDeleteNews(newsId) {
+  fetch(`${API_URL}/webtools/news/${newsId}`, {
     credentials: 'include',
     method: 'DELETE',
   })
@@ -273,13 +273,13 @@ function webtoolsDeleteNews(url, newsId) {
   });
 }
 
-function webtoolsSubmitEmail(url, form) {
+function webtoolsSubmitEmail(form) {
   const emailData = {
     subject: form.subject.value,
     body: tinymce.activeEditor.getContent(),
   }
 
-  fetch(`${url}/webtools/emails`, {
+  fetch(`${API_URL}/webtools/emails`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -292,14 +292,14 @@ function webtoolsSubmitEmail(url, form) {
   });
 }
 
-function webtoolsSubmitNews(url, form) {
+function webtoolsSubmitNews(form) {
   const newsData = {
     title: form.title.value,
     summary: form.summary.value,
     content: tinymce.activeEditor.getContent(),
   }
 
-  fetch(`${url}/webtools/news`, {
+  fetch(`${API_URL}/webtools/news`, {
     credentials: 'include',
     method: 'POST',
     headers: {

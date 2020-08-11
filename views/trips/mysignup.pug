@@ -39,7 +39,7 @@ block content
       else
         <p>Click below to cancel your attendance on this trip. You will be removed from the attending roster or the waiting list.</p>
         <div align="center">
-          <form onsubmit="tripsCancelSignup('#{API_URL}', #{trip.id});return false">
+          <form onsubmit="tripsCancelSignup(#{trip.id});return false">
             <button type="submit">Cancel</button>
           </form>
         </div>

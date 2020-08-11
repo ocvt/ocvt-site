@@ -5,12 +5,13 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* make separate boot function and also generic function
 * trip signup alerts -> attend/wait/boot/cancel
+* waitlist algorithm
 * payments
 * Unsubscribe page
 * Only load fetch polyfill if fetch does not exist
 * Reduce General Announcements to single type id -> GENERAL ANNOUNCEMENTS
-* Statically set API_URL in js files
 * Add .then where possible if getting property from json
 * Convert for to forEach where possible
 * List attendance next to Full Details + admin link for leaders & officers

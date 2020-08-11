@@ -19,7 +19,7 @@
 
   <div id="generateCode">
     <h3>Generate Store Code</h3>
-    <form onsubmit="webtoolsGenerateCode('#{API_URL}', this);return false">
+    <form onsubmit="webtoolsGenerateCode(this);return false">
       <table>
         <tr>
           <td>Store Item:</td>
@@ -55,7 +55,7 @@
 
   <div id="manualOrder">
     <h3>Order Details</h3>
-    <form onsubmit="webtoolsSubmitOrder('#{API_URL}', this);return false">
+    <form onsubmit="webtoolsSubmitOrder(this);return false">
       <table>
         <tr>
           <td>Member Id:</td>

@@ -11,7 +11,7 @@
   <h2>Officers</h2>
 
   <h3>Add new officer</h3>
-  <form onsubmit="webtoolsAddOfficer('#{API_URL}', this);return false">
+  <form onsubmit="webtoolsAddOfficer(this);return false">
     <table>
       <tr>
         <td>Member #:</td>
@@ -55,7 +55,7 @@
         <tr>
       - i += 1
 
-      <td><button onclick="webtoolsDeleteOfficer('#{API_URL}', '#{officer.memberId}')">Remove Officer</button></td>
+      <td><button onclick="webtoolsDeleteOfficer('#{officer.memberId}')">Remove Officer</button></td>
       <td>#{officer.memberId}</td>
       <td>#{officer.firstName}</td>
       <td>#{officer.lastName}</td>

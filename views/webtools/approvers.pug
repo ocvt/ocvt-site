@@ -11,7 +11,7 @@
   <h2>Trip Approvers</h2>
 
   <h3>Add new trip approver</h3>
-  <form onsubmit="webtoolsAddApprover('#{API_URL}', this);return false">
+  <form onsubmit="webtoolsAddApprover(this);return false">
     <table>
       <tr>
         <td>Member #:</td>
@@ -45,7 +45,7 @@
         <tr>
       - i += 1
 
-      <td><button onclick="webtoolsDeleteApprover('#{API_URL}', '#{approver.memberId}')">Remove Approver</button></td>
+      <td><button onclick="webtoolsDeleteApprover('#{approver.memberId}')">Remove Approver</button></td>
       <td>#{approver.memberId}</td>
       <td>#{approver.firstName}</td>
       <td>#{approver.lastName}</td>

@@ -1,5 +1,5 @@
 /* myocvt */
-function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
+function myocvtUpdateMyAccount(method, redirect, id, message, form) {
   const memberData = {
     firstName: form.firstName.value,
     lastName: form.lastName.value,
@@ -11,7 +11,7 @@ function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
     medicalCondDesc: form.medicalCondDesc.value
   };
 
-  fetch(url + '/myaccount', {
+  fetch(API_URL + '/myaccount', {
     credentials: 'include',
     method: method,
     headers: {
@@ -30,14 +30,14 @@ function myocvtUpdateMyAccount(url, method, redirect, id, message, form) {
   });
 }
 
-function myocvtUpdateEmergency(url, form) {
+function myocvtUpdateEmergency(form) {
   const emergencyData = {
     emergencyContactName: form.name.value,
     emergencyContactNumber: form.cellNumber.value,
     emergencyContactRelationship: form.relationship.value
   };
 
-  fetch(url + '/myaccount/emergency', {
+  fetch(API_URL + '/myaccount/emergency', {
     credentials: 'include',
     method: 'PATCH',
     headers: {
@@ -52,14 +52,14 @@ function myocvtUpdateEmergency(url, form) {
   });
 }
 
-function myocvtUpdateNotifications(url, notifications, form) {
+function myocvtUpdateNotifications(notifications, form) {
   notificationData = JSON.parse(notifications);
 
   for (let key in notificationData) {
     notificationData[key] = form[key].checked;
   }
 
-  fetch(url + '/myaccount/notifications', {
+  fetch(API_URL + '/myaccount/notifications', {
     credentials: 'include',
     method: 'PATCH',
     headers: {
@@ -74,13 +74,13 @@ function myocvtUpdateNotifications(url, notifications, form) {
   });
 }
 
-function myocvtDeactivateAccount(url, form) {
+function myocvtDeactivateAccount(form) {
   if (!form.deactivateAccount.checked) {
     window.location.href = '/';
     return
   }
 
-  fetch(url + '/myaccount/deactivate', {
+  fetch(API_URL + '/myaccount/deactivate', {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -90,13 +90,13 @@ function myocvtDeactivateAccount(url, form) {
   });
 }
 
-function myocvtDeleteAccount(url, form) {
+function myocvtDeleteAccount(form) {
   if (!form.deleteAccount.checked || !confirm('Are you sure you want to delete your account? This CANNOT be undone!')) {
     window.location.href = '/';
     return
   }
 
-  fetch(url + '/myaccount', {
+  fetch(API_URL + '/myaccount', {
     credentials: 'include',
     method: 'DELETE'
   })
@@ -106,8 +106,8 @@ function myocvtDeleteAccount(url, form) {
   });
 }
 
-function myocvtReactivateAccount(url) {
-  fetch(url + '/myaccount/reactivate', {
+function myocvtReactivateAccount() {
+  fetch(API_URL + '/myaccount/reactivate', {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -118,7 +118,7 @@ function myocvtReactivateAccount(url) {
 }
 
 /* trips */
-function tripsNewTrip(url, form) {
+function tripsNewTrip(form) {
   const startDate = form.startDate.value;
   const startTime = form.startTime.value;
   const endTime = form.endTime.value;
@@ -162,7 +162,7 @@ function tripsNewTrip(url, form) {
   console.log(JSON.stringify(trip));
   console.log(JSON.stringify(tripSignup));
 
-  fetch(url + '/trips', {
+  fetch(API_URL + '/trips', {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -178,7 +178,7 @@ function tripsNewTrip(url, form) {
     return r.json();
   })
   .then(d => {
-    fetch(url + `/trips/${d.tripId}/signup`, {
+    fetch(API_URL + `/trips/${d.tripId}/signup`, {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -196,7 +196,7 @@ function tripsNewTrip(url, form) {
   });
 }
 
-function tripsJoinTrip(url, tripId, form) {
+function tripsJoinTrip(tripId, form) {
   const tripSignup = {
     shortNotice: form.shortNotice.checked,
     driver: form.driver.checked,
@@ -206,7 +206,7 @@ function tripsJoinTrip(url, tripId, form) {
     pet: (form.pet && form.pet.checked) || false
   };
 
-  fetch(url + `/trips/${tripId}/signup`, {
+  fetch(API_URL + `/trips/${tripId}/signup`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -223,13 +223,13 @@ function tripsJoinTrip(url, tripId, form) {
   });
 }
 
-function tripsCancelSignup(url, tripId) {
+function tripsCancelSignup(tripId) {
   if (!confirm('Are you sure you want to cancel your attendance? This cannot be undone!')) {
     window.location.href = '/trips';
     return
   }
 
-  fetch(url + `/trips/${tripId}/mysignup/cancel`, {
+  fetch(API_URL + `/trips/${tripId}/mysignup/cancel`, {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -239,13 +239,13 @@ function tripsCancelSignup(url, tripId) {
   });
 }
 
-function tripsCancelTrip(url, tripId) {
+function tripsCancelTrip(tripId) {
   if (!confirm('Are you sure you want to cancel this trip? This cannot be undone!')) {
     window.location.href = `/trips/${tripId}/admin`;
     return
   }
 
-  fetch(url + `/trips/${tripId}/admin/cancel`, {
+  fetch(API_URL + `/trips/${tripId}/admin/cancel`, {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -255,8 +255,8 @@ function tripsCancelTrip(url, tripId) {
   });
 }
 
-function tripsPublishTrip(url, tripId) {
-  fetch(url + `/trips/${tripId}/admin/publish`, {
+function tripsPublishTrip(tripId) {
+  fetch(API_URL + `/trips/${tripId}/admin/publish`, {
     credentials: 'include',
     method: 'PATCH'
   })
@@ -266,7 +266,7 @@ function tripsPublishTrip(url, tripId) {
   });
 }
 
-function tripsSendMessage(url, tripId, form) {
+function tripsSendMessage(tripId, form) {
   if (!confirm('Please confirm you want to send a custom message.')) {
     return;
   }
@@ -277,7 +277,7 @@ function tripsSendMessage(url, tripId, form) {
     subject: form.subject.value,
   };
 
-  fetch(url + `/trips/${tripId}/admin/notify`, {
+  fetch(API_URL + `/trips/${tripId}/admin/notify`, {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -287,23 +287,23 @@ function tripsSendMessage(url, tripId, form) {
   });
 }
 
-function tripsSendReminder(url, tripId) {
+function tripsSendReminder(tripId) {
   if (!confirm('Are you sure you want to send a reminder to everyone on the trip?')) {
     return;
   }
 
-  fetch(url + `/trips/${tripId}/admin/reminder`, {
+  fetch(API_URL + `/trips/${tripId}/admin/reminder`, {
     credentials: 'include',
     method: 'POST'
   });
 }
 
-function tripSignupStatusUpdate(url, tripId, memberId, action) {
+function tripSignupStatusUpdate(tripId, memberId, action) {
   if (action === 'boot' && !confirm('Are you sure you want to boot this member? This CANNOT be undone!')) {
     return;
   }
 
-  fetch(url + `/trips/${tripId}/admin/signup/${memberId}/${action}`, {
+  fetch(API_URL + `/trips/${tripId}/admin/signup/${memberId}/${action}`, {
     credentials: 'include',
     method: 'PATCH'
   })

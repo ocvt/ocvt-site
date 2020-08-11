@@ -37,7 +37,7 @@ block content
       </p>
       <br>
       <div align="center">
-        <form onsubmit="tripsPublishTrip('#{API_URL}', '#{trip.id}');return false"><button type="submit">Publish!</button></form>
+        <form onsubmit="tripsPublishTrip('#{trip.id}');return false"><button type="submit">Publish!</button></form>
       </div>
 
     <h2>Trip Roster</h2>
@@ -110,11 +110,11 @@ block content
       <p>Click below to send a trip reminder to all trip attendees. An automated trip reminder is also sent 1 day before the trip.</p>
       <br>
       <div align="center">
-        <form onsubmit="tripsSendReminder('#{API_URL}', '#{trip.id}');return false"><button type="submit">Send Reminder</button></form>
+        <form onsubmit="tripsSendReminder('#{trip.id}');return false"><button type="submit">Send Reminder</button></form>
       </div>
 
       <h3 class="smallHeader">Custom Message</h3>
-      <form onsubmit="tripsSendMessage('#{API_URL}', '#{trip.id}', this);return false">
+      <form onsubmit="tripsSendMessage('#{trip.id}', this);return false">
         <table id="tripform">
           <tbody>
             <tr>
@@ -151,6 +151,6 @@ block content
       </p>
       <br>
       <div align="center">
-        <form onsubmit="tripsCancelTrip('#{API_URL}', '#{trip.id}');return false"><button type="submit">Cancel</button></form>
+        <form onsubmit="tripsCancelTrip('#{trip.id}');return false"><button type="submit">Cancel</button></form>
       </div>
   </div>

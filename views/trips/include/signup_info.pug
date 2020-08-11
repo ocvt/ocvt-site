@@ -12,10 +12,10 @@ else
     <td colspan="5" width="300px" align="center">
       if adminView && (attendSection || waitlistSection)
         <form style="display:inline">
-          <input type="button" value="Boot" onclick="tripSignupStatusUpdate('#{API_URL}', '#{signup.tripId}', '#{signup.id}', 'boot')">
+          <input type="button" value="Boot" onclick="tripSignupStatusUpdate('#{signup.tripId}', '#{signup.id}', 'boot')">
         </form>
         <form style="display:inline">
-          <input type="button" value="Force Add" onclick="tripSignupStatusUpdate('#{API_URL}', '#{signup.tripId}', '#{signup.id}', 'forceadd')">
+          <input type="button" value="Force Add" onclick="tripSignupStatusUpdate('#{signup.tripId}', '#{signup.id}', 'forceadd')">
         </form>
     </td>
   </tr>

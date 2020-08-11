@@ -4,7 +4,7 @@ block content
   <div id="fullCenter">
     <h2 id="user">Your Personal Information</h2>
     <p>You can update your personal information here.</p>
-    <form onsubmit="myocvtUpdateMyAccount('#{API_URL}', 'PATCH', false, 'updatePersonalInfo', 'Success!', this);return false">
+    <form onsubmit="myocvtUpdateMyAccount('PATCH', false, 'updatePersonalInfo', 'Success!', this);return false">
       <table id="tripform">
         <tbody>
           <tr>
@@ -75,7 +75,7 @@ block content
     <h2 id="emerg">Emergency Contact Information</h2>
     if myaccount.emergencyContactName === ''
       <p>You have no emergency contact information set. Fill out this form to add a contact.</p>
-    <form onsubmit="myocvtUpdateEmergency('#{API_URL}', this);return false">
+    <form onsubmit="myocvtUpdateEmergency(this);return false">
       <table id="tripform">
         <tbody>
           <tr>
@@ -132,7 +132,7 @@ block content
       | leaving the club please request to deactivate your account rather than
       | check all the boxes.
     </p>
-    <form onsubmit="myocvtUpdateNotifications('#{API_URL}', '#{JSON.stringify(notifications)}', this);return false">
+    <form onsubmit="myocvtUpdateNotifications('#{JSON.stringify(notifications)}', this);return false">
       <h3>General Announcements</h3>
       <table>
         <tbody>
@@ -187,7 +187,7 @@ block content
       | however, you can reactivate your account in the future. Inactive
       | accounts may be subject to deletion.
     </p>
-    <form onsubmit="myocvtDeactivateAccount('#{API_URL}', this);return false">
+    <form onsubmit="myocvtDeactivateAccount(this);return false">
       <table id="tripform">
         <tbody>
           <tr>
@@ -207,7 +207,7 @@ block content
       | OCVT you can delete your account. This is <strong>NOT</strong>
       | reversible.
     </p>
-    <form onsubmit="myocvtDeleteAccount('#{API_URL}', this);return false">
+    <form onsubmit="myocvtDeleteAccount(this);return false">
       <table id="tripform">
         <tbody>
           <tr>
