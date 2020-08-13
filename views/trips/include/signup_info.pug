@@ -10,16 +10,18 @@ else
     else
       <td></td>
     <td colspan="5" width="300px" align="center">
-      if adminView && (attendSection || waitlistSection)
-        <form style="display:inline">
-          <input type="button" value="Boot" onclick="tripSignupStatusBoot('#{signup.tripId}', '#{signup.id}')">
-        </form>
-        <form style="display:inline">
-          <input type="button" value="Force Add" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'forceadd')">
-        </form>
-        <form style="display:inline">
-          <input type="button" value="Promote to leader" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'tripleader/true')">
-        </form>
+      if adminView
+        if (leaderSection && trip.memberId != signup.memberId) || forceSection || attendSection || waitlistSection
+          <form style="display:inline">
+            <input type="button" value="Boot" onclick="tripSignupStatusBoot('#{signup.tripId}', '#{signup.id}')">
+          </form>
+        if attendSection || waitlistSection
+          <form style="display:inline">
+            <input type="button" value="Force Add" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'forceadd')">
+          </form>
+          <form style="display:inline">
+            <input type="button" value="Promote to leader" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'tripleader/true')">
+          </form>
     </td>
   </tr>
   <tr>
