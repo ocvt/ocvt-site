@@ -5,7 +5,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* waitlist algorithm
+* Show 'Promote to leader' button for force added people
 * payments
 * Unsubscribe page
 * Only load fetch polyfill if fetch does not exist
