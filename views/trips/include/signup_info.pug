@@ -28,6 +28,22 @@ else
     <td colspan="2" width="340px"><strong style=" color:#475278">Name: </strong>#{signup.firstName} #{signup.lastName}</td>
     <td rowspan="2" width="30px">
       <span class="tooltip" title="">
+        if signup.paidMember
+          <img class="tripPersonimg" src="/media/icon/paid-bw.png">
+          <span class="custom info">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <em>Attendee is paid</em>
+          </span>
+        else
+          <img class="tripPersonimg" src="/media/icon/unpaid-bw.png">
+          <span class="custom info">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <em>Attendee is unpaid</em>
+          </span>
+      </span>
+    </td>
+    <td rowspan="2" width="30px">
+      <span class="tooltip" title="">
         if signup.gender === 'F'
           <img class="tripPersonimg" src="/media/icon/female-bw.png">
           <span class="custom info">
