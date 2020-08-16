@@ -2,12 +2,15 @@
 
 The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
+## Supported Browsers
+
+* Firefox
+* Chrome
+
 
 ## TODO
 
 * payments
-* Reduce General Announcements to single type id -> GENERAL ANNOUNCEMENTS
-* Add .then where possible if getting property from json
 * Convert for to forEach where possible
 * List attendance next to Full Details + admin link for leaders & officers
 * Allow officers to access /admin for any trips

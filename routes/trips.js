@@ -38,12 +38,10 @@ router.get('/', aH(async (req, res) => {
 router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   let pastTrips;
   if (req.params.startId && req.params.perPage) {
-    pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive/${req.params.startId}/${req.params.perPage}`, req);
+    pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive/${req.params.startId}/${req.params.perPage}`, req).then((t) => t.json()).then((tj) => tj.trips);
   } else {
-    pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req);
+    pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req).then((t) => t.json()).then((tj) => tj.trips);
   }
-  pastTrips = await pastTrips.json();
-  pastTrips = pastTrips.trips;
 
   // Pretty print date & type
   for (let i = 0; i < pastTrips.length; i += 1) {
