@@ -326,3 +326,20 @@ function tripSignupStatusGeneric(tripId, memberId, action) {
     window.location.reload(true);
   });
 }
+
+function unsubscribe(form) {
+  fetch(API_URL + `/unsubscribe/all`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email: form.email.value }),
+  })
+  .then((r) => {
+    if (r.status == 204) {
+      document.getElementById('updateUnsubscribeInfo').textContent = 'Success!';
+    } else {
+      console.log('ERROR, status ' + r.status + '. Text: ' + r.text());
+    }
+  });
+}

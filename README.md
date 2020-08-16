@@ -6,8 +6,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 ## TODO
 
 * payments
-* Unsubscribe page
-* Only load fetch polyfill if fetch does not exist
 * Reduce General Announcements to single type id -> GENERAL ANNOUNCEMENTS
 * Add .then where possible if getting property from json
 * Convert for to forEach where possible

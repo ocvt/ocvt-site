@@ -1,9 +1,9 @@
-function quickSignup(url, form) {
+function quickSignup(form) {
   const emailData = {
     email: form.email.value
   }
   
-  fetch(`${url}/quicksignup`, {
+  fetch(`${API_URL}/quicksignup`, {
     credentials: 'include',
     method: 'POST',
     headers: {

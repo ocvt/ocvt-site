@@ -168,4 +168,13 @@ router.get('/tripagreement', aH(async (req, res) => {
   });
 }));
 
+router.get('/unsubscribe', aH(async (req, res) => {
+  res.render('unsubscribe', {
+    title: 'Unsubscribe',
+    header: 'UNSUBSCRIPE',
+    name: await h.getFirstName(req),
+    API_URL: h.API_URL,
+  });
+}));
+
 module.exports = router;

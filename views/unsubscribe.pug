@@ -1,0 +1,12 @@
+extends _base
+
+block content
+  <div id="fullCenter">
+    <h2>Unsubscribe</h2>
+    <p>Enter your email below to unsubscribe from all OCVT emails</p>
+    <form onsubmit="unsubscribe(this);return false">
+      <input type="text" name="email" required></td>
+      <button type="submit" name="user">Submit</button>
+      <p id="updateUnsubscribeInfo"></p>
+    </form>
+  </div>
