@@ -110,16 +110,13 @@ router.get('/mytrips', aH(async (req, res) => {
     canceled: [], past: [], upcoming: [], unpublished: [],
   };
 
-  mytrips.forEach((trip) => {
+  for (let i = 0; i < mytrips.length; i += 1) {
+    const trip = mytrips[i];
     const startDate = new Date(trip.startDatetime);
     const endDate = new Date(trip.endDatetime);
-    // eslint-disable-next-line no-param-reassign
     trip.date = h.prettyDate(trip.startDatetime);
-    // eslint-disable-next-line no-param-reassign
     trip.startTime = startDate.toLocaleTimeString();
-    // eslint-disable-next-line no-param-reassign
     trip.endTime = endDate.toLocaleTimeString();
-    // eslint-disable-next-line no-param-reassign
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
     if (trip.cancel) {
@@ -131,7 +128,7 @@ router.get('/mytrips', aH(async (req, res) => {
     } else {
       trips.upcoming.push(trip);
     }
-  });
+  }
 
   res.render('trips/mytrips', {
     title: 'My Trips',
@@ -217,11 +214,10 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   };
   let carSeats = 0;
 
-  admin.tripSignups.forEach((signup) => {
+  for (let i = 0; i < admin.tripSignups.length; i += 1) {
+    const signup = admin.tripSignups[i];
     const signupDate = new Date(signup.signupDatetime);
-    // eslint-disable-next-line no-param-reassign
     signup.date = h.prettyDate(signup.signupDatetime);
-    // eslint-disable-next-line no-param-reassign
     signup.time = signupDate.toLocaleTimeString();
 
     if (signup.attendingCode === 'ATTEND') {
@@ -240,7 +236,7 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
     } else {
       signups.wait.push(signup);
     }
-  });
+  }
 
   const startDate = new Date(trip.startDatetime);
   const endDate = new Date(trip.endDatetime);

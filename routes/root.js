@@ -18,10 +18,9 @@ router.get('/', aH(async (req, res) => {
 
   //  homePhotos = homePhotos.images;
   const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
-  news.forEach((n) => {
-    // eslint-disable-next-line no-param-reassign
-    n.date = h.prettyDate(n.createDatetime);
-  });
+  for (let i = 0; i < news.length; i += 1) {
+    news[i].date = h.prettyDate(news[i].createDatetime);
+  }
 
   // Pretty print date & type
   trips = trips.trips;
@@ -93,10 +92,9 @@ router.get('/news/:newsId', aH(async (req, res) => {
     news = news.filter((n) => n.id.toString() === req.params.newsId);
   }
 
-  news.forEach((n) => {
-    // eslint-disable-next-line no-param-reassign
-    n.date = h.prettyDate(n.createDatetime);
-  });
+  for (let i = 0; i < news.length; i += 1) {
+    news[i].date = h.prettyDate(news[i].createDatetime);
+  }
 
   res.render('news', {
     title: 'News',
