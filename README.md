@@ -11,8 +11,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 ## TODO
 
 * payments
-* List attendance next to Full Details + admin link for leaders & officers
-* Allow officers to access /admin for any trips
 * Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
 * Showcase old OCVT data (ex. oldsite/gpx)
 * Properly output message on js errors

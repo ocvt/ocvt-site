@@ -8,34 +8,50 @@ const router = express.Router();
 
 /* Trips Routes */
 router.get('/', aH(async (req, res) => {
-  let [trips, recentTrips] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
-    h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req).then((r) => r.json()),
+  // eslint-disable-next-line prefer-const
+  let [name, trips, recentTrips] = await Promise.all([
+    h.getFirstName(req),
+    h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()).then((tj) => tj.trips),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req).then((r) => r.json()).then((rj) => rj.trips),
   ]);
 
-  trips = trips.trips;
-  recentTrips = recentTrips.trips.filter((rT) => !rT.cancel && !trips.some((t) => rT.id === t.id));
+  recentTrips = recentTrips.filter((rT) => !rT.cancel && !trips.some((t) => rT.id === t.id));
 
-  // Pretty print date & type
+  // Pretty print date & type + add attendance info
   for (let i = 0; i < trips.length; i += 1) {
     trips[i].date = h.prettyDate(trips[i].startDatetime);
     trips[i].tripTypeName = d.tripTypes[trips[i].notificationTypeId].name;
+
+    // eslint-disable-next-line no-await-in-loop
+    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/mystatus`, req).then((s) => s.json());
+    if (mystatus.tripLeader || name.json.officer) {
+    // eslint-disable-next-line no-await-in-loop
+      trips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+    }
   }
   for (let i = 0; i < recentTrips.length; i += 1) {
     recentTrips[i].date = h.prettyDate(recentTrips[i].startDatetime);
     recentTrips[i].tripTypeName = d.tripTypes[recentTrips[i].notificationTypeId].name;
+
+    // eslint-disable-next-line no-await-in-loop
+    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/mystatus`, req).then((s) => s.json());
+    if (mystatus.tripLeader || name.json.officer) {
+    // eslint-disable-next-line no-await-in-loop
+      trips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+    }
   }
 
   res.render('trips/index', {
     title: 'Trips',
     header: 'OCVT TRIPS',
-    name: await h.getFirstName(req),
+    name,
     recentTrips,
     trips,
   });
 }));
 
 router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
+  const name = await h.getFirstName(req);
   let pastTrips;
   if (req.params.startId && req.params.perPage) {
     pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive/${req.params.startId}/${req.params.perPage}`, req).then((t) => t.json()).then((tj) => tj.trips);
@@ -47,12 +63,19 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   for (let i = 0; i < pastTrips.length; i += 1) {
     pastTrips[i].date = h.prettyDate(pastTrips[i].startDatetime);
     pastTrips[i].tripTypeName = d.tripTypes[pastTrips[i].notificationTypeId].name;
+
+    // eslint-disable-next-line no-await-in-loop
+    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${pastTrips[i].id}/mystatus`, req).then((s) => s.json());
+    if (mystatus.tripLeader || name.json.officer) {
+    // eslint-disable-next-line no-await-in-loop
+      pastTrips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${pastTrips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+    }
   }
 
   res.render('trips/archive', {
     title: 'Trips',
     header: 'TRIPS ARCHIVE',
-    name: await h.getFirstName(req),
+    name,
     pastTrips,
   });
 }));
@@ -78,7 +101,14 @@ router.get('/myattendance', aH(async (req, res) => {
     trip.endTime = endDate.toLocaleTimeString();
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
 
-    if (myattendance.tripSignups[i].attendingCode === 'CANCEL') {
+    // eslint-disable-next-line no-await-in-loop
+    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trip.id}/mystatus`, req).then((s) => s.json());
+    if (mystatus.tripLeader) {
+    // eslint-disable-next-line no-await-in-loop
+      trip.attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trip.id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+    }
+
+    if (trip.attendingCode === 'CANCEL') {
       trips.cancel.push(trip);
     } else if (endDate < Date.now()) {
       trips.past.push(trip);
@@ -118,6 +148,9 @@ router.get('/mytrips', aH(async (req, res) => {
     trip.startTime = startDate.toLocaleTimeString();
     trip.endTime = endDate.toLocaleTimeString();
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+    // eslint-disable-next-line no-await-in-loop
+    trip.attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trip.id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
 
     if (trip.cancel) {
       trips.canceled.push(trip);
