@@ -5,10 +5,10 @@ function quickSignup(form) {
     email: form.email.value
   };
   fetch("".concat(API_URL, "/quicksignup"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(emailData)
   }).then(function (r) {

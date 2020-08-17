@@ -3,28 +3,28 @@
 /* Front-end */
 function webtoolsOrderToggle(showId) {
   var hideId = {
-    manualOrder: 'generateCode',
-    generateCode: 'manualOrder'
+    manualOrder: "generateCode",
+    generateCode: "manualOrder"
   };
-  document.getElementById(hideId[showId]).style.display = 'none';
-  document.getElementById(showId).style.display = 'block';
+  document.getElementById(hideId[showId]).style.display = "none";
+  document.getElementById(showId).style.display = "block";
 }
 
 function sortMembers() {
-  var filter = document.getElementById('memberFilter').value.toLowerCase();
-  var rows = document.getElementById('filterMembers').getElementsByTagName('tr'); // Skip header row
+  var filter = document.getElementById("memberFilter").value.toLowerCase();
+  var rows = document.getElementById("filterMembers").getElementsByTagName("tr"); // Skip header row
 
   for (var i = 1; i < rows.length; i++) {
-    if (filter !== '' && rows[i].textContent.toLowerCase().indexOf(filter) <= 0) {
-      rows[i].style.display = 'none';
+    if (filter !== "" && rows[i].textContent.toLowerCase().indexOf(filter) <= 0) {
+      rows[i].style.display = "none";
     } else {
-      rows[i].style.display = '';
+      rows[i].style.display = "";
     }
   }
 }
 
 function webtoolsOrderSelectMember(memberId) {
-  document.getElementById('manualOrderMemberId').value = memberId;
+  document.getElementById("manualOrderMemberId").value = memberId;
 }
 /* Trip Approvers */
 
@@ -35,10 +35,10 @@ function webtoolsAddApprover(form) {
     expireDatetime: form.expireDatetime.value
   };
   fetch("".concat(API_URL, "/webtools/approvers"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(approverData)
   }).then(function (r) {
@@ -47,13 +47,13 @@ function webtoolsAddApprover(form) {
 }
 
 function webtoolsDeleteApprover(memberId) {
-  if (!confirm('Are you sure you want to remove this trip approver?!?')) {
+  if (!confirm("Are you sure you want to remove this trip approver?!?")) {
     return;
   }
 
   fetch("".concat(API_URL, "/webtools/approvers/").concat(memberId), {
-    credentials: 'include',
-    method: 'DELETE'
+    credentials: "include",
+    method: "DELETE"
   }).then(function (r) {
     window.location.reload(true);
   });
@@ -69,10 +69,10 @@ function webtoolsAddOfficer(form) {
     security: parseInt(form.security.value)
   };
   fetch("".concat(API_URL, "/webtools/officers"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(officerData)
   }).then(function (r) {
@@ -81,13 +81,13 @@ function webtoolsAddOfficer(form) {
 }
 
 function webtoolsDeleteOfficer(memberId) {
-  if (!confirm('Are you sure you want to remove this officer?!?')) {
+  if (!confirm("Are you sure you want to remove this officer?!?")) {
     return;
   }
 
   fetch("".concat(API_URL, "/webtools/officers/").concat(memberId), {
-    credentials: 'include',
-    method: 'DELETE'
+    credentials: "include",
+    method: "DELETE"
   }).then(function (r) {
     window.location.reload(true);
   });
@@ -97,8 +97,8 @@ function webtoolsDeleteOfficer(memberId) {
 
 function webtoolsAddYear(memberId) {
   fetch("".concat(API_URL, "/webtools/members/").concat(memberId, "/dues/grant"), {
-    credentials: 'include',
-    method: 'POST'
+    credentials: "include",
+    method: "POST"
   }).then(function (r) {
     window.location.reload(true);
   });
@@ -106,8 +106,8 @@ function webtoolsAddYear(memberId) {
 
 function webtoolsCompleteOrder(paymentRowId) {
   fetch("".concat(API_URL, "/webtools/payments/").concat(paymentRowId, "/completed"), {
-    credentials: 'include',
-    method: 'PATCH'
+    credentials: "include",
+    method: "PATCH"
   }).then(function (r) {
     window.location.reload(true);
   });
@@ -116,10 +116,10 @@ function webtoolsCompleteOrder(paymentRowId) {
 
 function generateCode(codeData) {
   return fetch("".concat(API_URL, "/webtools/payments/generateCode"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(codeData)
   }).then(function (r) {
@@ -130,7 +130,7 @@ function generateCode(codeData) {
 }
 
 function showCode(code) {
-  document.getElementById('generateCodeResult').textContent = code;
+  document.getElementById("generateCodeResult").textContent = code;
 }
 
 function webtoolsGenerateCode(form) {
@@ -146,38 +146,38 @@ function webtoolsGenerateCode(form) {
     completed: form.completed.checked,
     note: form.note.value,
     amount: amounts[itemId],
-    code: ''
+    code: ""
   };
 
-  if (itemId === 'dues') {
-    codeData.storeItemId = 'MEMBERSHIP';
+  if (itemId === "dues") {
+    codeData.storeItemId = "MEMBERSHIP";
     generateCode(codeData).then(function (code) {
       codeData.code = code;
       showCode(codeData.code);
     });
-  } else if (itemId === 'duesShirt') {
-    codeData.storeItemId = 'SHIRT';
+  } else if (itemId === "duesShirt") {
+    codeData.storeItemId = "SHIRT";
     generateCode(codeData).then(function (code) {
       codeData.code = code;
-      codeData.storeItemId = 'MEMBERSHIP';
+      codeData.storeItemId = "MEMBERSHIP";
       return generateCode(codeData);
     }) // We already know code, this verified both requests went through
     .then(function (code) {
       return showCode(code);
     });
-  } else if (itemId === 'duesSpecial') {
-    codeData.storeItemId = 'SHIRT';
+  } else if (itemId === "duesSpecial") {
+    codeData.storeItemId = "SHIRT";
     generateCode(codeData).then(function (code) {
       codeData.code = code;
-      codeData.storeItemId = 'MEMBERSHIP';
+      codeData.storeItemId = "MEMBERSHIP";
       codeData.storeItemCount *= 4;
       return generateCode(codeData);
     }) // We already know code, this verified both requests went through
     .then(function (code) {
       return showCode(code);
     });
-  } else if (itemId === 'shirt') {
-    codeData.storeItemId = 'SHIRT';
+  } else if (itemId === "shirt") {
+    codeData.storeItemId = "SHIRT";
     generateCode(codeData).then(function (code) {
       codeData.code = code;
       showCode(codeData.code);
@@ -188,10 +188,10 @@ function webtoolsGenerateCode(form) {
 
 function submitOrder(orderData) {
   return fetch("".concat(API_URL, "/webtools/payments"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(orderData)
   }).then(function (r) {
@@ -215,31 +215,31 @@ function webtoolsSubmitOrder(form) {
     completed: form.completed.checked,
     note: form.note.value,
     amount: amounts[itemId],
-    paymentId: ''
+    paymentId: ""
   };
 
-  if (itemId === 'dues') {
-    orderData.storeItemId = 'MEMBERSHIP';
+  if (itemId === "dues") {
+    orderData.storeItemId = "MEMBERSHIP";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
       window.location.reload(false);
     });
-  } else if (itemId === 'duesShirt') {
-    orderData.storeItemId = 'SHIRT';
+  } else if (itemId === "duesShirt") {
+    orderData.storeItemId = "SHIRT";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
-      orderData.storeItemId = 'MEMBERSHIP';
+      orderData.storeItemId = "MEMBERSHIP";
       return submitOrder(orderData);
     }) // We already know payment id, this verified both requests went through
     .then(function (paymentId) {
       orderData.paymentId = paymentId;
       window.location.reload(false);
     });
-  } else if (itemId === 'duesSpecial') {
-    orderData.storeItemId = 'SHIRT';
+  } else if (itemId === "duesSpecial") {
+    orderData.storeItemId = "SHIRT";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
-      orderData.storeItemId = 'MEMBERSHIP';
+      orderData.storeItemId = "MEMBERSHIP";
       orderData.storeItemCount *= 4;
       return submitOrder(orderData);
     }) // We already know payment id, this verified both requests went through
@@ -247,8 +247,8 @@ function webtoolsSubmitOrder(form) {
       orderData.paymentId = paymentId;
       window.location.reload(false);
     });
-  } else if (itemId === 'shirt') {
-    orderData.storeItemId = 'SHIRT';
+  } else if (itemId === "shirt") {
+    orderData.storeItemId = "SHIRT";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
       window.location.reload(false);
@@ -260,8 +260,8 @@ function webtoolsSubmitOrder(form) {
 
 function webtoolsDeleteNews(newsId) {
   fetch("".concat(API_URL, "/webtools/news/").concat(newsId), {
-    credentials: 'include',
-    method: 'DELETE'
+    credentials: "include",
+    method: "DELETE"
   }).then(function (r) {
     window.location.reload(true);
   });
@@ -273,14 +273,14 @@ function webtoolsSubmitEmail(form) {
     body: tinymce.activeEditor.getContent()
   };
   fetch("".concat(API_URL, "/webtools/emails"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(emailData)
   }).then(function (r) {
-    window.location.href = '/';
+    window.location.href = "/";
   });
 }
 
@@ -291,13 +291,13 @@ function webtoolsSubmitNews(form) {
     content: tinymce.activeEditor.getContent()
   };
   fetch("".concat(API_URL, "/webtools/news"), {
-    credentials: 'include',
-    method: 'POST',
+    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(newsData)
   }).then(function (r) {
-    window.location.href = '/';
+    window.location.href = "/";
   });
 }
