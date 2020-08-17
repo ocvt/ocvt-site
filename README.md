@@ -18,8 +18,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 * Validate browser support (mainly static js)
 * Validate HTML5 (ie td valign, etc)
 * Validate trip form date & time string data
-* Remove old css/html cruft (waiting to finish everything else)
-* Properly handle API being down
 * Cache photos from gdrive
 * Performance analysis
 * Accessibilty analysis
@@ -28,3 +26,8 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 * handle network errors or bad data in client side fetches
 * fix console errors
 * allow pictures to be uploaded for trips
+
+* deployment
+  * do it
+  * uptime checks for api + frontend
+  * regular backups of sqlite to gdrive

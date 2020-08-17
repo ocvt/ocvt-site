@@ -39,6 +39,14 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+router.get('/error', aH(async (req, res) => {
+  res.render('error', {
+    errorStatus: req.query.status,
+    errorCode: req.query.code,
+    errorMessage: req.query.text,
+  });
+}));
+
 router.get('/gallery', aH(async (req, res) => {
   // eslint-disable-next-line no-unused-vars
   const [homePhotos, tripsPhotos] = await Promise.all([

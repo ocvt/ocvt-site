@@ -26,6 +26,8 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
       } else {
         document.getElementById(id).textContent = message;
       }
+    } else {
+      window.location.href = `/error?status=${r.status}&code=error-update-myaccount&text=${r.text()}`;
     }
   });
 }
@@ -46,9 +48,11 @@ function myocvtUpdateEmergency(form) {
     body: JSON.stringify(emergencyData)
   })
   .then((r) => {
-    if (r.status === 204) {
-      document.getElementById('updateEmergencyInfo').textContent = 'Success!';
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-update-emergency&text=${r.text()}`;
+      return;
     }
+    document.getElementById('updateEmergencyInfo').textContent = 'Success!';
   });
 }
 
@@ -68,9 +72,11 @@ function myocvtUpdateNotifications(notifications, form) {
     body: JSON.stringify(notificationData)
   })
   .then((r) => {
-    if (r.status === 204) {
-      document.getElementById('updateNotificationsInfo').textContent = 'Success!';
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-update-notifications&text=${r.text()}`;
+      return;
     }
+    document.getElementById('updateNotificationsInfo').textContent = 'Success!';
   });
 }
 
@@ -85,8 +91,11 @@ function myocvtDeactivateAccount(form) {
     method: 'PATCH'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-deactivate-account&text=${r.text()}`;
+      return;
+    }
     window.location.href = '/';
-    return;
   });
 }
 
@@ -101,8 +110,11 @@ function myocvtDeleteAccount(form) {
     method: 'DELETE'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-delete-account&text=${r.text()}`;
+      return;
+    }
     window.location.href = '/logout';
-    return;
   });
 }
 
@@ -112,8 +124,11 @@ function myocvtReactivateAccount() {
     method: 'PATCH'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-reactivate-account&text=${r.text()}`;
+      return;
+    }
     window.location.href = '/';
-    return;
   });
 }
 
@@ -172,7 +187,7 @@ function tripsNewTrip(form) {
   })
   .then(r => {
     if (r.status !== 201) {
-      console.error(`Invalid status code on trip create: ${r.status}`);
+      window.location.href = `/error?status=${r.status}&code=error-trip-create-signup&text=${r.text()}`;
       return;
     }
     return r.json();
@@ -188,7 +203,7 @@ function tripsNewTrip(form) {
     })
     .then(r => {
       if (r.status !== 204) {
-        console.error(`Invalid status code on trip signup: ${r.status}`);
+        window.location.href = `/error?status=${r.status}&code=error-trip-create-signup-2&text=${r.text()}`;
         return;
       }
       window.location.href = `/trips/${d.tripId}`;
@@ -216,8 +231,8 @@ function tripsJoinTrip(tripId, form) {
   })
   .then(r => {
     if (r.status !== 204) {
-        console.error(`Invalid status code on trip signup: ${r.status}`);
-        return;
+      window.location.href = `/error?status=${r.status}&code=error-trip-signup&text=${r.text()}`;
+      return;
     }
     window.location.href = `/trips/${tripId}/mysignup`;
   });
@@ -234,8 +249,11 @@ function tripsCancelSignup(tripId) {
     method: 'PATCH'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-signup-cancel&text=${r.text()}`;
+      return;
+    }
     window.location.href = '/trips';
-    return;
   });
 }
 
@@ -250,8 +268,11 @@ function tripsCancelTrip(tripId) {
     method: 'PATCH'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-trip-cancel&text=${r.text()}`;
+      return;
+    }
     window.location.href = `/trips/${tripId}/admin`;
-    return;
   });
 }
 
@@ -261,8 +282,11 @@ function tripsPublishTrip(tripId) {
     method: 'PATCH'
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-trip-publish&text=${r.text()}`;
+      return;
+    }
     window.location.href = `/trips/${tripId}/admin`;
-    return;
   });
 }
 
@@ -284,6 +308,12 @@ function tripsSendMessage(tripId, form) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(emailData),
+  })
+  .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-send-message&text=${r.text()}`;
+      return;
+    }
   });
 }
 
@@ -295,6 +325,12 @@ function tripsSendReminder(tripId) {
   fetch(API_URL + `/trips/${tripId}/admin/reminder`, {
     credentials: 'include',
     method: 'POST'
+  })
+  .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-send-reminder&text=${r.text()}`;
+      return;
+    }
   });
 }
 
@@ -313,6 +349,10 @@ function tripSignupStatusBoot(tripId, memberId) {
     body: JSON.stringify({ bootReason })
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-signup-boot&text=${r.text()}`;
+      return;
+    }
     window.location.reload(true);
   });
 }
@@ -323,6 +363,10 @@ function tripSignupStatusGeneric(tripId, memberId, action) {
     method: 'PATCH',
   })
   .then((r) => {
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-signup-status-generic&text=${r.text()}`;
+      return;
+    }
     window.location.reload(true);
   });
 }
@@ -336,10 +380,10 @@ function unsubscribe(form) {
     body: JSON.stringify({ email: form.email.value }),
   })
   .then((r) => {
-    if (r.status == 204) {
-      document.getElementById('updateUnsubscribeInfo').textContent = 'Success!';
-    } else {
-      console.log('ERROR, status ' + r.status + '. Text: ' + r.text());
+    if (r.status !== 204) {
+      window.location.href = `/error?status=${r.status}&code=error-update-myaccount&text=${r.text()}`;
+      return;
     }
+    document.getElementById('updateUnsubscribeInfo').textContent = 'Success!';
   });
 }
