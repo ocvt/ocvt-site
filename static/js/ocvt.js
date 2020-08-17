@@ -1,6 +1,6 @@
 "use strict";
-
 /* myocvt */
+
 function myocvtUpdateMyAccount(method, redirect, id, message, form) {
   var memberData = {
     firstName: form.firstName.value,
@@ -12,7 +12,7 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     medicalCond: form.medicalCond.checked,
     medicalCondDesc: form.medicalCondDesc.value
   };
-  fetch(API_URL + "/myaccount", {
+  fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
     method: method,
     headers: {
@@ -38,7 +38,7 @@ function myocvtUpdateEmergency(form) {
     emergencyContactNumber: form.cellNumber.value,
     emergencyContactRelationship: form.relationship.value
   };
-  fetch(API_URL + "/myaccount/emergency", {
+  fetch("".concat(API_URL, "/myaccount/emergency"), {
     credentials: "include",
     method: "PATCH",
     headers: {
@@ -62,7 +62,7 @@ function myocvtUpdateNotifications(notifications, form) {
     notificationData[key] = form[key].checked;
   }
 
-  fetch(API_URL + "/myaccount/notifications", {
+  fetch("".concat(API_URL, "/myaccount/notifications"), {
     credentials: "include",
     method: "PATCH",
     headers: {
@@ -85,7 +85,7 @@ function myocvtDeactivateAccount(form) {
     return;
   }
 
-  fetch(API_URL + "/myaccount/deactivate", {
+  fetch("".concat(API_URL, "/myaccount/deactivate"), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -104,7 +104,7 @@ function myocvtDeleteAccount(form) {
     return;
   }
 
-  fetch(API_URL + "/myaccount", {
+  fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
     method: "DELETE"
   }).then(function (r) {
@@ -118,7 +118,7 @@ function myocvtDeleteAccount(form) {
 }
 
 function myocvtReactivateAccount() {
-  fetch(API_URL + "/myaccount/reactivate", {
+  fetch("".concat(API_URL, "/myaccount/reactivate"), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -177,7 +177,7 @@ function tripsNewTrip(form) {
   };
   console.log(JSON.stringify(trip));
   console.log(JSON.stringify(tripSignup));
-  fetch(API_URL + "/trips", {
+  fetch("".concat(API_URL, "/trips"), {
     credentials: "include",
     method: "POST",
     headers: {
@@ -192,7 +192,7 @@ function tripsNewTrip(form) {
 
     return r.json();
   }).then(function (d) {
-    fetch(API_URL + "/trips/".concat(d.tripId, "/signup"), {
+    fetch("".concat(API_URL, "/trips/").concat(d.tripId, "/signup"), {
       credentials: "include",
       method: "POST",
       headers: {
@@ -219,7 +219,7 @@ function tripsJoinTrip(tripId, form) {
     notes: form.notes.value,
     pet: form.pet && form.pet.checked || false
   };
-  fetch(API_URL + "/trips/".concat(tripId, "/signup"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/signup"), {
     credentials: "include",
     method: "POST",
     headers: {
@@ -242,7 +242,7 @@ function tripsCancelSignup(tripId) {
     return;
   }
 
-  fetch(API_URL + "/trips/".concat(tripId, "/mysignup/cancel"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/mysignup/cancel"), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -261,7 +261,7 @@ function tripsCancelTrip(tripId) {
     return;
   }
 
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/cancel"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/cancel"), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -275,7 +275,7 @@ function tripsCancelTrip(tripId) {
 }
 
 function tripsPublishTrip(tripId) {
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/publish"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/publish"), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -298,7 +298,7 @@ function tripsSendMessage(tripId, form) {
     notificationTypeId: form.notificationTypeId.value,
     subject: form.subject.value
   };
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/notify"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/notify"), {
     credentials: "include",
     method: "POST",
     headers: {
@@ -318,7 +318,7 @@ function tripsSendReminder(tripId) {
     return;
   }
 
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/reminder"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/reminder"), {
     credentials: "include",
     method: "POST"
   }).then(function (r) {
@@ -336,7 +336,7 @@ function tripSignupStatusBoot(tripId, memberId) {
     return;
   }
 
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/signup/").concat(memberId, "/boot"), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/signup/").concat(memberId, "/boot"), {
     credentials: "include",
     method: "PATCH",
     headers: {
@@ -356,7 +356,7 @@ function tripSignupStatusBoot(tripId, memberId) {
 }
 
 function tripSignupStatusGeneric(tripId, memberId, action) {
-  fetch(API_URL + "/trips/".concat(tripId, "/admin/signup/").concat(memberId, "/").concat(action), {
+  fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/signup/").concat(memberId, "/").concat(action), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
@@ -370,7 +370,7 @@ function tripSignupStatusGeneric(tripId, memberId, action) {
 }
 
 function unsubscribe(form) {
-  fetch(API_URL + "/unsubscribe/all", {
+  fetch("".concat(API_URL, "/unsubscribe/all"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

@@ -1,6 +1,6 @@
 "use strict";
-
 /* Front-end */
+
 function webtoolsOrderToggle(showId) {
   var hideId = {
     manualOrder: "generateCode",
