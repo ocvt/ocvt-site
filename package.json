@@ -4,6 +4,7 @@
   "description": "OCVT Site Frontend",
   "main": "app.js",
   "scripts": {
+    "compile": "babel ./static/js/ocvt.js -o ./static/js/ocvt.js && babel ./static/js/ocvt_quicksignup.js -o ./static/js/ocvt_quicksignup.js && babel ./static/js/ocvt_webtools.js -o ./static/js/ocvt_webtools.js",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
@@ -19,13 +20,15 @@
   "homepage": "https://github.com/ocvt/ocvt-site#readme",
   "dependencies": {
     "compression": "^1.7.4",
-    "connect-datadog": "0.0.9",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "node-fetch": "^2.6.0",
     "pug": "^2.0.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "eslint": "^7.3.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.21.2"

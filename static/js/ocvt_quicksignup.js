@@ -1,17 +1,17 @@
+"use strict";
+
 function quickSignup(form) {
-  const emailData = {
+  var emailData = {
     email: form.email.value
-  }
-  
-  fetch(`${API_URL}/quicksignup`, {
+  };
+  fetch("".concat(API_URL, "/quicksignup"), {
     credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(emailData)
-  })
-  .then((r) => {
+  }).then(function (r) {
     window.location.reload(true);
   });
 }

@@ -1,6 +1,8 @@
+"use strict";
+
 /* myocvt */
 function myocvtUpdateMyAccount(method, redirect, id, message, form) {
-  const memberData = {
+  var memberData = {
     firstName: form.firstName.value,
     lastName: form.lastName.value,
     email: form.email.value,
@@ -10,7 +12,6 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     medicalCond: form.medicalCond.checked,
     medicalCondDesc: form.medicalCondDesc.value
   };
-
   fetch(API_URL + '/myaccount', {
     credentials: 'include',
     method: method,
@@ -18,8 +19,7 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(memberData)
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status >= 200 && r.status < 300) {
       if (redirect) {
         window.location.href = '/';
@@ -27,18 +27,17 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
         document.getElementById(id).textContent = message;
       }
     } else {
-      window.location.href = `/error?status=${r.status}&code=error-update-myaccount&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(r.text());
     }
   });
 }
 
 function myocvtUpdateEmergency(form) {
-  const emergencyData = {
+  var emergencyData = {
     emergencyContactName: form.name.value,
     emergencyContactNumber: form.cellNumber.value,
     emergencyContactRelationship: form.relationship.value
   };
-
   fetch(API_URL + '/myaccount/emergency', {
     credentials: 'include',
     method: 'PATCH',
@@ -46,12 +45,12 @@ function myocvtUpdateEmergency(form) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(emergencyData)
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-update-emergency&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-update-emergency&text=").concat(r.text());
       return;
     }
+
     document.getElementById('updateEmergencyInfo').textContent = 'Success!';
   });
 }
@@ -59,7 +58,7 @@ function myocvtUpdateEmergency(form) {
 function myocvtUpdateNotifications(notifications, form) {
   notificationData = JSON.parse(notifications);
 
-  for (let key in notificationData) {
+  for (var key in notificationData) {
     notificationData[key] = form[key].checked;
   }
 
@@ -70,12 +69,12 @@ function myocvtUpdateNotifications(notifications, form) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(notificationData)
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-update-notifications&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-update-notifications&text=").concat(r.text());
       return;
     }
+
     document.getElementById('updateNotificationsInfo').textContent = 'Success!';
   });
 }
@@ -83,18 +82,18 @@ function myocvtUpdateNotifications(notifications, form) {
 function myocvtDeactivateAccount(form) {
   if (!form.deactivateAccount.checked) {
     window.location.href = '/';
-    return
+    return;
   }
 
   fetch(API_URL + '/myaccount/deactivate', {
     credentials: 'include',
     method: 'PATCH'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-deactivate-account&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-deactivate-account&text=").concat(r.text());
       return;
     }
+
     window.location.href = '/';
   });
 }
@@ -102,18 +101,18 @@ function myocvtDeactivateAccount(form) {
 function myocvtDeleteAccount(form) {
   if (!form.deleteAccount.checked || !confirm('Are you sure you want to delete your account? This CANNOT be undone!')) {
     window.location.href = '/';
-    return
+    return;
   }
 
   fetch(API_URL + '/myaccount', {
     credentials: 'include',
     method: 'DELETE'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-delete-account&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-delete-account&text=").concat(r.text());
       return;
     }
+
     window.location.href = '/logout';
   });
 }
@@ -122,28 +121,30 @@ function myocvtReactivateAccount() {
   fetch(API_URL + '/myaccount/reactivate', {
     credentials: 'include',
     method: 'PATCH'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-reactivate-account&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-reactivate-account&text=").concat(r.text());
       return;
     }
+
     window.location.href = '/';
   });
 }
-
 /* trips */
-function tripsNewTrip(form) {
-  const startDate = form.startDate.value;
-  const startTime = form.startTime.value;
-  const endTime = form.endTime.value;
 
-  const startDatetime = new Date(`${form.startDate.value}T${form.startTime.value}:00`);
-  let endDatetime = new Date(`${form.startDate.value}T${form.endTime.value}:00`);
+
+function tripsNewTrip(form) {
+  var startDate = form.startDate.value;
+  var startTime = form.startTime.value;
+  var endTime = form.endTime.value;
+  var startDatetime = new Date("".concat(form.startDate.value, "T").concat(form.startTime.value, ":00"));
+  var endDatetime = new Date("".concat(form.startDate.value, "T").concat(form.endTime.value, ":00"));
+
   if (endDatetime.getTime() > startDatetime.getTime()) {
     endDatetime.setDate(endDatetime.getDate() + 1);
   }
-  const trip = {
+
+  var trip = {
     membersOnly: form.membersOnly.checked,
     allowLateSignups: form.allowLateSignups.checked,
     drivingRequired: form.drivingRequired.checked,
@@ -166,7 +167,7 @@ function tripsNewTrip(form) {
     petsAllowed: form.petsAllowed.checked,
     petsDescription: form.petsDescription.value
   };
-  const tripSignup = {
+  var tripSignup = {
     shortNotice: true,
     driver: form.driver.checked,
     carpool: form.canCarpool.checked,
@@ -176,7 +177,6 @@ function tripsNewTrip(form) {
   };
   console.log(JSON.stringify(trip));
   console.log(JSON.stringify(tripSignup));
-
   fetch(API_URL + '/trips', {
     credentials: 'include',
     method: 'POST',
@@ -184,109 +184,107 @@ function tripsNewTrip(form) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(trip)
-  })
-  .then(r => {
+  }).then(function (r) {
     if (r.status !== 201) {
-      window.location.href = `/error?status=${r.status}&code=error-trip-create-signup&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup&text=").concat(r.text());
       return;
     }
+
     return r.json();
-  })
-  .then(d => {
-    fetch(API_URL + `/trips/${d.tripId}/signup`, {
+  }).then(function (d) {
+    fetch(API_URL + "/trips/".concat(d.tripId, "/signup"), {
       credentials: 'include',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(tripSignup)
-    })
-    .then(r => {
+    }).then(function (r) {
       if (r.status !== 204) {
-        window.location.href = `/error?status=${r.status}&code=error-trip-create-signup-2&text=${r.text()}`;
+        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup-2&text=").concat(r.text());
         return;
       }
-      window.location.href = `/trips/${d.tripId}`;
-    })
+
+      window.location.href = "/trips/".concat(d.tripId);
+    });
   });
 }
 
 function tripsJoinTrip(tripId, form) {
-  const tripSignup = {
+  var tripSignup = {
     shortNotice: form.shortNotice.checked,
     driver: form.driver.checked,
     carpool: form.canCarpool.checked,
     carCapacity: parseInt(form.carCapacity.value),
     notes: form.notes.value,
-    pet: (form.pet && form.pet.checked) || false
+    pet: form.pet && form.pet.checked || false
   };
-
-  fetch(API_URL + `/trips/${tripId}/signup`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/signup"), {
     credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(tripSignup)
-  })
-  .then(r => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-trip-signup&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-signup&text=").concat(r.text());
       return;
     }
-    window.location.href = `/trips/${tripId}/mysignup`;
+
+    window.location.href = "/trips/".concat(tripId, "/mysignup");
   });
 }
 
 function tripsCancelSignup(tripId) {
   if (!confirm('Are you sure you want to cancel your attendance? This cannot be undone!')) {
     window.location.href = '/trips';
-    return
+    return;
   }
 
-  fetch(API_URL + `/trips/${tripId}/mysignup/cancel`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/mysignup/cancel"), {
     credentials: 'include',
     method: 'PATCH'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-signup-cancel&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-cancel&text=").concat(r.text());
       return;
     }
+
     window.location.href = '/trips';
   });
 }
 
 function tripsCancelTrip(tripId) {
   if (!confirm('Are you sure you want to cancel this trip? This cannot be undone!')) {
-    window.location.href = `/trips/${tripId}/admin`;
-    return
+    window.location.href = "/trips/".concat(tripId, "/admin");
+    return;
   }
 
-  fetch(API_URL + `/trips/${tripId}/admin/cancel`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/cancel"), {
     credentials: 'include',
     method: 'PATCH'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-trip-cancel&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-cancel&text=").concat(r.text());
       return;
     }
-    window.location.href = `/trips/${tripId}/admin`;
+
+    window.location.href = "/trips/".concat(tripId, "/admin");
   });
 }
 
 function tripsPublishTrip(tripId) {
-  fetch(API_URL + `/trips/${tripId}/admin/publish`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/publish"), {
     credentials: 'include',
     method: 'PATCH'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-trip-publish&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-publish&text=").concat(r.text());
       return;
     }
-    window.location.href = `/trips/${tripId}/admin`;
+
+    window.location.href = "/trips/".concat(tripId, "/admin");
   });
 }
 
@@ -295,23 +293,21 @@ function tripsSendMessage(tripId, form) {
     return;
   }
 
-  const emailData = {
+  var emailData = {
     body: form.body.value,
     notificationTypeId: form.notificationTypeId.value,
-    subject: form.subject.value,
+    subject: form.subject.value
   };
-
-  fetch(API_URL + `/trips/${tripId}/admin/notify`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/notify"), {
     credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(emailData),
-  })
-  .then((r) => {
+    body: JSON.stringify(emailData)
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-send-message&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-send-message&text=").concat(r.text());
       return;
     }
   });
@@ -322,68 +318,72 @@ function tripsSendReminder(tripId) {
     return;
   }
 
-  fetch(API_URL + `/trips/${tripId}/admin/reminder`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/reminder"), {
     credentials: 'include',
     method: 'POST'
-  })
-  .then((r) => {
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-send-reminder&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-send-reminder&text=").concat(r.text());
       return;
     }
   });
 }
 
 function tripSignupStatusBoot(tripId, memberId) {
-  const bootReason = prompt('Please enter a boot reason');
+  var bootReason = prompt('Please enter a boot reason');
+
   if (!bootReason) {
     return;
   }
 
-  fetch(API_URL + `/trips/${tripId}/admin/signup/${memberId}/boot`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/signup/").concat(memberId, "/boot"), {
     credentials: 'include',
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ bootReason })
-  })
-  .then((r) => {
+    body: JSON.stringify({
+      bootReason: bootReason
+    })
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-signup-boot&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-boot&text=").concat(r.text());
       return;
     }
+
     window.location.reload(true);
   });
 }
 
 function tripSignupStatusGeneric(tripId, memberId, action) {
-  fetch(API_URL + `/trips/${tripId}/admin/signup/${memberId}/${action}`, {
+  fetch(API_URL + "/trips/".concat(tripId, "/admin/signup/").concat(memberId, "/").concat(action), {
     credentials: 'include',
-    method: 'PATCH',
-  })
-  .then((r) => {
+    method: 'PATCH'
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-signup-status-generic&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-status-generic&text=").concat(r.text());
       return;
     }
+
     window.location.reload(true);
   });
 }
 
 function unsubscribe(form) {
-  fetch(API_URL + `/unsubscribe/all`, {
+  fetch(API_URL + "/unsubscribe/all", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email: form.email.value }),
-  })
-  .then((r) => {
+    body: JSON.stringify({
+      email: form.email.value
+    })
+  }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = `/error?status=${r.status}&code=error-update-myaccount&text=${r.text()}`;
+      window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(r.text());
       return;
     }
+
     document.getElementById('updateUnsubscribeInfo').textContent = 'Success!';
   });
 }
