@@ -6,28 +6,23 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 * Firefox
 * Chrome
+* IE11 (?, untested but compiled via babel)
 
 
 ## TODO
 
+* fix console errors
 * payments
-* Redirects for invalid trips or other data (Ex. return 404 instead of crashing)
+* allow pictures to be uploaded for trips
 * Showcase old OCVT data (ex. oldsite/gpx)
-* Properly output message on js errors
-* Add static checker for static js
 * Validate browser support (mainly static js)
 * Validate HTML5 (ie td valign, etc)
-* Validate trip form date & time string data
-* Cache photos from gdrive
 * Performance analysis
 * Accessibilty analysis
-* Remove expressjs headers or other security stuff
-* html / js linter
-* handle network errors or bad data in client side fetches
-* fix console errors
-* allow pictures to be uploaded for trips
 
 * deployment
   * do it
+  * Cache photos from gdrive
+  * Remove expressjs headers or other security stuff
   * uptime checks for api + frontend
   * regular backups of sqlite to gdrive
