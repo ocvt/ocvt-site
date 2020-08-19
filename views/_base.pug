@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-SecurityPolicy" content="default-src 'self'; connect-src 'self' https://checkout.stripe.com; frame-src 'self' https://checkout.stripe.com; image-src 'self' https://*.stripe.com; script-src 'self' https://checkout.stripe.com 'unsafe-inline'">
   <link rel="stylesheet" href="/css/ocvt.css">
-  <script>const API_URL="#{API_URL}"</script>
+  <script>var API_URL="#{API_URL}"</script>
   <script type="text/javascript" src="/js/ocvt.js"></script>
   <script type="text/javascript" src="/js/unfetch-4.1.0.min.js"></script>
   <title>OCVT - #{title}</title>

@@ -11,8 +11,6 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
-* fix console errors
-* payments
 * allow pictures to be uploaded for trips
 * Showcase old OCVT data (ex. oldsite/gpx)
 * Validate browser support (mainly static js)
@@ -22,6 +20,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 * deployment
   * do it
+  * finish testing payment webhook
   * Cache photos from gdrive
   * Remove expressjs headers or other security stuff
   * uptime checks for api + frontend

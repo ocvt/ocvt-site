@@ -387,3 +387,28 @@ function unsubscribe(form) {
     document.getElementById("updateUnsubscribeInfo").textContent = "Success!";
   });
 }
+/* payments */
+
+
+function ocvtDues(form) {
+  // requires stripe js library
+  var stripe = Stripe(STRIPE_PUBLIC_KEY);
+  fetch("".concat(API_URL, "/payment/").concat(form.paymentOption.value), {
+    credentials: "include"
+  }).then(function (r) {
+    if (r.status !== 200) {
+      window.location.href = "/error?status=".concat(r.status, "&code=error-dues-get&text=").concat(r.text());
+      return;
+    }
+
+    return r.json();
+  }).then(function (rj) {
+    return stripe.redirectToCheckout({
+      sessionId: rj.sessionId
+    });
+  }).then(function (c) {
+    if (c.error) {
+      window.location.href = "/error?status=".concat(c.status, "&code=error-stripe-payment&text=").concat(c.error.message);
+    }
+  });
+}
