@@ -190,8 +190,9 @@ router.get('/newtrip', aH(async (req, res) => {
 }));
 
 router.get('/:tripId', aH(async (req, res) => {
-  let [mystatus, trip] = await Promise.all([
+  let [mystatus, photos, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}/photos`, req),
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}`, req),
   ]);
 
@@ -199,8 +200,9 @@ router.get('/:tripId', aH(async (req, res) => {
     trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   }
 
-  [mystatus, trip] = await Promise.all([
+  [mystatus, photos, trip] = await Promise.all([
     mystatus.json(),
+    photos.json(),
     trip.json(),
   ]);
 
@@ -221,6 +223,7 @@ router.get('/:tripId', aH(async (req, res) => {
     title: 'Trips',
     header: 'VIEW TRIP',
     name: await h.getFirstName(req),
+    mainphoto: photos.mainphoto,
     mystatus,
     trip,
   });
@@ -365,6 +368,21 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
     API_URL: h.API_URL,
     signup: mysignup,
     mystatus,
+    trip,
+  });
+}));
+
+router.get('/:tripId/photos', aH(async (req, res) => {
+  let [photos, trip] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}/photos`, req).then((p) => p.json()),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json()),
+  ]);
+
+  res.render('trips/photos', {
+    title: 'Trip Photos',
+    header: 'TRIP PHOTOS',
+    name: await h.getFirstName(req),
+    photos,
     trip,
   });
 }));

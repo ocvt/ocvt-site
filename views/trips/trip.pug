@@ -3,7 +3,11 @@ extends ../_base
 block content
   <div id="rightSideLarge">
     <h2>#{trip.name}</h2>
-    <h3>Trip Leader - #{trip.memberName}</h3>  
+    <h3>Trip Leader - #{trip.memberName}</h3>
+    if mainphoto.length > 0
+      <img alt="#{mainphoto[0].name}" src="#{mainphoto[0].url}">
+    else if mystatus.tripLeader
+      <p>Visit the <a href="/trips/#{trip.id}/admin">admin page</a> to upload a trip photo.</p>
   </div>
         
   <div id="leftSideSmall">
@@ -12,6 +16,7 @@ block content
       <li><a href="/trips">Main Trips Page</a></li>
       if mystatus.signedUp
         <li><a href="/trips/#{trip.id}/mysignup">View My Signup Info</a></li>
+      <li><a href="/trips/#{trip.id}/photos">Trip Photos</a></li>
     </ul>
 
     if mystatus.tripLeader

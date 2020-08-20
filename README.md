@@ -17,6 +17,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 * Validate HTML5 (ie td valign, etc)
 * Performance analysis
 * Accessibilty analysis
+* delete api photos account, put all that under webmaster
 
 * deployment
   * do it

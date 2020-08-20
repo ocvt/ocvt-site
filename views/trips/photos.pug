@@ -1,0 +1,40 @@
+extends ../_base
+
+block content
+  <div id="rightSideLarge">
+    <h3>Photos from #{trip.name}</h3>
+    if photos.mainphoto.length > 0
+      <h3>Main Trip Photo:</h3>
+      <img alt="#{photos.mainphoto[0].name}" src="#{photos.mainphoto[0].url}">
+    else
+      <h3>This trip does not have a main trip photo.</h3>
+  </div>
+
+  <div id="leftSideSmall">
+    <h3>Navigation</h3>
+    <ul>
+      <li><a href="/trips">Main Trips Page</a></li>
+      <li><a href="/trips/#{trip.id}">View Trip Details</a></li>
+    </ul>
+  </div>
+
+  <div id="fullCenter">
+    <h3>Trip Photos:</h3>
+    if photos.images.length > 0
+      <script src="/js/jquery-3.4.1.min.js"></script>
+      <script src="/galleria-1.6.1/galleria.min.js"></script>
+      <style>.galleria { width: 700px; height: 400px; background: #000 }</style>
+
+      <div class="galleria">
+        each image in photos.images
+          <img alt="#{image.name}" src="#{image.url}">
+      </div>
+      <script>
+        |(function() {
+        |  Galleria.loadTheme('/galleria-1.6.1/themes/azur/galleria.azur.min.js');
+        |  Galleria.run('.galleria');
+        |}());
+      </script>
+    else
+      <h3>No photos from this trip have been uploaded.</h3>
+  </div>
