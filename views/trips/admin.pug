@@ -117,6 +117,13 @@ block content
       <br>
 
     if !trip.cancel
+      <h2>Upload a Trip Photo</h2>
+      <form action="#{API_URL}/trips/#{trip.id}/admin/mainphoto" method="post" enctype="multipart/form-data">
+        <input type="file" name="photoFile">
+        <button type="submit">Upload</button>
+      </form>
+      <p><a href="/trips/#{trip.id}">View Trip Details</a> to view the photo.</p>
+
       <h2>Message Attendees</h2>
       <br>
       <h3 class="smallHeader">Send Reminder</h3>

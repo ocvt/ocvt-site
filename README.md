@@ -11,6 +11,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* Fix error when viewing unpublished trip
 * allow pictures to be uploaded for trips
 * Showcase old OCVT data (ex. oldsite/gpx)
 * Validate browser support (mainly static js)
