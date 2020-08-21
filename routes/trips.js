@@ -199,6 +199,10 @@ router.get('/:tripId', aH(async (req, res) => {
   if (trip.status !== 200) {
     trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req);
   }
+  if (trip.status !== 200) {
+    res.redirect('/trips');
+    return;
+  }
 
   [mystatus, photos, trip] = await Promise.all([
     mystatus.json(),
@@ -374,8 +378,18 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
 
 router.get('/:tripId/photos', aH(async (req, res) => {
   let [photos, trip] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}/photos`, req).then((p) => p.json()),
-    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json()),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}/photos`, req),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req),
+  ]);
+
+  if (trip.status !== 200) {
+    res.redirect('/trips');
+    return;
+  }
+
+  [photos, trip] = await Promise.all([
+    photos.json(),
+    trip.json(),
   ]);
 
   res.render('trips/photos', {

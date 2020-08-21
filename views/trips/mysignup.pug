@@ -10,6 +10,7 @@ block content
     <ul>
       <li><a href="/trips">Main Trips Page</a></li>
       <li><a href="/trips/#{trip.id}">View Trip Details</a></li>
+      <li><a href="/trips/#{trip.id}/photos">Trip Photos</a></li>
     </ul>
 
     if mystatus.tripLeader
@@ -33,6 +34,13 @@ block content
     <br>
 
     if mystatus.attendingCode !== 'CANCEL'
+      <h2>Upload a Trip Photos!</h2>
+      <form action="#{API_URL}/trips/#{trip.id}/photos" method="post" enctype="multipart/form-data">
+        <input type="file" name="photoFile">
+        <button type="submit">Upload</button>
+      </form>
+      <p><a href="/trips/#{trip.id}/photos">View Trip Photos</a> to view the photo.</p>
+
       <h2>Cancel My Trip Attendance</h2>
       if mystatus.tripCreator
         <p>You cannot cancel your attendance because you are the trip creator. To cancel the trip, <a href="/trips/#{trip.id}/admin">go the the trip admin page</a></p>

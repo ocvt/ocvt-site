@@ -5,7 +5,7 @@ block content
     <h2>#{trip.name}</h2>
     <h3>Trip Leader - #{trip.memberName}</h3>
     if mainphoto.length > 0
-      <img alt="#{mainphoto[0].name}" src="#{mainphoto[0].url}">
+      <img alt="#{mainphoto[0].name}" src="#{mainphoto[0].url}" width="100%">
     else if mystatus.tripLeader
       <p>Visit the <a href="/trips/#{trip.id}/admin">admin page</a> to upload a trip photo.</p>
   </div>
