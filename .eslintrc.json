@@ -8,8 +8,7 @@
     ],
     "ignorePatterns": [
       "app.js",
-      "static/galleria-1.6.1/**",
-      "static/js/*"
+      "static/**"
     ],
     "parserOptions": {
         "ecmaVersion": 11,
