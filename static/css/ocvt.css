@@ -472,3 +472,8 @@ tripPerson strong {
 .webtools #generateCode {
   display: none;
 }
+
+/* trailmaint */
+#ocvtMap {
+  height: 500px;
+}

@@ -11,6 +11,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## TODO
 
+* organize special js/css deps
 * Showcase old OCVT data (ex. oldsite/gpx)
 * Validate browser support (mainly static js)
 * Validate HTML5 (ie td valign, etc)

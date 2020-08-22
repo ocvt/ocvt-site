@@ -11,13 +11,34 @@ block content
       | Conservancy, the club is responsible for maintaining approximately 30 miles
       | of the Appalachian Trail which is divided into two sections - Pine Swamp
       | Branch Shelter to U.S. 460 at the New River
-      | (<a href="/gpx/PineSwampto460.gpx">gpx</a>) and VA 611 to I-77
-      | (<a href="/gpx/611toI77.gpx">gpx</a>) *see map below*. The club is
+      | (<a href="/media/gpx/PineSwampto460.gpx">gpx</a>) and VA 611 to I-77
+      | (<a href="/media/gpx/611toI77.gpx">gpx</a>) *see map below*. The club is
       | neighbored by the Piedmont Appalachian Trail Hikers (PATH) and the Roanoke
       | Appalachian Trail Club.
     </p>
 
-    <img alt="Trail Maintenance Sections" src="/media/trailmaintmap.png" width="100%">
+    <link rel="stylesheet" href="/leaflet-1.6.0/leaflet.css">
+    <script src="/leaflet-1.6.0/leaflet.js"></script>
+    <script src="/js/L.KML.js"></script>
+
+    <div id="ocvtMap"></div>
+
+    <script>
+      | var map = L.map('ocvtMap').setView([37.2620, -80.7832], 10);
+      | L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      |   maxZoom: 19,
+      |   attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+      | }).addTo(map);
+      |
+      |
+      | fetch('/media/kml/ocvt-trail.kml')
+      |   .then(r => r.text())
+      |   .then(kmltext => {
+      |     const parser = new DOMParser();
+      |     const kml = parser.parseFromString(kmltext, 'text/xml');
+      |     new L.KML(kml).addTo(map);
+      |   });
+    </script>
 
     <p>
       | Trail maintenance and construction includes a wide variety of activities.
