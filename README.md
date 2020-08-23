@@ -9,16 +9,30 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 * IE11 (?, untested but compiled via babel)
 
 
+## Configuration
+
+### Environmental Variable
+
+Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variables defined:
+* `STRIPE_PUBLIC_KEY`: Public key from Stripe for payments
+* `API_URL`: Api url of the dolabra backend.
+
+### Testing
+
+* `./build.sh test`: Lints and compiles javascript
+* `./build.sh build`: Build docker image
+* `./build.sh up`: Start the server locally. If you've also modified the api you can use the `docker-compose.dev.yml` file from https://github/ocvt/docker to test the whole stack locally.
+
 ## TODO
 
-* Validate browser support (mainly static js)
-* Validate HTML5 (ie td valign, etc)
-* Performance analysis
-* Accessibilty analysis
 * delete api photos account, put all that under webmaster
 
 * deployment
   * do it
+  * Validate browser support (mainly static js)
+  * Validate HTML5 (ie td valign, etc)
+  * Performance analysis
+  * Accessibilty analysis
   * finish testing payment webhook
   * Cache photos from gdrive
   * Remove expressjs headers or other security stuff
