@@ -1,8 +1,5 @@
 version: '3.8'
 
-# This file is only for testing.
-# See https://github.com/ocvt/docker for prod configuration.
-
 services:
   ocvt-site:
     image: ocvt/ocvt-site:latest

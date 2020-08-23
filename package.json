@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "compile": "babel ./static/js/ocvt.js -o ./static/js/ocvt.js && babel ./static/js/ocvt_quicksignup.js -o ./static/js/ocvt_quicksignup.js && babel ./static/js/ocvt_webtools.js -o ./static/js/ocvt_webtools.js",
+    "up": "docker-compose up",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
