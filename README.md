@@ -38,3 +38,4 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
   * Remove expressjs headers or other security stuff
   * uptime checks for api + frontend
   * regular backups of sqlite to gdrive
+  * analytics??
