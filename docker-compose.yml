@@ -1,9 +1,0 @@
-version: '3.8'
-
-services:
-  ocvt-site:
-    image: ocvt/ocvt-site:latest
-    restart: unless-stopped
-    env_file: ocvt-site.env
-    ports:
-      - 4000:4000
