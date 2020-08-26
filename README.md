@@ -31,11 +31,11 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
   * do it
   * Validate browser support (mainly static js)
   * Validate HTML5 (ie td valign, etc)
+  * Validate TLS
   * Performance analysis
   * Accessibilty analysis
-  * finish testing payment webhook
-  * Cache photos from gdrive
   * Remove expressjs headers or other security stuff
   * uptime checks for api + frontend
   * regular backups of sqlite to gdrive
   * analytics??
+  * webtools/equipment

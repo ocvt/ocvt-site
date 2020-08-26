@@ -27,6 +27,12 @@ logs () {
   docker logs -f ocvt-site
 }
 
+###
+
+build () {
+  docker build -t ocvt/ocvt-site:latest .
+}
+
 # see package.json for more commands
 
 $@

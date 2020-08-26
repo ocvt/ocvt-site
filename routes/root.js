@@ -9,15 +9,13 @@ const router = express.Router();
 /* Root Routes */
 router.get('/', aH(async (req, res) => {
   // eslint-disable-next-line prefer-const
-  let [/* homePhotos, */news, trips] = await Promise.all([
-    // TODO remove after testing
-    //    h.fetchHelper(`${h.API_URL}/homephotos`, req).then(h => h.json()),
+  let [homePhotos, news, trips] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/homephotos`, req).then((p) => p.json()).then((pp) => pp.images),
     h.fetchHelper(`${h.API_URL}/news`, req).then((n) => n.json()).then((nn) => nn.news),
     h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()),
   ]);
 
-  //  homePhotos = homePhotos.images;
-  const homePhoto = ''; // TODO homePhotos[Math.floor(Math.random() * homePhotos.length)];
+  const homePhoto = homePhotos[Math.floor(Math.random() * homePhotos.length)];
   for (let i = 0; i < news.length; i += 1) {
     news[i].date = h.prettyDate(news[i].createDatetime);
   }
@@ -53,7 +51,7 @@ router.get('/gallery', aH(async (req, res) => {
     h.fetchHelper(`${h.API_URL}/homephotos`, req).then((p) => p.json()),
     h.fetchHelper(`${h.API_URL}/noauth/trips/photos`, req).then((t) => t.json()),
   ]);
-  const images = []; // TODO (homePhotos.images.concat(tripsPhotos.images)).reverse();
+  const images = (homePhotos.images.concat(tripsPhotos.images)).reverse();
 
   res.render('gallery', {
     title: 'Gallery',
