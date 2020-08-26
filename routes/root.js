@@ -31,6 +31,7 @@ router.get('/', aH(async (req, res) => {
     title: 'Home',
     header: 'HOME',
     name: await h.getFirstName(req),
+    API_URL: h.API_URL,
     homePhoto,
     news,
     trips,
@@ -57,6 +58,7 @@ router.get('/gallery', aH(async (req, res) => {
     title: 'Gallery',
     header: 'GALLERY',
     name: await h.getFirstName(req),
+    API_URL: h.API_URL,
     images,
   });
 }));

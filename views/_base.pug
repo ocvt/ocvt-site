@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-SecurityPolicy" content="default-src 'self'; connect-src 'self' https://checkout.stripe.com; frame-src 'self' https://checkout.stripe.com; image-src 'self' https://*.stripe.com; script-src 'self' https://checkout.stripe.com 'unsafe-inline'">
+  if STRIPE_PUBLIC_KEY
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://checkout.stripe.com; frame-src 'self' https://checkout.stripe.com; img-src https://*.stripe.com; script-src 'self' https://checkout.stripe.com 'unsafe-inline'">
+  else if API_URL
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; font-src 'self' data:; frame-src 'self'; img-src 'self' #{API_URL} data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+    <script>var API_URL="#{API_URL}"</script>
+  else
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data:">
   <link rel="stylesheet" href="/css/ocvt.css">
-  <script>var API_URL="#{API_URL}"</script>
-  <script type="text/javascript" src="/js/ocvt.js"></script>
-  <script type="text/javascript" src="/js/unfetch-4.1.0.min.js"></script>
+  <script src="/js/ocvt.js"></script>
+  <script src="/js/unfetch-4.1.0.min.js"></script>
   <title>OCVT - #{title}</title>
 
   <!-- Generated from https://www.favicon-generator.org/ -->
@@ -21,62 +26,62 @@
       </a>
 
       <a href="/">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>HOME</strong>
         </div>
       </a>
 
       <a href="/about">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>ABOUT US / CONTACT</strong>
         </div>
       </a>
 
       <a href="/register">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>JOIN US</strong>
         </div>
       </a>
 
       <a href="/trips">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>TRIPS</strong>
         </div>
       </a>
 
       <a href="/myocvt">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>MY ACCOUNT</strong>
         </div>
       </a>
 
       <a href="/dues">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>PAY DUES / SHOP</strong>
         </div>
       </a>
 
       <a href="/gallery">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>GALLERY</strong>
         </div>
       </a>
 
       <a href="/resources">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>RESOURCES</strong>
         </div>
       </a>
 
       <a href="/help">
-        <div id="navButton" class="nav1">
+        <div class="navButton">
           <strong>HELP - F.A.Q.</strong>
         </div>
       </a>
 
       if name.status == 200 && name.json.officer
         <a href="/webtools">
-          <div id="navButton" class="nav1">
+          <div class="navButton">
             <strong>WEBTOOLS</strong>
           </div>
         </a>

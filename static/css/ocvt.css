@@ -42,7 +42,7 @@ body {
 
 
 /* nav buttons */
-#navButton {
+.navButton {
   box-shadow: 3px 3px 3px #555;
   text-align: center;
   height: 25px;
@@ -63,7 +63,7 @@ body {
   text-decoration: none;
 }
 
-#navButton:hover {
+.navButton:hover {
   background-color: #7FA700;
 }
 
@@ -211,7 +211,7 @@ body {
   box-shadow: 4px 4px 3px #44645C;
 }
 
-fullCenterColor p {
+#fullCenterColor p {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -279,11 +279,15 @@ fullCenterColor p {
   margin-right: 0px;
 }
 
-rightSideLarge p {
+#rightSideLarge p {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+#rightSideLarge h1 {
+  color: #872b18;
 }
 
 #rightSideLarge h2 {
@@ -476,4 +480,16 @@ tripPerson strong {
 /* trailmaint */
 #ocvtMap {
   height: 500px;
+}
+
+/* login page */
+#login {
+  width: 720px;
+}
+
+/* gallery */
+.galleria {
+  width: 700px;
+  height: 400px;
+  background: #000000;
 }
