@@ -219,7 +219,7 @@ body {
 
 
 /* div that is full width and centered with no background */
-#fullCenter {
+.fullCenter {
   display: inline-block;
   margin-left: -4px;
   margin-top: 10px;
