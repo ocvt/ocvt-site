@@ -54,14 +54,14 @@ block content
             <td><input type="text" name="cellNumber" size="40" value="#{myaccount.cellNumber}"></td>
           </tr>
           <tr>
-            <td valign="top">Medical Condition <span id="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
+            <td valign="top">Medical Condition <span class="mild">Do you have a condition <br>we should be aware of?</span>:*</td>
             if myaccount.medicalCond
               <td><input type="checkbox" name="medicalCond" checked></td>
             else
               <td><input type="checkbox" name="medicalCond"></td>
           </tr>
           <tr>
-            <td valign="top">Medical Condition Description<br><span id="mild">(optional)</span>:</td>
+            <td valign="top">Medical Condition Description<br><span class="mild">(optional)</span>:</td>
             <td><textarea name="medicalCondDesc" rows="6" cols="35">#{myaccount.medicalCondDesc}</textarea></td>
           </tr>
         </tbody>
