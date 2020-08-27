@@ -91,6 +91,7 @@ block content
             <td valign="top">Relationship:*</td>
             <td>
               <select name="relationship" required>
+                <option value=""></option>
                 each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Fridnd', 'Other' ]
                   if relation === myaccount.emergencyContactRelationship
                     <option value="#{relation}" selected>#{relation}</option>
@@ -172,6 +173,9 @@ block content
               <td><input type="checkbox" name="#{type.id}" #{state}>#{type.name}</td>
               </tr>
             - j++
+          if j % 2 == 1
+            <td></td>
+            </tr>
         </tbody>
       </table>
       <br>
