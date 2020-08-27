@@ -23,21 +23,22 @@ else
             <input type="button" value="Promote to leader" onclick="tripSignupStatusGeneric('#{signup.tripId}', '#{signup.id}', 'tripleader/true')">
           </form>
     </td>
+    <td></td>
   </tr>
   <tr>
     <td colspan="2" width="340px"><strong style=" color:#475278">Name: </strong>#{signup.firstName} #{signup.lastName}</td>
     <td rowspan="2" width="30px">
       <span class="tooltip" title="">
         if signup.paidMember
-          <img class="tripPersonimg" src="/media/icon/paid-bw.png">
+          <img class="tripPersonimg" src="/media/icon/paid-bw.png" alt="Paid icon">
           <span class="custom info">
-            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee is paid</em>
           </span>
         else
-          <img class="tripPersonimg" src="/media/icon/unpaid-bw.png">
+          <img class="tripPersonimg" src="/media/icon/unpaid-bw.png" alt="Unpaid icon">
           <span class="custom info">
-            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee is unpaid</em>
           </span>
       </span>
@@ -45,21 +46,21 @@ else
     <td rowspan="2" width="30px">
       <span class="tooltip" title="">
         if signup.gender === 'F'
-          <img class="tripPersonimg" src="/media/icon/female-bw.png">
+          <img class="tripPersonimg" src="/media/icon/female-bw.png" alt="Female icon">
           <span class="custom info">
-            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee is Female</em>
           </span>
         else if signup.gender === 'M'
-          <img class="tripPersonimg" src="/media/icon/male-bw.png">
+          <img class="tripPersonimg" src="/media/icon/male-bw.png" alt="Male icon">
           <span class="custom info">
-            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee is Male</em>
           </span>
         else
-          <img class="tripPersonimg" src="/media/icon/other-bw.png">
+          <img class="tripPersonimg" src="/media/icon/other-bw.png" alt="Other gender icon">
           <span class="custom info">
-            <img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+            <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee does not identify as male or female, or did not disclose their gender.</em>
           </span>
       </span>
@@ -67,8 +68,8 @@ else
     <td rowspan="2" width="59px">
       if signup.driver
         <span class="tooltip" title="">
-          <img class="tripPersonimg" src="/media/icon/car-bw.png"><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{signup.CarCapacityTotal}
-          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+          <img class="tripPersonimg" src="/media/icon/car-bw.png" alt="Car icon"><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{signup.CarCapacityTotal}
+          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee can drive</em>
           </span>
         </span>
@@ -76,8 +77,8 @@ else
     <td rowspan="2" width="29px">
       if signup.medicalCond
         <span class="tooltip" title="">
-          <img class="tripPersonimg" src="/media/icon/caduceus-bw.png">
-          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+          <img class="tripPersonimg" src="/media/icon/caduceus-bw.png" alt="Medical Condition icon">
+          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee Has a Medical Condition:</em>
             if signup.medicalCondDesc
               | #{signup.medicalCondDesc}
@@ -89,8 +90,8 @@ else
     <td rowspan="2" width="36px">
       if signup.notes
         <span class="tooltip" title="">
-          <img class="tripPersonimg" src="/media/icon/bag-bw.png">
-          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" width="48" height="48">
+          <img class="tripPersonimg" src="/media/icon/bag-bw.png" alt="Bag icon">
+          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
             <em>Attendee Is Bringing Something:</em> #{signup.notes}
           </span>
         </span>
@@ -99,7 +100,7 @@ else
       if signup.pet
         <span class="tooltip" title="">
         <img class="tripPersonimg" src="/media/icon/pet-bw.png">
-          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="info" height="48" width="48">
+          <span class="custom info"><img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" height="48" width="48">
             <em>Attendee Is Bringing a Pet</em>
           </span>
         </span>

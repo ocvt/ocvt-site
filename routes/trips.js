@@ -227,6 +227,7 @@ router.get('/:tripId', aH(async (req, res) => {
     title: 'Trips',
     header: 'VIEW TRIP',
     name: await h.getFirstName(req),
+    API_URL: h.API_URL,
     mainphoto: photos.mainphoto,
     mystatus,
     trip,
