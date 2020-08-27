@@ -396,6 +396,7 @@ router.get('/:tripId/photos', aH(async (req, res) => {
     title: 'Trip Photos',
     header: 'TRIP PHOTOS',
     name: await h.getFirstName(req),
+    API_URL: h.API_URL,
     photos,
     trip,
   });
