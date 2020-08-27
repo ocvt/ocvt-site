@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL}; font-src 'self' data:; frame-src 'self'; img-src 'self' #{API_URL} data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
     <script>var API_URL="#{API_URL}"</script>
   else
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data:">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data:; style-src 'self' 'unsafe-inline'">
   <link rel="stylesheet" href="/css/ocvt.css">
   <script src="/js/ocvt.js"></script>
   <script src="/js/unfetch-4.1.0.min.js"></script>
