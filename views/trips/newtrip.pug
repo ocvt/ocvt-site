@@ -39,7 +39,7 @@ block content
           </tr>
           <tr>
             <td valign="top">Trip Name:*</td>
-            <td><input type="" name="name" size="50" value="" required></td>
+            <td><input type="text" name="name" size="50" required></td>
           </tr>
           <tr>
             <td valign="top">Trip Type:*</td>
@@ -54,15 +54,15 @@ block content
           </tr>
           <tr>
             <td valign="top">Meet-up Date (YYYY-MM-DD):*<br><span class="mild">ex 2050-02-05</span></td>
-            <td><input type="text" name="startDate" size="10" value="" required></td>
+            <td><input type="text" name="startDate" size="10" required></td>
           </tr>
           <tr>
             <td valign="top">Meet-up Time (HH:MM):*<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="startTime" size="5 value="" required></td>
+            <td><input type="text" name="startTime" size="5" required></td>
           </tr>
           <tr>
             <td valign="top">End Time (HH:MM):*<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="endTime" size="5 value="" required></td>
+            <td><input type="text" name="endTime" size="5" required></td>
           </tr>
           <tr>
             <td valign="top">Brief Trip Summary:*<br><span class="mild">(max 200 characters)</span></td>
@@ -87,7 +87,8 @@ block content
           <tr>
             <td valign="top">Difficulty:</td>
             <td>
-              <select name="difficulty">
+              <select name="difficulty" required>
+                <option value="">----</option>
                 <option value="0" selected>None</option>
                 <option value="1">Trivial</option>
                 <option value="2">Easy</option>
@@ -127,6 +128,7 @@ block content
 
           <tr>
             <td><h2>Your Signup</h2></td>
+            <td></td>
           </tr>
           <tr>
             <td>I have read and agree to the <a target="_blank" rel="noopener noreferrer" href="/tripagreement">trip waiver terms</a>:*</td>
