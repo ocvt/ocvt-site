@@ -29,12 +29,11 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 * deployment
   * do it
-  * Validate HTML5 (ie td valign, etc)
   * Validate TLS
-  * Performance analysis
-  * Accessibilty analysis
   * Remove expressjs headers or other security stuff
   * uptime checks for api + frontend
   * regular backups of sqlite to gdrive
   * analytics --> goatcounter?
   * webtools/equipment
+  * Inform the ATC of a new website
+  * Properly redirect non https paths to http paths instead of only the root address

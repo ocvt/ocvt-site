@@ -27,7 +27,9 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
         document.getElementById(id).textContent = message;
       }
     } else {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(r.text());
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(rt);
+      });
     }
   });
 }
@@ -47,8 +49,10 @@ function myocvtUpdateEmergency(form) {
     body: JSON.stringify(emergencyData)
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-update-emergency&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-update-emergency&text=").concat(rt);
+        return;
+      });
     }
 
     document.getElementById("updateEmergencyInfo").textContent = "Success!";
@@ -71,8 +75,10 @@ function myocvtUpdateNotifications(notifications, form) {
     body: JSON.stringify(notificationData)
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-update-notifications&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-update-notifications&text=").concat(rt);
+        return;
+      });
     }
 
     document.getElementById("updateNotificationsInfo").textContent = "Success!";
@@ -90,8 +96,10 @@ function myocvtDeactivateAccount(form) {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-deactivate-account&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-deactivate-account&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/";
@@ -109,8 +117,10 @@ function myocvtDeleteAccount(form) {
     method: "DELETE"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-delete-account&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-delete-account&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/logout";
@@ -123,8 +133,10 @@ function myocvtReactivateAccount() {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-reactivate-account&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-reactivate-account&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/";
@@ -186,8 +198,10 @@ function tripsNewTrip(form) {
     body: JSON.stringify(trip)
   }).then(function (r) {
     if (r.status !== 201) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup&text=").concat(rt);
+        return;
+      });
     }
 
     return r.json();
@@ -201,8 +215,10 @@ function tripsNewTrip(form) {
       body: JSON.stringify(tripSignup)
     }).then(function (r) {
       if (r.status !== 204) {
-        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup-2&text=").concat(r.text());
-        return;
+        r.text().then(function (rt) {
+          window.location.href = "/error?status=".concat(r.status, "&code=error-trip-create-signup-2&text=").concat(rt);
+          return;
+        });
       }
 
       window.location.href = "/trips/".concat(d.tripId);
@@ -228,8 +244,10 @@ function tripsJoinTrip(tripId, form) {
     body: JSON.stringify(tripSignup)
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-signup&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-signup&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/trips/".concat(tripId, "/mysignup");
@@ -247,8 +265,10 @@ function tripsCancelSignup(tripId) {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-cancel&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-signup-cancel&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/trips";
@@ -266,8 +286,10 @@ function tripsCancelTrip(tripId) {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-cancel&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-cancel&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/trips/".concat(tripId, "/admin");
@@ -280,8 +302,10 @@ function tripsPublishTrip(tripId) {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-trip-publish&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-trip-publish&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.href = "/trips/".concat(tripId, "/admin");
@@ -307,8 +331,10 @@ function tripsSendMessage(tripId, form) {
     body: JSON.stringify(emailData)
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-send-message&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-send-message&text=").concat(rt);
+        return;
+      });
     }
   });
 }
@@ -323,8 +349,10 @@ function tripsSendReminder(tripId) {
     method: "POST"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-send-reminder&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-send-reminder&text=").concat(rt);
+        return;
+      });
     }
   });
 }
@@ -347,8 +375,10 @@ function tripSignupStatusBoot(tripId, memberId) {
     })
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-boot&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-signup-boot&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.reload(true);
@@ -361,8 +391,10 @@ function tripSignupStatusGeneric(tripId, memberId, action) {
     method: "PATCH"
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-signup-status-generic&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-signup-status-generic&text=").concat(rt);
+        return;
+      });
     }
 
     window.location.reload(true);
@@ -380,8 +412,10 @@ function unsubscribe(form) {
     })
   }).then(function (r) {
     if (r.status !== 204) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(rt);
+        return;
+      });
     }
 
     document.getElementById("updateUnsubscribeInfo").textContent = "Success!";
@@ -397,18 +431,20 @@ function ocvtDues(form) {
     credentials: "include"
   }).then(function (r) {
     if (r.status !== 200) {
-      window.location.href = "/error?status=".concat(r.status, "&code=error-dues-get&text=").concat(r.text());
-      return;
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-dues-get&text=").concat(rt);
+        return;
+      });
     }
 
-    return r.json();
-  }).then(function (rj) {
-    return stripe.redirectToCheckout({
-      sessionId: rj.sessionId
+    r.json().then(function (rj) {
+      return stripe.redirectToCheckout({
+        sessionId: rj.sessionId
+      });
+    }).then(function (c) {
+      if (c.error) {
+        window.location.href = "/error?status=".concat(c.status, "&code=error-stripe-payment&text=").concat(c.error.message);
+      }
     });
-  }).then(function (c) {
-    if (c.error) {
-      window.location.href = "/error?status=".concat(c.status, "&code=error-stripe-payment&text=").concat(c.error.message);
-    }
   });
 }
