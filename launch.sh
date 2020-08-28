@@ -12,6 +12,8 @@ up () {
     --publish 4000:4000 \
     --add-host=api.cabinet.seaturtle.pw:$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+') \
     ocvt/ocvt-site:latest
+
+  docker system prune -a
 }
 
 down () {
