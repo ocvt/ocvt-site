@@ -29,7 +29,6 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 * deployment
   * do it
-  * Validate TLS
   * regular backups of sqlite to gdrive --> weekly ec2 snapshots
   * webtools/equipment
   * Inform the ATC of a new website
