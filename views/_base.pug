@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   if STRIPE_PUBLIC_KEY
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL} https://checkout.stripe.com; frame-src 'self' https://checkout.stripe.com; img-src https://*.stripe.com; script-src 'self' https://checkout.stripe.com 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL} https://api.stripe.com https://checkout.stripe.com; font-src 'self' data:; frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; img-src 'self' #{API_URL} https://*.stripe.com data:; script-src 'self' https://js.stripe.com https://checkout.stripe.com 'unsafe-inline'">
+    <script>var API_URL="#{API_URL}"</script>
   else if API_URL
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL}; font-src 'self' data:; frame-src 'self'; img-src 'self' #{API_URL} data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
     <script>var API_URL="#{API_URL}"</script>
