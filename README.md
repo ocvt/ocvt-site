@@ -30,10 +30,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 * deployment
   * do it
   * Validate TLS
-  * Remove expressjs headers or other security stuff
-  * uptime checks for api + frontend
-  * regular backups of sqlite to gdrive
-  * analytics --> goatcounter?
+  * regular backups of sqlite to gdrive --> weekly ec2 snapshots
   * webtools/equipment
   * Inform the ATC of a new website
   * Properly redirect non https paths to http paths instead of only the root address
