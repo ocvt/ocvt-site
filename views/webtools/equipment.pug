@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/ocvt.css">
+  <script>const API_URL="#{API_URL}"</script>
+  <script src="/js/ocvt_webtools.js"></script>
+  <title>Equipment!</title>
+</head>
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Manage OCVT equipment</h2>
+
+  <h3>Add a new item</h3>
+  <form onsubmit="webtoolsAddItem(this);return false">
+    <table>
+      <tr>
+        <td>Item Description:</td>
+        <td><input type="text" name="itemDesc"></td>
+      </tr>
+      <tr>
+        <td>Item Count:</td>
+        <td><input type="number" name="itemCount"></td>
+      </tr>
+    </table>
+    <button type="submit">Submit</button>
+  </form>
+  <br>
+
+  <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Date added&nbsp;</th>
+      <th>Id&nbsp;</th>
+      <th>Description&nbsp;</th>
+      <th>Count&nbsp;</th>
+    </tr>
+
+    - let i = 0
+    each e in equipment
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+
+      <td>#{e.date}</td>
+      <td>#{e.id}</td>
+      <td>#{e.description}</td>
+      <td>
+        <form onsubmit="webtoolsUpdateItem(this, '#{e.id}');return false">
+          <input type="number" name="itemCount" value="#{e.count}">#{e.value}</input>
+          <button type="submit">Update Item Count</button>
+        </form>
+      </td>
+      </tr>
+  </table>
+  <h3>Total items in inventory: #{i}</h3>
+</body>
+</html>
