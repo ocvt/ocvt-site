@@ -30,7 +30,21 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
   * Convert news to sqlite
   * start member ids @ 8000000
   * start trip ids @ 3000
-  * Convert member sql data into sqlite table containing | email | first_name | last_name | cell_number | medical_cond | medical_cond_desc | paid_expire_datetime | emergency_name (OR "") | emergency_relationship (OR "") | emergency_number (OR "")
+  * Convert member sql data into sqlite table containing
+    * email
+    * first_name
+    * last_name
+    * cell_number
+    * gender
+    * birth_year
+    * medical_cond
+    * medical_cond_desc
+    * paid_expire_datetime
+    * active
+    * emergency_name (OR "")
+    * emergency_relationship (OR "")
+    * emergency_number (OR "")
+    * notification_preferences
 * Archive old trips & data for reference. Host old site at https://oldsite.ocvt.club + big warning saying it's old
 * www.outdoor.org.vt.edu
   * Disable auth
