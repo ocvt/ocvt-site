@@ -448,3 +448,29 @@ function ocvtDues(form) {
     });
   });
 }
+
+function ocvtRedeemCode(form) {
+  var code = form.code.value;
+  fetch("".concat(API_URL, "/payment/redeem"), {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      code: code
+    })
+  }).then(function (r) {
+    if (r.status === 403) {
+      document.getElementById("redeemCodeInfo").textContent = "Sorry, this code does not exist or has already been redeemed. Contact the Webmaster if this is an error.";
+      return;
+    } else if (r.status !== 204) {
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-redeem-code&text=").concat(rt);
+        return;
+      });
+    }
+
+    document.getElementById("redeemCodeInfo").textContent = "Success! Visit your account page to view when your membership expires.";
+  });
+}

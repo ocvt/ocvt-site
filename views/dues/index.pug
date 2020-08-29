@@ -21,4 +21,13 @@ block content
       <br>
       <button>Submit</button>
     </form> 
+
+    <h3>Redeem a code!</h3>
+    | If you paid in person, enter the code you received below to apply it to your account.
+    <form onsubmit="ocvtRedeemCode(this); return false">
+      <input type="text" name="code" length="64"></input>
+      <br>
+      <button>Submit</button>
+      <p id="redeemCodeInfo"></p>
+    </form>
   </div>

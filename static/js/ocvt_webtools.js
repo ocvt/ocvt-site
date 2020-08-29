@@ -323,7 +323,7 @@ function webtoolsAddItem(form) {
 
 function webtoolsUpdateItem(form, id) {
   var count = parseInt(form.itemCount.value);
-  fetch(`${API_URL}/webtools/equipment/${id}/${count}`, {
+  fetch("".concat(API_URL, "/webtools/equipment/").concat(id, "/").concat(count), {
     credentials: "include",
     method: "PATCH"
   }).then(function (r) {
