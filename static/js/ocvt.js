@@ -60,7 +60,7 @@ function myocvtUpdateEmergency(form) {
 }
 
 function myocvtUpdateNotifications(notifications, form) {
-  notificationData = JSON.parse(notifications);
+  var notificationData = JSON.parse(notifications);
 
   for (var key in notificationData) {
     notificationData[key] = form[key].checked;
