@@ -24,6 +24,14 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
+* Run OWASP ZAP
 * Test
-* Figure out best way to port everybody over
-* Archive old trips & data for reference
+* dolabra
+  * Convert news to sqlite
+  * start member ids @ 8000000
+  * start trip ids @ 3000
+  * Convert member sql data into sqlite table containing | email | first_name | last_name | cell_number | medical_cond | medical_cond_desc | paid_expire_datetime | emergency_name (OR "") | emergency_relationship (OR "") | emergency_number (OR "")
+* Archive old trips & data for reference. Host old site at https://oldsite.ocvt.club + big warning saying it's old
+* www.outdoor.org.vt.edu
+  * Disable auth
+  * Forward all requests to https://ocvt.club
