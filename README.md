@@ -26,5 +26,4 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 * deployment
   * do it
-  * webtools/equipment
   * Inform the ATC of a new website

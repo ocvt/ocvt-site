@@ -301,3 +301,32 @@ function webtoolsSubmitNews(form) {
     window.location.href = "/";
   });
 }
+/* Equipment */
+
+
+function webtoolsAddItem(form) {
+  var itemData = {
+    count: parseInt(form.itemCount.value),
+    description: form.itemDesc.value
+  };
+  fetch("".concat(API_URL, "/webtools/equipment"), {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(itemData)
+  }).then(function (r) {
+    window.location.reload(true);
+  });
+}
+
+function webtoolsUpdateItem(form, id) {
+  var count = parseInt(form.itemCount.value);
+  fetch(`${API_URL}/webtools/equipment/${id}/${count}`, {
+    credentials: "include",
+    method: "PATCH"
+  }).then(function (r) {
+    window.location.reload(true);
+  });
+}

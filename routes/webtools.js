@@ -66,6 +66,25 @@ router.get('/email/view', aH(async (req, res) => {
   });
 }));
 
+router.get('/equipment', aH(async (req, res) => {
+  let equipment = await h.fetchHelper(`${h.API_URL}/webtools/equipment`, req);
+
+  if (equipment.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  equipment = await equipment.json().then((e) => e.equipment);
+  for (let i = 0; i < equipment.length; i += 1) {
+    equipment[i].date = h.prettyDate(equipment[i].createDatetime);
+  }
+
+  res.render('webtools/equipment', {
+    API_URL: h.API_URL,
+    equipment,
+  });
+}));
+
 router.get('/members', aH(async (req, res) => {
   let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
 
