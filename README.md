@@ -24,6 +24,6 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
-* deployment
-  * do it
-  * Inform the ATC of a new website
+* Test
+* Figure out best way to port everybody over
+* Archive old trips & data for reference
