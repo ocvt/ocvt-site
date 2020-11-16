@@ -45,7 +45,9 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
     * emergency_relationship (OR "")
     * emergency_number (OR "")
     * notification_preferences
+    * ON REGISTRATION FORM: add option to "import from old site" using email
 * Archive old trips & data for reference. Host old site at https://oldsite.ocvt.club + big warning saying it's old
 * www.outdoor.org.vt.edu
   * Disable auth
   * Forward all requests to https://ocvt.club
+* allow sending to quicksignup and/or members
