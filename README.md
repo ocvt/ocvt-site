@@ -26,6 +26,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 * Run OWASP ZAP
 * Test
+* Sort frontpage news AND webtools news Z-A
 * dolabra
   * Convert news to sqlite
   * start member ids @ 8000000
