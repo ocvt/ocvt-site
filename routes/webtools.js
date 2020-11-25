@@ -30,6 +30,9 @@ router.get('/approvers', aH(async (req, res) => {
   }
 
   approvers = await approvers.json().then((a) => a.approvers);
+  for (let i = 0; i < approvers.length; i += 1) {
+    approvers[i].date = h.prettyDateISO8601ish(approvers[i].expireDatetime);
+  }
 
   res.render('webtools/approvers', {
     name: await h.getFirstName(req),
@@ -60,6 +63,12 @@ router.get('/email/view', aH(async (req, res) => {
   }
 
   emails = await emails.json().then((e) => e.emails);
+  for (let i = 0; i < emails.length; i += 1) {
+    emails[i].dateCreated = h.prettyDateISO8601ish(emails[i].createDatetime);
+    if (emails[i].sentDatetime.Valid) {
+      emails[i].dateSent = h.prettyDateISO8601ish(emails[i].sendDatetime.String);
+    }
+  }
 
   res.render('webtools/email_view', {
     emails,
@@ -76,7 +85,7 @@ router.get('/equipment', aH(async (req, res) => {
 
   equipment = await equipment.json().then((e) => e.equipment);
   for (let i = 0; i < equipment.length; i += 1) {
-    equipment[i].date = h.prettyDate(equipment[i].createDatetime);
+    equipment[i].date = h.prettyDateISO8601ish(equipment[i].createDatetime);
   }
 
   res.render('webtools/equipment', {
@@ -94,6 +103,9 @@ router.get('/members', aH(async (req, res) => {
   }
 
   members = await members.json().then((m) => m.members);
+  for (let i = 0; i < members.length; i += 1) {
+    members[i].date = h.prettyDateISO8601ish(members[i].paidExpireDatetime);
+  }
 
   res.render('webtools/members', {
     name: await h.getFirstName(req),
@@ -126,6 +138,10 @@ router.get('/news/delete', aH(async (req, res) => {
     return;
   }
 
+  for (let i = 0; i < news.length; i += 1) {
+    news[i].date = h.prettyDateISO8601ish(news[i].createDatetime);
+  }
+
   res.render('webtools/news_delete', {
     API_URL: h.API_URL,
     news,
@@ -141,6 +157,9 @@ router.get('/officers', aH(async (req, res) => {
   }
 
   officers = await officers.json().then((o) => o.officers);
+  for (let i = 0; i < officers.length; i += 1) {
+    officers[i].date = h.prettyDateISO8601ish(officers[i].expireDatetime);
+  }
 
   res.render('webtools/officers', {
     name: await h.getFirstName(req),
@@ -157,7 +176,11 @@ router.get('/orders/codes', aH(async (req, res) => {
     return;
   }
 
+  // Get all unredeemed codes
   codes = await codes.json().then((c) => c.codes.filter((i) => !i.redeemed));
+  for (let i = 0; i < codes.length; i += 1) {
+    codes[i].date = h.prettyDateISO8601ish(codes[i].createDatetime);
+  }
 
   res.render('webtools/orders_codes', {
     codes,
@@ -172,7 +195,11 @@ router.get('/orders/complete', aH(async (req, res) => {
     return;
   }
 
+  // Get all completed orders
   orders = await orders.json().then((o) => o.payments.filter((p) => p.completed));
+  for (let i = 0; i < orders.length; i += 1) {
+    orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
+  }
 
   res.render('webtools/orders_complete', {
     header: 'All Complete Orders',
@@ -188,7 +215,11 @@ router.get('/orders/incomplete', aH(async (req, res) => {
     return;
   }
 
+  // Get all incomplete orders
   orders = await orders.json().then((o) => o.payments.filter((p) => !p.completed));
+  for (let i = 0; i < orders.length; i += 1) {
+    orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
+  }
 
   res.render('webtools/orders_incomplete', {
     API_URL: h.API_URL,

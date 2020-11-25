@@ -32,9 +32,9 @@
         <tr>
       - i += 1
 
-      <td>#{email.createDatetime}</td>
+      <td>#{email.dateCreated}</td>
       if email.sentDatetime.Valid
-        <td>#{email.sentDatetime.String}</td>
+        <td>#{email.dateSent}</td>
       else
         <td>Unsent</td>
       <td>#{email.notificationTypeId}</td>

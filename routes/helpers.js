@@ -22,10 +22,15 @@ async function getFirstName(req) {
 
 function prettyDate(dateString) {
   const date = new Date(dateString);
-  return `${d.dayString[date.getDay()]},
-          ${d.monthShortString[date.getMonth()]},
-          ${date.getDate()},
-          ${date.getFullYear()}`;
+  return `${d.dayString[date.getDay()]}, 
+${d.monthShortString[date.getMonth()]} ${date.getDate()}, 
+${date.getFullYear()}`;
+}
+
+function prettyDateISO8601ish(dateString) {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} 
+${date.toLocaleTimeString()}`;
 }
 
 module.exports = {
@@ -33,6 +38,7 @@ module.exports = {
   fetchHelper,
   getFirstName,
   prettyDate,
+  prettyDateISO8601ish,
 };
 // module.exports.API_URL = API_URL;
 // module.exports.fetchHelper = fetchHelper;

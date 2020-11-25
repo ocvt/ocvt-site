@@ -32,7 +32,12 @@ logs () {
 ###
 
 build () {
+  yarn compile
   docker build -t ocvt/ocvt-site:latest .
+}
+
+test () {
+  yarn lint
 }
 
 # see package.json for more commands
