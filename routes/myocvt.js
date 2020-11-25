@@ -6,6 +6,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
+/* Lookup user info and allow them to modify it */
 router.get('/', aH(async (req, res) => {
   let [myaccount, notifications] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/myaccount`, req),

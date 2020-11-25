@@ -1,3 +1,4 @@
+/* Used mainly to display trip dates */
 const dayString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
   'Friday', 'Saturday'];
 
@@ -5,6 +6,7 @@ const monthShortString = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
   'June', 'July', 'Aug', 'Sep', 'Oct',
   'Nov', 'Dec'];
 
+/* Used to lookup additional info for notification types */
 const generalTypes = {
   GENERAL_ANNOUNCEMENTS: {
     description: 'Important Club Announcements',

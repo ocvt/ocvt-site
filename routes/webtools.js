@@ -5,7 +5,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* Webtools Routes */
+/* Webtools - display overview of pages */
 router.get('/', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -21,6 +21,7 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+/* Approvers - view/manager trip approvers */
 router.get('/approvers', aH(async (req, res) => {
   let approvers = await h.fetchHelper(`${h.API_URL}/webtools/approvers`, req);
 
@@ -41,6 +42,7 @@ router.get('/approvers', aH(async (req, res) => {
   });
 }));
 
+/* Email - send a new email */
 router.get('/email', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -54,6 +56,7 @@ router.get('/email', aH(async (req, res) => {
   });
 }));
 
+/* Email, view - view sent emails */
 router.get('/email/view', aH(async (req, res) => {
   let emails = await h.fetchHelper(`${h.API_URL}/webtools/emails`, req);
 
@@ -75,6 +78,7 @@ router.get('/email/view', aH(async (req, res) => {
   });
 }));
 
+/* Equipment - view/manage equipment */
 router.get('/equipment', aH(async (req, res) => {
   let equipment = await h.fetchHelper(`${h.API_URL}/webtools/equipment`, req);
 
@@ -94,6 +98,7 @@ router.get('/equipment', aH(async (req, res) => {
   });
 }));
 
+/* Members - view/manage members */
 router.get('/members', aH(async (req, res) => {
   let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
 
@@ -114,6 +119,7 @@ router.get('/members', aH(async (req, res) => {
   });
 }));
 
+/* News - create a news item */
 router.get('/news', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -127,6 +133,7 @@ router.get('/news', aH(async (req, res) => {
   });
 }));
 
+/* News, delete - unpublish a news item */
 router.get('/news/delete', aH(async (req, res) => {
   const [name, news] = await Promise.all([
     h.getFirstName(req),
@@ -148,6 +155,7 @@ router.get('/news/delete', aH(async (req, res) => {
   });
 }));
 
+/* Officers - view/manage officers */
 router.get('/officers', aH(async (req, res) => {
   let officers = await h.fetchHelper(`${h.API_URL}/webtools/officers`, req);
 
@@ -168,6 +176,7 @@ router.get('/officers', aH(async (req, res) => {
   });
 }));
 
+/* Orders, codes - display all unredeemed codes */
 router.get('/orders/codes', aH(async (req, res) => {
   let codes = await h.fetchHelper(`${h.API_URL}/webtools/codes`, req);
 
@@ -187,6 +196,7 @@ router.get('/orders/codes', aH(async (req, res) => {
   });
 }));
 
+/* Orders, complete - display all complete orders */
 router.get('/orders/complete', aH(async (req, res) => {
   let orders = await h.fetchHelper(`${h.API_URL}/webtools/payments`, req);
 
@@ -207,6 +217,7 @@ router.get('/orders/complete', aH(async (req, res) => {
   });
 }));
 
+/* Orders, incomplete - display all incomplete orders */
 router.get('/orders/incomplete', aH(async (req, res) => {
   let orders = await h.fetchHelper(`${h.API_URL}/webtools/payments`, req);
 
@@ -228,6 +239,7 @@ router.get('/orders/incomplete', aH(async (req, res) => {
   });
 }));
 
+/* Orders, manual - do a manual payment or generate a code to redeem */
 router.get('/orders/manual', aH(async (req, res) => {
   let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
 

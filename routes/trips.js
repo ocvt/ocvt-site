@@ -6,7 +6,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* Trips Routes */
+/* Trips - overview of trips */
 router.get('/', aH(async (req, res) => {
   // eslint-disable-next-line prefer-const
   let [name, trips, recentTrips] = await Promise.all([
@@ -50,6 +50,7 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+/* Trips Archive - display old trips */
 router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   const name = await h.getFirstName(req);
   let pastTrips;
@@ -80,6 +81,7 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   });
 }));
 
+/* Myattendance - show trips member is on */
 router.get('/myattendance', aH(async (req, res) => {
   let myattendance = await h.fetchHelper(`${h.API_URL}/trips/myattendance`, req);
 
@@ -127,6 +129,7 @@ router.get('/myattendance', aH(async (req, res) => {
   });
 }));
 
+/* Mytrips - show trips created by member */
 router.get('/mytrips', aH(async (req, res) => {
   let mytrips = await h.fetchHelper(`${h.API_URL}/trips/mytrips`, req);
 
@@ -172,6 +175,7 @@ router.get('/mytrips', aH(async (req, res) => {
   });
 }));
 
+/* Newtrip - create a new trip */
 router.get('/newtrip', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -189,6 +193,7 @@ router.get('/newtrip', aH(async (req, res) => {
   });
 }));
 
+/* Trip - view details for specific trip */
 router.get('/:tripId', aH(async (req, res) => {
   let [mystatus, photos, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
@@ -234,6 +239,7 @@ router.get('/:tripId', aH(async (req, res) => {
   });
 }));
 
+/* Trip admin print - view roster in a printable format */
 router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   let [admin, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/admin`, req),
@@ -305,6 +311,7 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   }
 }));
 
+/* Trip, jointrip - join a trip */
 router.get('/:tripId/jointrip', aH(async (req, res) => {
   const trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json());
 
@@ -324,6 +331,7 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
   });
 }));
 
+/* Trip, mysignup - view signup info for specific trip */
 router.get('/:tripId/mysignup', aH(async (req, res) => {
   let [myAccount, mysignup, mystatus, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/myaccount`, req),
@@ -377,6 +385,7 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
   });
 }));
 
+/* Trip, photos - view photos for trip */
 router.get('/:tripId/photos', aH(async (req, res) => {
   let [photos, trip] = await Promise.all([
     h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}/photos`, req),

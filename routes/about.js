@@ -5,7 +5,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* About Routes */
+/* Primary about page showing overview of OCVT */
 router.get('/', aH(async (req, res) => {
   res.render('about/index', {
     title: 'About Us',
@@ -14,6 +14,7 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+/* Contact - display officer contact info */
 router.get('/contact', aH(async (req, res) => {
   res.render('about/contact', {
     title: 'Contact Info',
@@ -22,6 +23,7 @@ router.get('/contact', aH(async (req, res) => {
   });
 }));
 
+/* Offciers - default to showing president */
 router.get('/officers', aH(async (req, res) => {
   res.render('about/officers/President', {
     title: 'President',
@@ -30,6 +32,7 @@ router.get('/officers', aH(async (req, res) => {
   });
 }));
 
+/* Officer, specific position - show specific officer */
 router.get('/officers/:officerTitle', aH(async (req, res) => {
   const { officerTitle } = req.params;
   const officerTitles = {
@@ -49,6 +52,7 @@ router.get('/officers/:officerTitle', aH(async (req, res) => {
   });
 }));
 
+/* Tripleader - display info about the trip leader program */
 router.get('/tripleader', aH(async (req, res) => {
   res.render('about/tripleader', {
     title: 'Trip Leaders',
@@ -57,6 +61,7 @@ router.get('/tripleader', aH(async (req, res) => {
   });
 }));
 
+/* Trialmaint - display info about trail maintenance */
 router.get('/trailmaint', aH(async (req, res) => {
   res.render('about/trailmaint', {
     title: 'Trail Maintenance',
@@ -65,6 +70,7 @@ router.get('/trailmaint', aH(async (req, res) => {
   });
 }));
 
+/* Becomeatripleader - display info about becoming a trip leader */
 router.get('/becomeatripleader', aH(async (req, res) => {
   res.render('about/becomeatripleader', {
     title: 'Become a Trip Leader',

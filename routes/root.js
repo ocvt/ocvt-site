@@ -6,7 +6,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* Root Routes */
+/* Home - mostly static content */
 router.get('/', aH(async (req, res) => {
   // eslint-disable-next-line prefer-const
   let [homePhotos, news, trips] = await Promise.all([
@@ -38,6 +38,7 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+/* Special error page to show error info from api */
 router.get('/error', aH(async (req, res) => {
   res.render('error', {
     errorStatus: req.query.status,
@@ -46,6 +47,7 @@ router.get('/error', aH(async (req, res) => {
   });
 }));
 
+/* Gallery */
 router.get('/gallery', aH(async (req, res) => {
   // eslint-disable-next-line no-unused-vars
   const [homePhotos, tripsPhotos] = await Promise.all([
@@ -63,6 +65,7 @@ router.get('/gallery', aH(async (req, res) => {
   });
 }));
 
+/* Help - static content */
 router.get('/help', aH(async (req, res) => {
   res.render('help', {
     title: 'Help',
@@ -71,6 +74,7 @@ router.get('/help', aH(async (req, res) => {
   });
 }));
 
+/* Login - initiate login process */
 router.get('/login', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -87,12 +91,14 @@ router.get('/login', aH(async (req, res) => {
   });
 }));
 
+/* Logout - clear api cookies */
 router.get('/logout', aH(async (req, res) => {
   res.render('logout', {
     API_URL: h.API_URL,
   });
 }));
 
+/* News - view specific article, or all if 'archive' is used */
 router.get('/news/:newsId', aH(async (req, res) => {
   let news = await h.fetchHelper(`${h.API_URL}/news/archive`, req).then((n) => n.json()).then((nn) => nn.news);
 
@@ -112,6 +118,7 @@ router.get('/news/:newsId', aH(async (req, res) => {
   });
 }));
 
+/* Privacy - display privacy & terms of use */
 router.get('/privacy', aH(async (req, res) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',
@@ -120,12 +127,14 @@ router.get('/privacy', aH(async (req, res) => {
   });
 }));
 
+/* Quicksignup - quickly add new emails for gobblerfest or similar */
 router.get('/quicksignup', aH(async (req, res) => {
   res.render('quicksignup', {
     API_URL: h.API_URL,
   });
 }));
 
+/* Reactivate - reactivate a deactivated account */
 router.get('/reactivate', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -142,6 +151,7 @@ router.get('/reactivate', aH(async (req, res) => {
   });
 }));
 
+/* Register - complete registration for logged in account */
 router.get('/register', aH(async (req, res) => {
   const name = await h.getFirstName(req);
 
@@ -158,6 +168,7 @@ router.get('/register', aH(async (req, res) => {
   });
 }));
 
+/* Resources - misc resources about the area */
 router.get('/resources', aH(async (req, res) => {
   res.render('resources', {
     title: 'Resources',
@@ -166,6 +177,7 @@ router.get('/resources', aH(async (req, res) => {
   });
 }));
 
+/* Tripagreement - trip agreement all members agree to upon registering */
 router.get('/tripagreement', aH(async (req, res) => {
   res.render('tripagreement', {
     title: 'Trip Agreement',
@@ -174,6 +186,7 @@ router.get('/tripagreement', aH(async (req, res) => {
   });
 }));
 
+/* Unsubscript - simple unsubscribe function */
 router.get('/unsubscribe', aH(async (req, res) => {
   res.render('unsubscribe', {
     title: 'Unsubscribe',

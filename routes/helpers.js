@@ -14,12 +14,14 @@ async function fetchHelper(url, req) {
   return fetch(url, opts);
 }
 
+/* Frequently used route. Gets account name and auth status */
 async function getFirstName(req) {
   const name = await fetchHelper(`${API_URL}/myaccount/name`, req);
 
   return { status: name.status, json: await name.json() };
 }
 
+/* Construct pretty date primarily used for trip dates */
 function prettyDate(dateString) {
   const date = new Date(dateString);
   return `${d.dayString[date.getDay()]}, 
@@ -27,6 +29,7 @@ ${d.monthShortString[date.getMonth()]} ${date.getDate()},
 ${date.getFullYear()}`;
 }
 
+/* Construct pretty date for display dates in webtools */
 function prettyDateISO8601ish(dateString) {
   const date = new Date(dateString);
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} 
@@ -40,6 +43,3 @@ module.exports = {
   prettyDate,
   prettyDateISO8601ish,
 };
-// module.exports.API_URL = API_URL;
-// module.exports.fetchHelper = fetchHelper;
-// module.exports.getFirstName = getFirstName;

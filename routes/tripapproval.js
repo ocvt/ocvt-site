@@ -6,7 +6,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* Trip Approval Routes */
+/* Trip Approval - attempt to allow/deny trip or display error message to approver */
 router.get('/:guidCode/:action', aH(async (req, res) => {
   const approval = await fetch(`${h.API_URL}/tripapproval/${req.params.guidCode}/${req.params.action}`, {
     method: 'PATCH',

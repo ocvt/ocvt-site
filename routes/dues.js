@@ -5,7 +5,7 @@ const h = require('./helpers');
 
 const router = express.Router();
 
-/* Dues Routes */
+/* Primary page - initiate new payments or redeem codes */
 router.get('/', aH(async (req, res) => {
   let myaccount = await h.fetchHelper(`${h.API_URL}/myaccount`, req);
 
@@ -29,6 +29,7 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
+/* Cancel (redirected to from Stripe) - notify user payment is canceled */
 router.get('/cancel', aH(async (req, res) => {
   res.render('dues/cancel', {
     title: 'Dues - Canceled',
@@ -37,6 +38,7 @@ router.get('/cancel', aH(async (req, res) => {
   });
 }));
 
+/* Pyament - redirect to Stripe to pay; triggered when user clicks 'Pay Now' on dues page */
 router.get('/payment', aH(async (req, res) => {
   const { STRIPE_PUBLIC_KEY } = process.env;
   const { paymentId } = req.query;
@@ -49,6 +51,7 @@ router.get('/payment', aH(async (req, res) => {
   });
 }));
 
+/* Success (redirected to from Stripe) - notify user payment is successful */
 router.get('/success', aH(async (req, res) => {
   let myaccount = await h.fetchHelper(`${h.API_URL}/myaccount`, req);
 
