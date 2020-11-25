@@ -222,6 +222,7 @@ function webtoolsSubmitOrder(form) {
     orderData.storeItemId = "MEMBERSHIP";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
+      alert("Success! Check the My Account page to view your membership details.");
       window.location.reload(false);
     });
   } else if (itemId === "duesShirt") {
@@ -233,6 +234,7 @@ function webtoolsSubmitOrder(form) {
     }) // We already know payment id, this verified both requests went through
     .then(function (paymentId) {
       orderData.paymentId = paymentId;
+      alert("Success! Check the My Account page to view your membership details.");
       window.location.reload(false);
     });
   } else if (itemId === "duesSpecial") {
@@ -245,12 +247,14 @@ function webtoolsSubmitOrder(form) {
     }) // We already know payment id, this verified both requests went through
     .then(function (paymentId) {
       orderData.paymentId = paymentId;
+      alert("Success! Check the My Account page to view your membership details.");
       window.location.reload(false);
     });
   } else if (itemId === "shirt") {
     orderData.storeItemId = "SHIRT";
     submitOrder(orderData).then(function (paymentId) {
       orderData.paymentId = paymentId;
+      alert("Success!");
       window.location.reload(false);
     });
   }
