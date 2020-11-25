@@ -25,9 +25,6 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
-- Verify trip photos work correctly
-- Verify codes work correctly
-- Verify email announcements work correctly
 - ON REGISTRATION FORM: add option to "import from old site" using email
 - www.outdoor.org.vt.edu
   - Disable auth
