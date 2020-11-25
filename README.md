@@ -26,10 +26,10 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - ON REGISTRATION FORM: add option to "import from old site" using email
+- Test with officers
 - www.outdoor.org.vt.edu
   - Disable auth
   - Forward all requests to https://ocvt.club
-- Run OWASP ZAP
 
 - Future Improvements
   - Fix google drive rate limiting
