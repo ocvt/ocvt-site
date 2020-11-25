@@ -9,15 +9,14 @@
   <a href="/webtools">&lt;-- Back to Webtools Home</a>
 
   <h2>All Emails</h2>
-  <p>To Id = 0 --&gt; Sent to group of people based on trip id + notification type</p>
-  <p>Trip Id = 0 --&gt; General announcement not about any specific trip</p>
-  <p>Reply To Id = 0 --&gt; Indicates noreply address.</p>
+  <p>To Id = 8000000 --&gt; Sent to group of people based on trip id + notification type</p>
+  <p>Trip Id = 3000 --&gt; General announcement not about any specific trip</p>
+  <p>Reply To Id = 8000000 --&gt; Indicates noreply address.</p>
 
   <table cellpadding="2" cellspacing="0">
     <tr>
       <th>Created Date&nbsp;</th>
       <th>Sent Date&nbsp;</th>
-      <th>Sent?&nbsp;</th>
       <th>Notification Type Id&nbsp;</th>
       <th>Trip Id&nbsp;</th>
       <th>To Id&nbsp;</th>
@@ -34,11 +33,10 @@
       - i += 1
 
       <td>#{email.createDatetime}</td>
-      <td>#{email.sentDatetime}</td>
-      if email.sent
-        <td>Yes</td>
+      if email.sentDatetime.Valid
+        <td>#{email.sentDatetime.String}</td>
       else
-        <td>No</td>
+        <td>Unsent</td>
       <td>#{email.notificationTypeId}</td>
       if email.tripId
         <td>#{email.tripId}</td>

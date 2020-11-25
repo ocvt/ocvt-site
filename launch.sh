@@ -13,7 +13,7 @@ up () {
     --add-host=api.cabinet.seaturtle.pw:$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+') \
     ocvt/ocvt-site:latest
 
-  docker system prune -a
+  docker system prune -af
 }
 
 down () {
