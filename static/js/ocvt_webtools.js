@@ -334,3 +334,21 @@ function webtoolsUpdateItem(form, id) {
     window.location.reload(true);
   });
 }
+/* Quicksignups */
+
+
+function webtoolsQuicksignup(form) {
+  var bulkEmailData = {
+    emails: form.emails.value.split("\n")
+  };
+  fetch("".concat(API_URL, "/webtools/quicksignups/").concat(form.action.value), {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(bulkEmailData)
+  }).then(function (r) {
+    window.location.reload(true);
+  });
+}

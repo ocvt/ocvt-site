@@ -185,7 +185,6 @@ router.get('/orders/codes', aH(async (req, res) => {
     return;
   }
 
-  // Get all unredeemed codes
   codes = await codes.json().then((c) => c.codes.filter((i) => !i.redeemed));
   for (let i = 0; i < codes.length; i += 1) {
     codes[i].date = h.prettyDateISO8601ish(codes[i].createDatetime);
@@ -205,7 +204,6 @@ router.get('/orders/complete', aH(async (req, res) => {
     return;
   }
 
-  // Get all completed orders
   orders = await orders.json().then((o) => o.payments.filter((p) => p.completed));
   for (let i = 0; i < orders.length; i += 1) {
     orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
@@ -226,7 +224,6 @@ router.get('/orders/incomplete', aH(async (req, res) => {
     return;
   }
 
-  // Get all incomplete orders
   orders = await orders.json().then((o) => o.payments.filter((p) => !p.completed));
   for (let i = 0; i < orders.length; i += 1) {
     orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
@@ -249,6 +246,9 @@ router.get('/orders/manual', aH(async (req, res) => {
   }
 
   members = await members.json().then((m) => m.members);
+  for (let i = 0; i < members.length; i += 1) {
+    members[i].date = h.prettyDateISO8601ish(members[i].paidExpireDatetime);
+  }
 
   res.render('webtools/orders_manual', {
     API_URL: h.API_URL,
@@ -256,4 +256,24 @@ router.get('/orders/manual', aH(async (req, res) => {
   });
 }));
 
+/* Quicksignup - bulk add/remove quicksignups */
+router.get('/quicksignups', aH(async (req, res) => {
+  let quicksignups = await h.fetchHelper(`${h.API_URL}/webtools/quicksignups`, req);
+
+  if (quicksignups.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  quicksignups = await quicksignups.json().then((q) => q.quicksignups);
+  for (let i = 0; i < quicksignups.length; i += 1) {
+    quicksignups[i].dateAdd = h.prettyDateISO8601ish(quicksignups[i].createDatetime);
+    quicksignups[i].dateExpire = h.prettyDateISO8601ish(quicksignups[i].expireDatetime);
+  }
+
+  res.render('webtools/quicksignups', {
+    API_URL: h.API_URL,
+    quicksignups,
+  });
+}));
 module.exports = router;

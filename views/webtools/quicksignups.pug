@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/ocvt.css">
+  <script>const API_URL="#{API_URL}"</script>
+  <script src="/js/ocvt_webtools.js"></script>
+  <title>Quick Signup!</title>
+</head>
+<body class="webtools">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Manage Quick Signups</h2>
+
+  <h3>Add/Remove Emails</h3>
+  <p>
+    | Emails are automatically removed after 6 months and de-duplicated when added. Paste an email
+    | on each line below to bulk add or remove emails.
+  </p>
+  <form onsubmit="webtoolsQuicksignup(this); return false">
+    <textarea name="emails" rows="30" cols="50"></textarea>
+    <br>
+    <label for="add">Add</label>
+    <input type="radio" id="add" name="action" value="add" checked>
+    <br>
+    <label for="remove">Remove</label>
+    <input type="radio" id="remove" name="action" value="remove" checked>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>View quicksignups</h3>
+    <table cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Date added&nbsp;</th>
+      <th>Date expiring&nbsp;</th>
+      <th>Email&nbsp;</th>
+    </tr>
+
+    - let i = 0
+    each q in quicksignups
+      if i % 2 === 0
+        <tr bgcolor="#CCCCCC">
+      else
+        <tr>
+      - i += 1
+
+      <td>#{q.dateAdd}</td>
+      <td>#{q.dateExpire}</td>
+      <td>#{q.email}</td>
+      </tr>
+  </table>
+</html>
