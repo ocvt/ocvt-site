@@ -69,7 +69,7 @@ router.get('/email/view', aH(async (req, res) => {
   for (let i = 0; i < emails.length; i += 1) {
     emails[i].dateCreated = h.prettyDateISO8601ish(emails[i].createDatetime);
     if (emails[i].sentDatetime.Valid) {
-      emails[i].dateSent = h.prettyDateISO8601ish(emails[i].sendDatetime.String);
+      emails[i].dateSent = h.prettyDateISO8601ish(emails[i].sentDatetime.String);
     }
   }
 
