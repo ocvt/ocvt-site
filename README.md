@@ -4,51 +4,37 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 
 ## Supported Browsers
 
-* Firefox
-* Chrome
-* IE11 (?, untested but compiled via babel)
+- Firefox
+- Chrome
+- IE11 (?, untested but compiled via babel)
 
 
 ## Configuration
 
-### Environmental Variable
+### Environmental Variables
 
 Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variables defined:
-* `STRIPE_PUBLIC_KEY`: Public key from Stripe for payments
-* `API_URL`: Api url of the dolabra backend. Note if using docker this should be the host's docker IP so that both the ocvt-site container and the browser can access it.
+- `STRIPE_PUBLIC_KEY`: Public key from Stripe for payments
+- `API_URL`: Api url of the dolabra backend. Note if using docker this should be the host's docker IP so that both the ocvt-site container and the browser can access it.
 
 ### Testing
 
-* `yarn test`: Lints and compiles javascript
-* See `launch.sh` for more functions
+- `./launch test`: Lints javascript
+- `./launch build`: Compiles javascript and builds `ocvt/ocvt-site:latest` docker image
+- See `launch.sh` for more functions
 
 ## TODO
 
-* Run OWASP ZAP
-* Test
-* Sort frontpage news AND webtools news Z-A
-* dolabra
-  * Convert news to sqlite
-  * start member ids @ 8000000
-  * start trip ids @ 3000
-  * Convert member sql data into sqlite table containing
-    * email
-    * first_name
-    * last_name
-    * cell_number
-    * gender
-    * birth_year
-    * medical_cond
-    * medical_cond_desc
-    * paid_expire_datetime
-    * active
-    * emergency_name (OR "")
-    * emergency_relationship (OR "")
-    * emergency_number (OR "")
-    * notification_preferences
-    * ON REGISTRATION FORM: add option to "import from old site" using email
-* Archive old trips & data for reference. Host old site at https://oldsite.ocvt.club + big warning saying it's old
-* www.outdoor.org.vt.edu
-  * Disable auth
-  * Forward all requests to https://ocvt.club
-* allow sending to quicksignup and/or members
+- Verify trip photos work correctly
+- Verify codes work correctly
+- Verify email announcements work correctly
+- ON REGISTRATION FORM: add option to "import from old site" using email
+- www.outdoor.org.vt.edu
+  - Disable auth
+  - Forward all requests to https://ocvt.club
+- Run OWASP ZAP
+
+- Future Improvements
+  - Fix google drive rate limiting
+  - /webtools/equipment: Allow inputting inventory ID and deleting item
+  - Default HTML error pages
