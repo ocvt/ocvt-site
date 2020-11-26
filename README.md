@@ -26,6 +26,8 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - ON REGISTRATION FORM: add option to "import from old site" using email
+- Start new site
+- Migreate old data
 - Test with officers
 - www.outdoor.org.vt.edu
   - Disable auth

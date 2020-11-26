@@ -10,7 +10,69 @@ block content
       | .
     </p>
 
-    <h3>Welcome! Please fill out the registration form.</h3>
+    <h3>
+      | As of December 2020 we have migrated to a new website. Please fill out one of the 2 below
+      | forms depending on if you need a new account or not.
+    </h3>
+
+    <h3>Welcome! Already have an account with the old site? Please fill out this form</h3>
+    <p>
+      | Fill out this form to migrate your account data from the previous site. Only account data
+      | is migrated and all old public trip data (as of 2020-11-24) is viewable at
+      | <a href="https://oldsite.ocvt.club">oldsite.ocvt.club</a>. Please
+      | <a href="/about/contact">contact the webmaster</a> if you have any questions or issues.
+    </hp>
+    <form onsubmit="myocvtMigrateAccount(this);return false">
+      <table class="ocvtForm">
+        <tbody>
+          <tr>
+            <td valign="top">First Name:*</td>
+            <td><input type="text" name="firstName" size="40" value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Last Name:*</td>
+            <td><input type="text" name="lastName" size="40" value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Email:*</td>
+            <td><input type="text" name="email" size="40" value="" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Birth Year:*</td>
+            <td>
+              <select name="birthyear" required>
+                <option value="" selected>----</option>
+                -
+                  let start = 1900;
+                  let end = new Date().getFullYear() - 14;
+                  let years = Array.from({length: end - start}, (v, k) => k + start);
+                each year in years.reverse()
+                  <option value="#{year}">#{year}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">Gender:*</td>
+            <td>
+              <select name="gender" required>
+                <option value="" selected>----</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 color="red">
+        | This form will not work unless you already had account with the old site! Please use the
+        | form below if you need a new account.
+      </h3>
+      <button type="submit" name="Submit">Submit</button>
+    </form>
+
+    <hr>
+
+    <h3>Welcome! Don't have an account with the old site? Please fill out this form.</h3>
     <p>
       | Please fill out this simple form. For medical condition you do not
       | have to put a description if you do not want to; but please
@@ -39,9 +101,9 @@ block content
               <select name="birthyear" required>
                 <option value="" selected>----</option>
                 -
-                  const start = 1900;
-                  const end = new Date().getFullYear() - 14;
-                  const years = Array.from({length: end - start}, (v, k) => k + start);
+                  start = 1900;
+                  end = new Date().getFullYear() - 14;
+                  years = Array.from({length: end - start}, (v, k) => k + start);
                 each year in years.reverse()
                   <option value="#{year}">#{year}</option>
               </select>
