@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', aH(async (req, res) => {
   res.render('about/index', {
     title: 'About Us',
-    header: 'ABOUT US - Contact Info',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
@@ -27,7 +27,7 @@ router.get('/contact', aH(async (req, res) => {
 router.get('/officers', aH(async (req, res) => {
   res.render('about/officers/President', {
     title: 'President',
-    header: 'ABOUT US - Officers',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
@@ -47,7 +47,7 @@ router.get('/officers/:officerTitle', aH(async (req, res) => {
 
   res.render(`about/officers/${officerTitle}`, {
     title: officerTitles[officerTitle],
-    header: 'ABOUT US - Officers',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
@@ -56,7 +56,7 @@ router.get('/officers/:officerTitle', aH(async (req, res) => {
 router.get('/tripleader', aH(async (req, res) => {
   res.render('about/tripleader', {
     title: 'Trip Leaders',
-    header: 'ABOUT US - Trip Leaders',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
@@ -65,7 +65,7 @@ router.get('/tripleader', aH(async (req, res) => {
 router.get('/trailmaint', aH(async (req, res) => {
   res.render('about/trailmaint', {
     title: 'Trail Maintenance',
-    header: 'ABOUT US - Trail Maintenance',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
@@ -74,7 +74,7 @@ router.get('/trailmaint', aH(async (req, res) => {
 router.get('/becomeatripleader', aH(async (req, res) => {
   res.render('about/becomeatripleader', {
     title: 'Become a Trip Leader',
-    header: 'ABOUT US - Become a Trip Leader',
+    header: 'ABOUT US',
     name: await h.getFirstName(req),
   });
 }));
