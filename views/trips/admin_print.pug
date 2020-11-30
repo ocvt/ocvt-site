@@ -3,12 +3,20 @@
 <body>
   include include/trip_summary
 
-  <h2>Force Added People</h2>
+  <h2>Trip Leaders</h2>
   <table>
   include include/admin_print_header
-  for signup in signups.force
+  for signup in signups.leader
     include include/signup_info_print
   </table>
+
+  if signups.force.length !== 0
+    <h2>Force Added People</h2>
+    <table>
+    include include/admin_print_header
+    for signup in signups.force
+      include include/signup_info_print
+    </table>
 
   if signups.attend.length !== 0
     <table>
