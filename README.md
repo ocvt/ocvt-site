@@ -25,15 +25,16 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
-- ON REGISTRATION FORM: add option to "import from old site" using email
 - Start new site
-- Migreate old data
+- Migrate old data
 - Test with officers
 - www.outdoor.org.vt.edu
   - Disable auth
   - Forward all requests to https://ocvt.club
 
 - Future Improvements
+  - List news author under title
+  - Figure out how SES treats invalid emails
   - Fix google drive rate limiting
   - /webtools/equipment: Allow inputting inventory ID and deleting item
   - Default HTML error pages
