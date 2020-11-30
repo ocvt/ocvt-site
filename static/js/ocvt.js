@@ -6,7 +6,8 @@ function myocvtMigrateMyAccount(form) {
     firstName: form.firstName.value,
     lastName: form.lastName.value,
     email: form.email.value,
-    birthyear: parseInt(form.birthyear.value)
+    birthyear: parseInt(form.birthyear.value),
+    gender: form.gender.value
   };
   fetch("".concat(API_URL, "/myaccount/migrate"), {
     credentials: "include",
