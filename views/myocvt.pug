@@ -77,7 +77,7 @@ block content
             <td>
               <select name="ECRelationship" required>
                 <option value="">----</option>
-                each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Fridnd', 'Other' ]
+                each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Friend', 'Other' ]
                   if relation === myaccount.ECRelationship
                     <option value="#{relation}" selected>#{relation}</option>
                   <option value="#{relation}">#{relation}</option>

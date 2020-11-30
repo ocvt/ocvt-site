@@ -22,7 +22,7 @@ block content
       | <a href="https://oldsite.ocvt.club">oldsite.ocvt.club</a>. Please
       | <a href="/about/contact">contact the webmaster</a> if you have any questions or issues.
     </hp>
-    <form onsubmit="myocvtMigrateAccount(this);return false">
+    <form onsubmit="myocvtMigrateMyAccount(this);return false">
       <table class="ocvtForm">
         <tbody>
           <tr>
@@ -63,11 +63,12 @@ block content
           </tr>
         </tbody>
       </table>
-      <h3 color="red">
+      <h3>
         | This form will not work unless you already had account with the old site! Please use the
         | form below if you need a new account.
       </h3>
       <button type="submit" name="Submit">Submit</button>
+      <p id="myocvtMigrateMyAccount"></p>
     </form>
 
     <hr>

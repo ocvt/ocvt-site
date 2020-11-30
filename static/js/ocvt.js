@@ -1,6 +1,35 @@
 "use strict";
 /* myocvt */
 
+function myocvtMigrateMyAccount(form) {
+  var memberData = {
+    firstName: form.firstName.value,
+    lastName: form.lastName.value,
+    email: form.email.value,
+    birthyear: parseInt(form.birthyear.value)
+  };
+  fetch("".concat(API_URL, "/myaccount/migrate"), {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(memberData)
+  }).then(function (r) {
+    if (r.status >= 200 && r.status < 300) {
+      window.location.href = "/";
+    } else if (r.status == 400) {
+      r.json().then(function (rj) {
+        document.getElementById('myocvtMigrateMyAccount').textContent = "ERROR: " + rj.error;
+      });
+    } else {
+      r.text().then(function (rt) {
+        window.location.href = "/error?status=".concat(r.status, "&code=error-migrate-myaccount&text=").concat(rt);
+      });
+    }
+  });
+}
+
 function myocvtUpdateMyAccount(method, redirect, id, message, form) {
   var memberData = {
     firstName: form.firstName.value,
@@ -10,11 +39,15 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     gender: form.gender.value,
     cellNumber: form.cellNumber.value,
     medicalCond: form.medicalCond.checked,
-    medicalCondDesc: form.medicalCondDesc.value,
-    ECName: form.ECName.value,
-    ECNumber: form.ECNumber.value,
-    ECRelationship: form.ECRelationship.value
+    medicalCondDesc: form.medicalCondDesc.value
   };
+
+  if (form.hasOwnProperty('ECName') && form.hasOwnProperty('ECNumber') && form.hasOwnProperty('ECRelationship')) {
+    memberData.ECName = form.ECName.value;
+    memberData.ECNumber = form.ECNumber.value;
+    memberData.ECRelationship = form.ECRelationship.value;
+  }
+
   fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
     method: method,
