@@ -32,14 +32,17 @@ router.get('/', aH(async (req, res) => {
     notifications.json(),
   ]);
 
-  if (!('emergencyContactName' in myaccount)) {
-    myaccount.emergencyContact = '';
+  // In the API (golang), struct fields are not included if they have the omitempty property and
+  //  are empty. We use this property because this info is not required to create an account, but
+  //  we still want to show it to the user.
+  if (!('ECName' in myaccount)) {
+    myaccount.ECName = '';
   }
-  if (!('emergencyContactNumber' in myaccount)) {
-    myaccount.emergencyContact = '';
+  if (!('ECNumber' in myaccount)) {
+    myaccount.ECNumber = '';
   }
-  if (!('emergencyContactRelationship' in myaccount)) {
-    myaccount.emergencyContact = '';
+  if (!('ECRelationship' in myaccount)) {
+    myaccount.ECRelationship = '';
   }
 
   res.render('myocvt', {

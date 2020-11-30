@@ -10,7 +10,10 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     gender: form.gender.value,
     cellNumber: form.cellNumber.value,
     medicalCond: form.medicalCond.checked,
-    medicalCondDesc: form.medicalCondDesc.value
+    medicalCondDesc: form.medicalCondDesc.value,
+    ECName: form.ECName.value,
+    ECNumber: form.ECNumber.value,
+    ECRelationship: form.ECRelationship.value
   };
   fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
@@ -31,31 +34,6 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
         window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(rt);
       });
     }
-  });
-}
-
-function myocvtUpdateEmergency(form) {
-  var emergencyData = {
-    emergencyContactName: form.name.value,
-    emergencyContactNumber: form.cellNumber.value,
-    emergencyContactRelationship: form.relationship.value
-  };
-  fetch("".concat(API_URL, "/myaccount/emergency"), {
-    credentials: "include",
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(emergencyData)
-  }).then(function (r) {
-    if (r.status !== 204) {
-      r.text().then(function (rt) {
-        window.location.href = "/error?status=".concat(r.status, "&code=error-update-emergency&text=").concat(rt);
-        return;
-      });
-    }
-
-    document.getElementById("updateEmergencyInfo").textContent = "Success!";
   });
 }
 

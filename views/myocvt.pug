@@ -64,36 +64,21 @@ block content
             <td valign="top">Medical Condition Description<br><span class="mild">(optional)</span>:</td>
             <td><textarea name="medicalCondDesc" rows="6" cols="35">#{myaccount.medicalCondDesc}</textarea></td>
           </tr>
-        </tbody>
-      </table>
-      <p>Fields marked with "*" are required.</p>
-      <button type="submit" name="user">Update Info</button>
-      <p id="updatePersonalInfo"></p>
-    </form>
-    <br>
-
-
-    <h2 id="emerg">Emergency Contact Information</h2>
-    if myaccount.emergencyContactName === ''
-      <p>You have no emergency contact information set. Fill out this form to add a contact.</p>
-    <form onsubmit="myocvtUpdateEmergency(this);return false">
-      <table class="ocvtForm">
-        <tbody>
           <tr>
-            <td valign="top">Name:*</td>
-            <td><input type="text" name="name" size="40" value="#{myaccount.emergencyContactName}" required></td>
+            <td valign="top">Emergency Contact Name:*</td>
+            <td><input type="text" name="ECName" size="40" value="#{myaccount.ECName}" required></td>
           </tr>
           <tr>
-            <td valign="top">Cell Number:*</td>
-            <td><input type="text" name="cellNumber" size="40" value="#{myaccount.emergencyContactNumber}" required></td>
+            <td valign="top">Emergency Contact Number:*</td>
+            <td><input type="text" name="ECNumber" size="40" value="#{myaccount.ECNumber}" required></td>
           </tr>
           <tr>
-            <td valign="top">Relationship:*</td>
+            <td valign="top">Emergency Contact Relationship:*</td>
             <td>
-              <select name="relationship" required>
+              <select name="ECRelationship" required>
                 <option value="">----</option>
                 each relation in [ 'Parent', 'Guardian', 'Relative', 'Sibling', 'Fridnd', 'Other' ]
-                  if relation === myaccount.emergencyContactRelationship
+                  if relation === myaccount.ECRelationship
                     <option value="#{relation}" selected>#{relation}</option>
                   <option value="#{relation}">#{relation}</option>
               </select>
@@ -102,8 +87,8 @@ block content
         </tbody>
       </table>
       <p>Fields marked with "*" are required.</p>
-      <button type="submit" name="emerg">Create Contact</button>
-      <p id="updateEmergencyInfo"></p>
+      <button type="submit" name="user">Update Info</button>
+      <p id="updatePersonalInfo"></p>
     </form>
     <br>
 
