@@ -15,5 +15,6 @@ jobs:
         with:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_PASSWORD }}
-          repository: ghcr.io/ocvt/ocvt-site
+          registry: ghcr.io
+          repository: ocvt/ocvt-site
           tag_with_ref: true
