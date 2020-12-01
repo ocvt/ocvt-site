@@ -16,6 +16,7 @@ The Outdoor Club at Virginia Tech's (OCVT) front end for dolabra
 Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variables defined:
 - `STRIPE_PUBLIC_KEY`: Public key from Stripe for payments
 - `API_URL`: Api url of the dolabra backend. Note if using docker this should be the host's docker IP so that both the ocvt-site container and the browser can access it.
+- `MIGRATE_ENABLED`: Determines if migration form should be shown on registration page. Set to be non-empty to enable.
 
 ### Testing
 

@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const { API_URL } = process.env;
+const { API_URL, MIGRATE_ENABLED } = process.env;
 
 const d = require('./data');
 
@@ -38,6 +38,7 @@ ${date.toLocaleTimeString()}`;
 
 module.exports = {
   API_URL,
+  MIGRATE_ENABLED,
   fetchHelper,
   getFirstName,
   prettyDate,

@@ -165,6 +165,7 @@ router.get('/register', aH(async (req, res) => {
     header: 'REGISTER',
     name,
     API_URL: h.API_URL,
+    MIGRATE_ENABLED: h.MIGRATE_ENABLED,
   });
 }));
 
