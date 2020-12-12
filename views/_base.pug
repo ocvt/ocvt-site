@@ -105,7 +105,7 @@
         <div id="logon">
           <strong>
             if name.status === 200
-              | Welcome #{name.json.firstName} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
+              | Welcome #{name.json.name} | <a href="/logout">Logout</a> | <a href="/myocvt">Settings</a>
             else if name.status === 401
               | You are not logged on | <a href="/login">LogIn</a> | <a href="/register">Register</a>
             else if name.status === 403

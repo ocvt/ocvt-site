@@ -48,7 +48,7 @@ router.get('/', aH(async (req, res) => {
   res.render('myocvt', {
     title: 'My OCVT',
     header: 'MY OCVT',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     generalTypes: d.generalTypes,
     myaccount,

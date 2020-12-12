@@ -7,7 +7,7 @@ const router = express.Router();
 
 /* Webtools - display overview of pages */
 router.get('/', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (!name.json.officer) {
     res.redirect('/');
@@ -17,7 +17,7 @@ router.get('/', aH(async (req, res) => {
   res.render('webtools/index', {
     title: 'Webtools',
     header: 'WEBTOOLS',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
@@ -36,7 +36,7 @@ router.get('/approvers', aH(async (req, res) => {
   }
 
   res.render('webtools/approvers', {
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     approvers,
   });
@@ -44,7 +44,7 @@ router.get('/approvers', aH(async (req, res) => {
 
 /* Email - send a new email */
 router.get('/email', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (!name.json.officer) {
     res.redirect('/');
@@ -113,7 +113,7 @@ router.get('/members', aH(async (req, res) => {
   }
 
   res.render('webtools/members', {
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     members,
   });
@@ -121,7 +121,7 @@ router.get('/members', aH(async (req, res) => {
 
 /* News - create a news item */
 router.get('/news', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (!name.json.officer) {
     res.redirect('/');
@@ -136,7 +136,7 @@ router.get('/news', aH(async (req, res) => {
 /* News, delete - unpublish a news item */
 router.get('/news/delete', aH(async (req, res) => {
   const [name, news] = await Promise.all([
-    h.getFirstName(req),
+    h.getName(req),
     h.fetchHelper(`${h.API_URL}/news/archive`, req).then((n) => n.json()).then((nn) => nn.news),
   ]);
 
@@ -170,7 +170,7 @@ router.get('/officers', aH(async (req, res) => {
   }
 
   res.render('webtools/officers', {
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     officers,
   });

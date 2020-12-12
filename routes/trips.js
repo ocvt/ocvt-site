@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', aH(async (req, res) => {
   // eslint-disable-next-line prefer-const
   let [name, trips, recentTrips] = await Promise.all([
-    h.getFirstName(req),
+    h.getName(req),
     h.fetchHelper(`${h.API_URL}/noauth/trips`, req).then((t) => t.json()).then((tj) => tj.trips),
     h.fetchHelper(`${h.API_URL}/noauth/trips/archive`, req).then((r) => r.json()).then((rj) => rj.trips),
   ]);
@@ -52,7 +52,7 @@ router.get('/', aH(async (req, res) => {
 
 /* Trips Archive - display old trips */
 router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
   let pastTrips;
   if (req.params.startId && req.params.perPage) {
     pastTrips = await h.fetchHelper(`${h.API_URL}/noauth/trips/archive/${req.params.startId}/${req.params.perPage}`, req).then((t) => t.json()).then((tj) => tj.trips);
@@ -122,7 +122,7 @@ router.get('/myattendance', aH(async (req, res) => {
   res.render('trips/myattendance', {
     title: 'Trip Attendance',
     header: 'TRIP ATTENDANCE',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     trips,
     tripSignups: myattendance.tripSignups,
@@ -169,7 +169,7 @@ router.get('/mytrips', aH(async (req, res) => {
   res.render('trips/mytrips', {
     title: 'My Trips',
     header: 'TRIP ADMINISTRATION',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     trips,
   });
@@ -177,7 +177,7 @@ router.get('/mytrips', aH(async (req, res) => {
 
 /* Newtrip - create a new trip */
 router.get('/newtrip', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (name.status !== 200) {
     res.redirect('/myocvt');
@@ -231,7 +231,7 @@ router.get('/:tripId', aH(async (req, res) => {
   res.render('trips/trip', {
     title: 'Trips',
     header: 'VIEW TRIP',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     mainphoto: photos.mainphoto,
     mystatus,
@@ -296,7 +296,7 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
     res.render('trips/admin', {
       title: 'Trip Admin',
       header: 'TRIP ADMIN',
-      name: await h.getFirstName(req),
+      name: await h.getName(req),
       API_URL: h.API_URL,
       carSeats,
       signups,
@@ -325,7 +325,7 @@ router.get('/:tripId/jointrip', aH(async (req, res) => {
   res.render('trips/jointrip', {
     title: 'Join A Trip',
     header: 'JOIN A TRIP',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     trip,
   });
@@ -352,8 +352,7 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
     trip.json(),
   ]);
 
-  mysignup.firstName = myAccount.firstName;
-  mysignup.lastname = myAccount.lastName;
+  mysignup.name = myAccount.name;
   mysignup.email = myAccount.email;
   mysignup.pronouns = myAccount.pronouns;
   if (myAccount.medicalCond) {
@@ -377,7 +376,7 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
   res.render('trips/mysignup', {
     title: 'Trip Attendance',
     header: 'TRIP ATTENDANCE',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     signup: mysignup,
     mystatus,
@@ -405,7 +404,7 @@ router.get('/:tripId/photos', aH(async (req, res) => {
   res.render('trips/photos', {
     title: 'Trip Photos',
     header: 'TRIP PHOTOS',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     photos,
     trip,

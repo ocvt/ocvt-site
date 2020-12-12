@@ -33,8 +33,7 @@ function myocvtMigrateMyAccount(form) {
 
 function myocvtUpdateMyAccount(method, redirect, id, message, form) {
   var memberData = {
-    firstName: form.firstName.value,
-    lastName: form.lastName.value,
+    name: form.name.value,
     email: form.email.value,
     birthyear: parseInt(form.birthyear.value),
     pronouns: form.pronouns.value,

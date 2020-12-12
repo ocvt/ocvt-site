@@ -30,7 +30,7 @@ router.get('/', aH(async (req, res) => {
   res.render('index', {
     title: 'Home',
     header: 'HOME',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     homePhoto,
     news,
@@ -59,7 +59,7 @@ router.get('/gallery', aH(async (req, res) => {
   res.render('gallery', {
     title: 'Gallery',
     header: 'GALLERY',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     images,
   });
@@ -70,13 +70,13 @@ router.get('/help', aH(async (req, res) => {
   res.render('help', {
     title: 'Help',
     header: 'HELP',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
 /* Login - initiate login process */
 router.get('/login', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (name.status !== 401) {
     res.redirect(302, '/myocvt');
@@ -113,7 +113,7 @@ router.get('/news/:newsId', aH(async (req, res) => {
   res.render('news', {
     title: 'News',
     header: 'NEWS ARCHIVE',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     news,
   });
 }));
@@ -123,7 +123,7 @@ router.get('/privacy', aH(async (req, res) => {
   res.render('privacy', {
     title: 'Privacy Policy & Terms',
     header: 'PRIVACY POLICY / TERMS OF USE',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
@@ -136,7 +136,7 @@ router.get('/quicksignup', aH(async (req, res) => {
 
 /* Reactivate - reactivate a deactivated account */
 router.get('/reactivate', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (name.status !== 403) {
     res.redirect(302, '/myocvt');
@@ -153,7 +153,7 @@ router.get('/reactivate', aH(async (req, res) => {
 
 /* Register - complete registration for logged in account */
 router.get('/register', aH(async (req, res) => {
-  const name = await h.getFirstName(req);
+  const name = await h.getName(req);
 
   if (name.status !== 404) {
     res.redirect(302, '/myocvt');
@@ -174,7 +174,7 @@ router.get('/resources', aH(async (req, res) => {
   res.render('resources', {
     title: 'Resources',
     header: 'RESOURCES',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
@@ -183,7 +183,7 @@ router.get('/tripagreement', aH(async (req, res) => {
   res.render('tripagreement', {
     title: 'Trip Agreement',
     header: 'TRIP AGREEMENT',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
@@ -192,7 +192,7 @@ router.get('/unsubscribe', aH(async (req, res) => {
   res.render('unsubscribe', {
     title: 'Unsubscribe',
     header: 'UNSUBSCRIPE',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
   });
 }));

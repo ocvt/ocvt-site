@@ -15,7 +15,7 @@ async function fetchHelper(url, req) {
 }
 
 /* Frequently used route. Gets account name and auth status */
-async function getFirstName(req) {
+async function getName(req) {
   const name = await fetchHelper(`${API_URL}/myaccount/name`, req);
 
   return { status: name.status, json: await name.json() };
@@ -40,7 +40,7 @@ module.exports = {
   API_URL,
   MIGRATE_ENABLED,
   fetchHelper,
-  getFirstName,
+  getName,
   prettyDate,
   prettyDateISO8601ish,
 };

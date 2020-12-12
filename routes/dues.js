@@ -22,7 +22,7 @@ router.get('/', aH(async (req, res) => {
   res.render('dues/index', {
     title: 'Dues',
     header: 'PAY DUES',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     API_URL: h.API_URL,
     myaccount,
     STRIPE_PUBLIC_KEY,
@@ -34,7 +34,7 @@ router.get('/cancel', aH(async (req, res) => {
   res.render('dues/cancel', {
     title: 'Dues - Canceled',
     header: 'PAY DUES',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
   });
 }));
 
@@ -45,7 +45,7 @@ router.get('/payment', aH(async (req, res) => {
   res.render('dues/payment', {
     title: 'Dues',
     header: 'PAY DUES',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     paymentId,
     STRIPE_PUBLIC_KEY,
   });
@@ -66,7 +66,7 @@ router.get('/success', aH(async (req, res) => {
   res.render('dues/success', {
     title: 'Dues - Success',
     header: 'PAY DUES',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     myaccount,
   });
 }));

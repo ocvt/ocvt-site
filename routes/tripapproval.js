@@ -20,7 +20,7 @@ router.get('/:guidCode/:action', aH(async (req, res) => {
   res.render('tripapproval', {
     title: 'Trip Approval',
     header: 'TRIP APPROVAL',
-    name: await h.getFirstName(req),
+    name: await h.getName(req),
     approval: await approval.json(),
   });
 }));
