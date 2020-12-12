@@ -355,7 +355,7 @@ router.get('/:tripId/mysignup', aH(async (req, res) => {
   mysignup.firstName = myAccount.firstName;
   mysignup.lastname = myAccount.lastName;
   mysignup.email = myAccount.email;
-  mysignup.gender = myAccount.gender;
+  mysignup.pronouns = myAccount.pronouns;
   if (myAccount.medicalCond) {
     mysignup.medicalCond = myAccount.medicalCond;
   }

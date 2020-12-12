@@ -45,23 +45,26 @@ else
     </td>
     <td rowspan="2" width="30px">
       <span class="tooltip" title="">
-        if signup.gender === 'F'
-          <img class="tripPersonimg" src="/media/icon/female-bw.png" alt="Female icon">
+        if signup.pronouns = 'he/him'
+          <img class="tripPersonimg" src="/media/icon/male-bw.png" alt="Male pronouns icon">
           <span class="custom info">
             <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
-            <em>Attendee is Female</em>
+            <em>Pronouns are he/him</em>
           </span>
-        else if signup.gender === 'M'
-          <img class="tripPersonimg" src="/media/icon/male-bw.png" alt="Male icon">
+        else if signup.pronouns === 'she/her'
+          <img class="tripPersonimg" src="/media/icon/female-bw.png" alt="Female pronouns icon">
           <span class="custom info">
             <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
-            <em>Attendee is Male</em>
+            <em>Pronouns are she/her</em>
           </span>
         else
-          <img class="tripPersonimg" src="/media/icon/other-bw.png" alt="Other gender icon">
+          <img class="tripPersonimg" src="/media/icon/other-bw.png" alt="Unspecified pronouns icon">
           <span class="custom info">
             <img class="tooltipimg" src="/media/icon/info.png" alt="Info icon" width="48" height="48">
-            <em>Attendee does not identify as male or female, or did not disclose their gender.</em>
+            if signup.pronouns == 'prefer not to say'
+              <em>Pronouns are unspecified</em>
+            else
+              <em>Pronouns are they/them</em>
           </span>
       </span>
     </td>

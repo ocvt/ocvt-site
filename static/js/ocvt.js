@@ -37,7 +37,7 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     lastName: form.lastName.value,
     email: form.email.value,
     birthyear: parseInt(form.birthyear.value),
-    gender: form.gender.value,
+    pronouns: form.pronouns.value,
     cellNumber: form.cellNumber.value,
     medicalCond: form.medicalCond.checked,
     medicalCondDesc: form.medicalCondDesc.value

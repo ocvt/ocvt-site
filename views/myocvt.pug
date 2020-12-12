@@ -37,15 +37,14 @@ block content
             </td>
           </tr>
           <tr>
-            <td valign="top">Gender:*</td>
+            <td valign="top">Pronouns:*</td>
             <td>
-              <select name="gender" required>
-                <option value="">----</option>
-                each value, key in { M: 'Male', F: 'Female', O: 'Other', P: 'Prefer not to say' }
-                  if key === myaccount.gender
-                    <option value="#{key}" selected>#{value}</option>
+              <select name="pronouns" required>
+                each value in ['prefer not to say', 'he/him', 'she/her', 'they/them']
+                  if value === myaccount.pronouns
+                    <option value="#{value}" selected>#{value}</option>
                   else
-                    <option value="#{key}">#{value}</option>
+                    <option value="#{value}">#{value}</option>
               </select>
             </td>
           </tr>

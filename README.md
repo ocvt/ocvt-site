@@ -26,6 +26,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
+- email -> test + plan (use gdoc as reference)
 - Start new site
 - Migrate old data
 - Test with officers
@@ -34,6 +35,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
   - Forward all requests to https://ocvt.club
 
 - Future Improvements
+  - Make name a single field
   - List news author under title
   - Figure out how SES treats invalid emails
   - Fix google drive rate limiting

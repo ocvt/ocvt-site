@@ -81,8 +81,8 @@ block content
       | Please fill out this simple form. For medical condition you do not
       | have to put a description if you do not want to; but please
       | indicate "yes" if you have something that a trip leader should ask
-      | you about before you go somewhere. Only your name and gender will
-      | be publically accessible on the site.
+      | you about before you go somewhere. Only your name and pronouns will
+      | be accessible on the site by trip leaders.
     </p>
     <form onsubmit="myocvtUpdateMyAccount('POST', true, '', '', this);return false">
       <table class="ocvtForm">
@@ -114,14 +114,13 @@ block content
             </td>
           </tr>
           <tr>
-            <td valign="top">Gender:*</td>
+            <td valign="top">Pronouns:</td>
             <td>
-              <select name="gender" required>
-                <option value="" selected>----</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-                <option value="O">Other</option>
-                <option value="P">Prefer not to say</option>
+              <select name="pronouns" required>
+                <option value="prefer not to say">prefer not to say</option>
+                <option value="he/him">he/him</option>
+                <option value="she/her">she/her</option>
+                <option value="they/them">they/them</option>
               </select>
             </td>
           </tr>
