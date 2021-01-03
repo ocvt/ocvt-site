@@ -26,16 +26,8 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ## TODO
 
-- email -> test + plan (use gdoc as reference)
-- Start new site
-- Migrate old data
-- Test with officers
-- www.outdoor.org.vt.edu
-  - Disable auth
-  - Forward all requests to https://ocvt.club
-
 - Future Improvements
-  - Make name a single field
+  - In order, pages, display cost as $XX.xx, instead of $XXxx
   - List news author under title
   - Figure out how SES treats invalid emails
   - Fix google drive rate limiting
