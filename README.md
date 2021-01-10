@@ -28,6 +28,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 - Future Improvements
   - In order, pages, display cost as $XX.xx, instead of $XXxx
+  - Add email parameter to unsubscribe page for linking directly from emails
   - List news author under title
   - Figure out how SES treats invalid emails
   - Fix google drive rate limiting
