@@ -27,10 +27,13 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - Future Improvements
+  - Ensure logs don't get too big
+  - Fix gallery (photos rate limiting)
+  - Fix 500 error if viewing /TRIP_ID/join trip as an officer
+  - Display incomplete manual orders
   - In order, pages, display cost as $XX.xx, instead of $XXxx
   - Add email parameter to unsubscribe page for linking directly from emails
   - List news author under title
   - Figure out how SES treats invalid emails
-  - Fix google drive rate limiting
   - /webtools/equipment: Allow inputting inventory ID and deleting item
   - Default HTML error pages
