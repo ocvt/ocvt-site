@@ -27,6 +27,7 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - Future Improvements
+  - Allow emails in trip descriptions
   - Ensure logs don't get too big
   - Fix gallery (photos rate limiting)
   - Fix 500 error if viewing /TRIP_ID/join trip as an officer
