@@ -27,6 +27,8 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - Future Improvements
+  - Exclude 'Location directions' in emails if it's empty
+  - Show time as local time in trip approval emails
   - Allow single quotes in trip descriptions
   - Ensure logs don't get too big
   - Fix gallery (photos rate limiting)
