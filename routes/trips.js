@@ -313,7 +313,15 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
 
 /* Trip, jointrip - join a trip */
 router.get('/:tripId/jointrip', aH(async (req, res) => {
-  const trip = await h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json());
+  const [mystatus, trip] = await Promise.all([
+    h.fetchHelper(`${h.API_URL}/trips/${req.params.tripId}/mystatus`, req),
+    h.fetchHelper(`${h.API_URL}/noauth/trips/${req.params.tripId}`, req).then((t) => t.json()),
+  ]);
+
+  if (mystatus.status !== 200) {
+    res.redirect('/myocvt');
+    return;
+  }
 
   const startDate = new Date(trip.startDatetime);
   const endDate = new Date(trip.endDatetime);

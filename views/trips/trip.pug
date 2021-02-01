@@ -128,6 +128,8 @@ block content
       <h1>This trip is canceled</h1>
     else if trip.pastSignupPeriod
       <h1>The signup period for this trip is over</h1>
+    else if name.status !== 200
+      <h1>You must be registered to signup for trips.</h1>
     else if mystatus.signedUp
       <h2>You are already signed up for this trip. View your information <a href="/trips/#{trip.id}/mysignup">here</a>.</h2>
     else
