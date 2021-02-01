@@ -187,6 +187,7 @@ router.get('/orders/codes', aH(async (req, res) => {
 
   codes = await codes.json().then((c) => c.codes.filter((i) => !i.redeemed));
   for (let i = 0; i < codes.length; i += 1) {
+    orders[i].amount = orders[i].amount / 100;
     codes[i].date = h.prettyDateISO8601ish(codes[i].createDatetime);
   }
 
@@ -206,6 +207,7 @@ router.get('/orders/complete', aH(async (req, res) => {
 
   orders = await orders.json().then((o) => o.payments.filter((p) => p.completed));
   for (let i = 0; i < orders.length; i += 1) {
+    orders[i].amount = orders[i].amount / 100;
     orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
   }
 
@@ -226,6 +228,7 @@ router.get('/orders/incomplete', aH(async (req, res) => {
 
   orders = await orders.json().then((o) => o.payments.filter((p) => !p.completed));
   for (let i = 0; i < orders.length; i += 1) {
+    orders[i].amount = orders[i].amount / 100;
     orders[i].date = h.prettyDateISO8601ish(orders[i].createDatetime);
   }
 
