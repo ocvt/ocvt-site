@@ -27,6 +27,10 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - Future Improvements
+  - More user friendly error message for common errors (late signups, etc)
+  - Figure out why error page doesn't work in firefox (late signups most notably)
+  - Fix account deletion
+    - Ensure trip signups are actually deleted
   - Allow single quotes in trip descriptions
   - Ensure logs don't get too big
   - Fix gallery (photos rate limiting)
