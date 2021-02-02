@@ -27,6 +27,10 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 ## TODO
 
 - Future Improvements
+  - Trip approval emails: bold / emphasis
+  - Add easy stats / work trip hours reporting
+  - Forward ALL oldsite pages to new site
+  - Send out monthly reminder to officers of incomplete orders
   - Figure out why error page doesn't work in firefox (late signups most notably)
   - Fix account deletion
     - Ensure trip signups are actually deleted
