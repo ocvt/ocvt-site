@@ -162,8 +162,9 @@ function tripsNewTrip(form) {
   var endTime = form.endTime.value;
   var startDatetime = new Date("".concat(form.startDate.value, "T").concat(form.startTime.value, ":00"));
   var endDatetime = new Date("".concat(form.startDate.value, "T").concat(form.endTime.value, ":00"));
+  /* overnight trip */
 
-  if (endDatetime.getTime() > startDatetime.getTime()) {
+  if (startDatetime.getHours() > endDatetime.getHours()) {
     endDatetime.setDate(endDatetime.getDate() + 1);
   }
 
