@@ -347,6 +347,8 @@ function tripsSendMessage(tripId, form) {
         window.location.href = "/error?status=".concat(r.status, "&code=error-send-message&text=").concat(rt);
         return;
       });
+    } else {
+      document.getElementById("sendCustomMessage").textContent = "Success!";
     }
   });
 }
