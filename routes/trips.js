@@ -34,10 +34,10 @@ router.get('/', aH(async (req, res) => {
     recentTrips[i].tripTypeName = d.tripTypes[recentTrips[i].notificationTypeId].name;
 
     // eslint-disable-next-line no-await-in-loop
-    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/mystatus`, req).then((s) => s.json());
+    const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/mystatus`, req).then((s) => s.json());
     if (mystatus.tripLeader || name.json.officer) {
     // eslint-disable-next-line no-await-in-loop
-      trips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+      trips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
     }
   }
 
