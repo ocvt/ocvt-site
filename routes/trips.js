@@ -37,7 +37,7 @@ router.get('/', aH(async (req, res) => {
     const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/mystatus`, req).then((s) => s.json());
     if (mystatus.tripLeader || name.json.officer) {
     // eslint-disable-next-line no-await-in-loop
-      trips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
+      recentTrips[i].attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
     }
   }
 
