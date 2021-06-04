@@ -7,6 +7,7 @@ RUN \
   apk upgrade --update && \
   apk add -U tzdata && \
   cp /usr/share/zoneinfo/US/Eastern /etc/localtime && \
+  echo "US/Eastern" > /etc/timezone && \
   apk del tzdata && \
   rm -rf /var/cache/apk/*
 
