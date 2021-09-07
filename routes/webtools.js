@@ -172,7 +172,7 @@ router.get('/officers', aH(async (req, res) => {
   res.render('webtools/officers', {
     name: await h.getName(req),
     API_URL: h.API_URL,
-    officers,
+    oicers: officers,
   });
 }));
 
