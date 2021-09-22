@@ -35,6 +35,9 @@ router.get('/', aH(async (req, res) => {
   for (let i = 0; i < recentTrips.length; i += 1) {
     recentTrips[i].date = h.prettyDate(recentTrips[i].startDatetime);
     recentTrips[i].tripTypeName = d.tripTypes[recentTrips[i].notificationTypeId].name;
+    if (recentTrips[i].maxPeople === 1000000) {
+      recentTrips[i].maxPeople = 'No Limit';
+    }
 
     // eslint-disable-next-line no-await-in-loop
     const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${recentTrips[i].id}/mystatus`, req).then((s) => s.json());
