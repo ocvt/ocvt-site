@@ -269,7 +269,7 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   const signups = {
     attend: [], boot: [], cancel: [], force: [], leader: [], wait: [],
   };
-  let carSeats = 0;
+  let carCapacity = 0;
 
   for (let i = 0; i < admin.tripSignups.length; i += 1) {
     const signup = admin.tripSignups[i];
@@ -278,13 +278,13 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
     signup.time = signupDate.toLocaleTimeString();
 
     if (signup.attendingCode === 'ATTEND') {
-      carSeats += 1;
+      carCapacity += signup.carCapacity;
       signups.attend.push(signup);
     } else if (signup.leader) {
-      carSeats += 1;
+      carCapacity += signup.carCapacity;
       signups.leader.push(signup);
     } else if (signup.attendingCode === 'FORCE') {
-      carSeats += 1;
+      carCapacity += signup.carCapacity;
       signups.force.push(signup);
     } else if (signup.attendingCode === 'BOOT') {
       signups.boot.push(signup);
@@ -312,13 +312,13 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
       header: 'TRIP ADMIN',
       name: await h.getName(req),
       API_URL: h.API_URL,
-      carSeats,
+      carCapacity,
       signups,
       trip,
     });
   } else {
     res.render('trips/admin_print', {
-      carSeats,
+      carCapacity,
       signups,
       trip,
     });
