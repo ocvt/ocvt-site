@@ -21,6 +21,9 @@ router.get('/', aH(async (req, res) => {
   for (let i = 0; i < trips.length; i += 1) {
     trips[i].date = h.prettyDate(trips[i].startDatetime);
     trips[i].tripTypeName = d.tripTypes[trips[i].notificationTypeId].name;
+    if (trips[i].maxPeople === 1000000) {
+      trips[i].maxPeople = 'No Limit';
+    }
 
     // eslint-disable-next-line no-await-in-loop
     const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trips[i].id}/mystatus`, req).then((s) => s.json());
@@ -228,6 +231,10 @@ router.get('/:tripId', aH(async (req, res) => {
   trip.pastSignupPeriod = (trip.allowLateSignups && startDate < now)
     || (!trip.allowLateSignups && defaultSignupDate < now);
 
+  if (trip.maxPeople === 1000000) {
+    trip.maxPeople = 'No Limit';
+  }
+
   res.render('trips/trip', {
     title: 'Trips',
     header: 'VIEW TRIP',
@@ -291,6 +298,10 @@ router.get('/:tripId/admin/:print?', aH(async (req, res) => {
   trip.startTime = startDate.toLocaleTimeString();
   trip.endTime = endDate.toLocaleTimeString();
   trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+  if (trip.maxPeople === 1000000) {
+    trip.maxPeople = 'No Limit';
+  }
 
   if (!req.params.print) {
     res.render('trips/admin', {
