@@ -42,19 +42,14 @@ block content
             <script>flatpickr("#startTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
           </tr>
           <tr>
-            <td valign="top">End Time:</td>
-            <td><input type="text" name="endTime" id="endTime" placeholder="SelectTime..." readonly required></td>
-            <script>flatpickr("#endTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
-          </tr>
-          <tr>
-            <td valign="top">Max Attendees:</td>
+            <td valign="top">Estimated Length:<br><span class="mild">(hours)</span></td>
             <td>
-              <select name="maxPeople" required>
+              <select name="estimatedLength" required>
                 <option value="" selected>----</option>
-                <option value="1000000">No Limit</option>
-                - const people = Array.from(Array(101).keys())
-                each count in people
-                  <option value="#{count}">#{count}</option>
+                <option value="24">Overnight</option>
+                - const hours = Array.from(Array(24).keys())
+                each hour in hours
+                  <option value="#{hour}">#{hour}</option>
               </select>
             </td>
           </tr>
