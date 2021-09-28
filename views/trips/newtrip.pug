@@ -14,19 +14,34 @@ block content
       <table class="ocvtForm" style="border-collapse: collapse;">
         <tbody>
           <tr>
-            <td valign="top">Trip for paid members only?:*</td>
-            <td><input type="checkbox" name="membersOnly"></td>
+            <td valign="top">Trip Name:</td>
+            <td><input type="text" name="name" size="50" required></td>
           </tr>
           <tr>
-            <td valign="top">Driving Required for this trip?:*</td>
-            <td><input type="checkbox" name="drivingRequired"></td>
+            <td valign="top">Trip Type:</td>
+            <td>
+              <select name="notificationTypeId" required>
+                <option value="" selected>----</option>
+                each type in tripTypes
+                  if type.id !== 'TRIP_ALERTS'
+                    <option value="#{type.id}">#{type.name}</option>
+              </select>
+            </td>
           </tr>
           <tr>
-            <td valign="top">Allow late signups?:*<br><span class="mild">(Otherwise cuts off 12 hours before trip)</span></td>
-            <td><input type="checkbox" name="allowLateSignups"></td>
+            <td valign="top">Meet-up Date (YYYY-MM-DD):<br><span class="mild">ex 2050-02-05</span></td>
+            <td><input type="text" name="startDate" size="10" required></td>
           </tr>
           <tr>
-            <td valign="top">Max Attendees:*</td>
+            <td valign="top">Meet-up Time (HH:MM):<br><span class="mild">24 hour time ex. 13:25</span></td>
+            <td><input type="text" name="startTime" size="5" required></td>
+          </tr>
+          <tr>
+            <td valign="top">End Time (HH:MM):<br><span class="mild">24 hour time ex. 13:25</span></td>
+            <td><input type="text" name="endTime" size="5" required></td>
+          </tr>
+          <tr>
+            <td valign="top">Max Attendees:</td>
             <td>
               <select name="maxPeople" required>
                 <option value="" selected>----</option>
@@ -38,46 +53,36 @@ block content
             </td>
           </tr>
           <tr>
-            <td valign="top">Trip Name:*</td>
-            <td><input type="text" name="name" size="50" required></td>
-          </tr>
-          <tr>
-            <td valign="top">Trip Type:*</td>
-            <td>
-              <select name="notificationTypeId" required>
-                <option value="" selected>----</option>
-                each type in tripTypes
-                  if type.id !== 'TRIP_ALERTS'
-                    <option value="#{type.id}">#{type.name}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td valign="top">Meet-up Date (YYYY-MM-DD):*<br><span class="mild">ex 2050-02-05</span></td>
-            <td><input type="text" name="startDate" size="10" required></td>
-          </tr>
-          <tr>
-            <td valign="top">Meet-up Time (HH:MM):*<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="startTime" size="5" required></td>
-          </tr>
-          <tr>
-            <td valign="top">End Time (HH:MM):*<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="endTime" size="5" required></td>
-          </tr>
-          <tr>
-            <td valign="top">Brief Trip Summary:*<br><span class="mild">(max 200 characters)</span></td>
+            <td valign="top">Brief Trip Summary:<br><span class="mild">(max 200 characters)</span></td>
             <td><textarea name="summary" rows="4" cols="50" required></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Full Trip Description:*</td>
+            <td valign="top">Full Trip Description:</td>
             <td><textarea name="description" rows="10" cols="50" required></textarea></td>
           </tr>
+
           <tr>
-            <td valign="top">Trip Location Description<br><span class="mild">(Optional)</span>:</td>
+            <td><h2>Optional Fields</h2></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td valign="top">Trip for paid members only?:</td>
+            <td><input type="checkbox" name="membersOnly"></td>
+          </tr>
+          <tr>
+            <td valign="top">Driving Required for this trip?:</td>
+            <td><input type="checkbox" name="drivingRequired"></td>
+          </tr>
+          <tr>
+            <td valign="top">Allow late signups?:<br><span class="mild">(Otherwise cuts off 12 hours before trip)</span></td>
+            <td><input type="checkbox" name="allowLateSignups" checked></td>
+          </tr>
+          <tr>
+            <td valign="top">Trip Location Description:</td>
             <td><textarea name="location" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Driving Directions<br><span class="mild">(Optional)</span>:</td>
+            <td valign="top">Driving Directions:</td>
             <td><textarea name="locationDirections" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
@@ -98,19 +103,19 @@ block content
               </select></td>
           </tr>
           <tr>
-            <td valign="top">Difficulty Description <br><span class="mild"> (Optional)</span>:</td>
+            <td valign="top">Difficulty Description:</td>
             <td><textarea name="difficultyDescription" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Instructions or notes for attendees.<br>Ex. Bring water, boots etc.<br><span class="mild">(Optional)</span>:</td>
+            <td valign="top">Instructions or notes for attendees.<br>Ex. Bring water, boots etc.:</td>
             <td><textarea name="instructions" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Meet-up Location description<br>(visible only to the attending list)<br><span class="mild"> (Optional)</span>:</td>
+            <td valign="top">Meet-up Location description<br>(visible only to the attending list):</td>
             <td><textarea name="meetupLocation" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Any costs required?:*<br><span class="mild">ex. Renting gear</span></td>
+            <td valign="top">Any costs required?:<br><span class="mild">ex. Renting gear</span></td>
             <td><input type="checkbox" name="hasCost"></td>
           </tr>
           <tr>
@@ -118,11 +123,11 @@ block content
             <td><textarea name="costDescription" rows="4" cols="50"></textarea></td>
           </tr>
           <tr>
-            <td valign="top">Pets OK?:*</td>
+            <td valign="top">Pets OK?:</td>
             <td><input type="checkbox" name="petsAllowed"></td>
           </tr>
           <tr style="border-bottom: 3px solid green;">
-            <td valign="top">Instructions for pet owners <br> <span class="mild">(Optional):</span></td>
+            <td valign="top">Instructions for pet owners:</span></td>
             <td><textarea name="petsDescription" rows="4" cols="50"></textarea></td>
           </tr>
 
@@ -131,7 +136,7 @@ block content
             <td></td>
           </tr>
           <tr>
-            <td>I have read and agree to the <a target="_blank" rel="noopener noreferrer" href="/tripagreement">trip waiver terms</a>:*</td>
+            <td>I have read and agree to the <a target="_blank" rel="noopener noreferrer" href="/tripagreement">trip waiver terms</a>:</td>
             <td><input type="checkbox" required></td>
           </tr>
           <tr>
@@ -156,7 +161,6 @@ block content
           </tr>
         </tbody>
       </table>
-      <p>Fields marked with "*" are required.</p>
       <button type="submit">Submit</button>
     </form>
   </div>
