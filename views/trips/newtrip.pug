@@ -2,6 +2,9 @@ extends ../_base
 
 block content
   <div class="fullCenter">
+    <link rel="stylesheet" href="/static/css/flatpickr-v4.6.9.min.css">
+    <script src="/static/js/flatpickr-v4.6.9.js"></script>
+
     <p>
       | Interested in leading a trip? to start just fill out this form. It may
       | seem daunting but many fields are optional to accommodate many different
@@ -29,16 +32,19 @@ block content
             </td>
           </tr>
           <tr>
-            <td valign="top">Meet-up Date (YYYY-MM-DD):<br><span class="mild">ex 2050-02-05</span></td>
-            <td><input type="text" name="startDate" size="10" required></td>
+            <td valign="top">Meet-up Date:</td>
+            <td><input type="text" name="startDate" id="startDate" placeholder="Select Date..." readonly required></td>
+            <script>flatpickr("#startDate", { altInput: true, altFormat: "F j, Y", dateFormat: "Y-m-d", minDate: "today" })</script>
           </tr>
           <tr>
-            <td valign="top">Meet-up Time (HH:MM):<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="startTime" size="5" required></td>
+            <td valign="top">Meet-up Time</td>
+            <td><input type="text" name="startTime" id="startTime" placeholder="Select Time..." readonly required></td>
+            <script>flatpickr("#startTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
           </tr>
           <tr>
-            <td valign="top">End Time (HH:MM):<br><span class="mild">24 hour time ex. 13:25</span></td>
-            <td><input type="text" name="endTime" size="5" required></td>
+            <td valign="top">End Time:</td>
+            <td><input type="text" name="endTime" id="endTime" placeholder="SelectTime..." readonly required></td>
+            <script>flatpickr("#endTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
           </tr>
           <tr>
             <td valign="top">Max Attendees:</td>
