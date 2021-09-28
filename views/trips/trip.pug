@@ -33,10 +33,8 @@ block content
           <td><strong>Trip Date:</strong></td>
           <td>#{trip.date}<br>#{trip.startTime} - #{trip.endTime}</td>
           <td><strong>Max Attendees:</strong></td>
-          if trip.maxPeople === 'No Limit'
-            <td>No Limit</td>
+          <td>#{trip.maxPeople}</td>
           else
-            <td>#{trip.maxPeople} People</td>
         </tr>
         
         <tr>

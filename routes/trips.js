@@ -70,6 +70,9 @@ router.get('/archive/:startId?/:perPage?', aH(async (req, res) => {
   for (let i = 0; i < pastTrips.length; i += 1) {
     pastTrips[i].date = h.prettyDate(pastTrips[i].startDatetime);
     pastTrips[i].tripTypeName = d.tripTypes[pastTrips[i].notificationTypeId].name;
+    if (pastTrips[i].maxPeople === 1000000) {
+      pastTrips[i].maxPeople = 'No Limit';
+    }
 
     // eslint-disable-next-line no-await-in-loop
     const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${pastTrips[i].id}/mystatus`, req).then((s) => s.json());
@@ -108,6 +111,10 @@ router.get('/myattendance', aH(async (req, res) => {
     trip.startTime = startDate.toLocaleTimeString();
     trip.endTime = endDate.toLocaleTimeString();
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+
+    if (trip.maxPeople === 1000000) {
+      trip.maxPeople = 'No Limit';
+    }
 
     // eslint-disable-next-line no-await-in-loop
     const mystatus = await h.fetchHelper(`${h.API_URL}/trips/${trip.id}/mystatus`, req).then((s) => s.json());
@@ -157,6 +164,9 @@ router.get('/mytrips', aH(async (req, res) => {
     trip.startTime = startDate.toLocaleTimeString();
     trip.endTime = endDate.toLocaleTimeString();
     trip.tripTypeName = d.tripTypes[trip.notificationTypeId].name;
+    if (trip.maxPeople === 1000000) {
+      trip.maxPeople = 'No Limit';
+    }
 
     // eslint-disable-next-line no-await-in-loop
     trip.attendanceInfo = await h.fetchHelper(`${h.API_URL}/trips/${trip.id}/admin/attendance`, req).then((a) => a.json()).then((aj) => aj.attendanceInfo);
