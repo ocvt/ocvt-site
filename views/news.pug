@@ -5,7 +5,7 @@ block content
     <h1 style="color:#872b18">News and Announcements</h1>
       if news.length === 1
         <h2>#{news[0].title}</h2>
-        <div id="newsdate">#{news[0].date}</div>
+        <div id="newsdate">#{news[0].date} by #{news[0].name}</div>
         <p>#{news[0].summary}</p>
         <div>!{news[0].content}</div>
       else
