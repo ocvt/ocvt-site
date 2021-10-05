@@ -106,26 +106,6 @@ block content
       <p>#{trip.petsDescription}</p>
       <br>
 
-    <!-- TODO
-    <h3 class="smallHeader">Send Message to Trip Leader</h3>
-    if name.status === 200
-      <p>Have a question or a concern about this trip? Send the trip leader a message.</p>
-      <form>
-        <table class="ocvtForm">
-          <tbody>
-            <tr>
-              <td valign="top"><b>Message To Send</b></td>
-              <td><textarea name="messageBody" rows="4" cols="50" required></textarea></td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
-        <button type="submit" name="message">Send Message</button>
-      </form>
-    else
-      <h3>You must be registered to use this feature.</h3><hr>
-    -->
-
     if trip.cancel
       <h1>This trip is canceled</h1>
     else if trip.pastSignupPeriod
