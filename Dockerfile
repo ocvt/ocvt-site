@@ -1,4 +1,4 @@
-FROM node:12.18.3-alpine
+FROM node:12.20.0-alpine
 
 LABEL org.opencontainers.image.source https://github.com/ocvt/ocvt-site
 LABEL maintainer="Paul Walko <paulsw.pw@gmail.com>"
