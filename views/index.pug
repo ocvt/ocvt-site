@@ -20,30 +20,32 @@ block content
   
   </div>
   
-  <div id="rightSideLarge">
-    <h1>News and Announcements</h1>
-      each newsItem in news
-        include include/news_summary
-      else
-        <p>No News Items</p>
+  <div id="maincontent">
+    <div id="rightSideLarge">
+      <h1>News and Announcements</h1>
+        each newsItem in news
+          include include/news_summary
+        else
+          <p>No News Items</p>
 
-      <br>
-      <br>
-      <a href="/news/archive">Older news items --></a>
-    <hr>
-  </div>
-  
-  <div id="leftSideSmall">
-    <h2>Upcoming Trips</h2>
-      each trip in trips
-        <h3 class="smallHeader2"><a href="/trips/#{trip.id}">#{trip.name}</a></h3>
-        | #{trip.date}
         <br>
         <br>
-        <strong>Trip Type:</strong> #{trip.tripTypeName}
-        <br>
-        <a href="/trips/#{trip.id}">Full Details</a>
-      else
-        <p>No Trips Scheduled</p>
-    <hr>
+        <a href="/news/archive">Older news items --></a>
+      <hr>
+    </div>
+
+    <div id="leftSideSmall">
+      <h2>Upcoming Trips</h2>
+        each trip in trips
+          <h3 class="smallHeader2"><a href="/trips/#{trip.id}">#{trip.name}</a></h3>
+          | #{trip.date}
+          <br>
+          <br>
+          <strong>Trip Type:</strong> #{trip.tripTypeName}
+          <br>
+          <a href="/trips/#{trip.id}">Full Details</a>
+        else
+          <p>No Trips Scheduled</p>
+      <hr>
+    </div>
   </div>
