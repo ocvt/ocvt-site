@@ -1,6 +1,6 @@
 "use strict";
-/* myocvt */
 
+/* myocvt */
 function myocvtMigrateMyAccount(form) {
   var memberData = {
     firstName: form.firstName.value,
@@ -30,7 +30,6 @@ function myocvtMigrateMyAccount(form) {
     }
   });
 }
-
 function myocvtUpdateMyAccount(method, redirect, id, message, form) {
   var memberData = {
     name: form.name.value,
@@ -41,13 +40,11 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     medicalCond: form.medicalCond.checked,
     medicalCondDesc: form.medicalCondDesc.value
   };
-
   if (form.hasOwnProperty('ECName') && form.hasOwnProperty('ECNumber') && form.hasOwnProperty('ECRelationship')) {
     memberData.ECName = form.ECName.value;
     memberData.ECNumber = form.ECNumber.value;
     memberData.ECRelationship = form.ECRelationship.value;
   }
-
   fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
     method: method,
@@ -69,14 +66,11 @@ function myocvtUpdateMyAccount(method, redirect, id, message, form) {
     }
   });
 }
-
 function myocvtUpdateNotifications(notifications, form) {
   var notificationData = JSON.parse(notifications);
-
   for (var key in notificationData) {
     notificationData[key] = form[key].checked;
   }
-
   fetch("".concat(API_URL, "/myaccount/notifications"), {
     credentials: "include",
     method: "PATCH",
@@ -91,17 +85,14 @@ function myocvtUpdateNotifications(notifications, form) {
         return;
       });
     }
-
     document.getElementById("updateNotificationsInfo").textContent = "Success!";
   });
 }
-
 function myocvtDeactivateAccount(form) {
   if (!form.deactivateAccount.checked) {
     window.location.href = "/";
     return;
   }
-
   fetch("".concat(API_URL, "/myaccount/deactivate"), {
     credentials: "include",
     method: "PATCH"
@@ -112,17 +103,14 @@ function myocvtDeactivateAccount(form) {
         return;
       });
     }
-
     window.location.href = "/";
   });
 }
-
 function myocvtDeleteAccount(form) {
   if (!form.deleteAccount.checked || !confirm("Are you sure you want to delete your account? This CANNOT be undone!")) {
     window.location.href = "/";
     return;
   }
-
   fetch("".concat(API_URL, "/myaccount"), {
     credentials: "include",
     method: "DELETE"
@@ -133,11 +121,9 @@ function myocvtDeleteAccount(form) {
         return;
       });
     }
-
     window.location.href = "/logout";
   });
 }
-
 function myocvtReactivateAccount() {
   fetch("".concat(API_URL, "/myaccount/reactivate"), {
     credentials: "include",
@@ -149,12 +135,10 @@ function myocvtReactivateAccount() {
         return;
       });
     }
-
     window.location.href = "/";
   });
 }
 /* trips */
-
 
 function tripsNewTrip(form) {
   var startDate = form.startDate.value;
@@ -167,7 +151,6 @@ function tripsNewTrip(form) {
   if (startDatetime.getHours() > endDatetime.getHours()) {
     endDatetime.setDate(endDatetime.getDate() + 1);
   }
-
   var trip = {
     membersOnly: form.membersOnly.checked,
     allowLateSignups: form.allowLateSignups.checked,
@@ -215,7 +198,6 @@ function tripsNewTrip(form) {
         return;
       });
     }
-
     return r.json();
   }).then(function (d) {
     fetch("".concat(API_URL, "/trips/").concat(d.tripId, "/signup"), {
@@ -232,12 +214,10 @@ function tripsNewTrip(form) {
           return;
         });
       }
-
       window.location.href = "/trips/".concat(d.tripId);
     });
   });
 }
-
 function tripsJoinTrip(tripId, form) {
   var tripSignup = {
     shortNotice: form.shortNotice.checked,
@@ -261,17 +241,14 @@ function tripsJoinTrip(tripId, form) {
         return;
       });
     }
-
     window.location.href = "/trips/".concat(tripId, "/mysignup");
   });
 }
-
 function tripsCancelSignup(tripId) {
   if (!confirm("Are you sure you want to cancel your attendance? This cannot be undone!")) {
     window.location.href = "/trips";
     return;
   }
-
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/mysignup/cancel"), {
     credentials: "include",
     method: "PATCH"
@@ -282,17 +259,14 @@ function tripsCancelSignup(tripId) {
         return;
       });
     }
-
     window.location.href = "/trips";
   });
 }
-
 function tripsCancelTrip(tripId) {
   if (!confirm("Are you sure you want to cancel this trip? This cannot be undone!")) {
     window.location.href = "/trips/".concat(tripId, "/admin");
     return;
   }
-
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/cancel"), {
     credentials: "include",
     method: "PATCH"
@@ -303,11 +277,9 @@ function tripsCancelTrip(tripId) {
         return;
       });
     }
-
     window.location.href = "/trips/".concat(tripId, "/admin");
   });
 }
-
 function tripsPublishTrip(tripId) {
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/publish"), {
     credentials: "include",
@@ -319,16 +291,13 @@ function tripsPublishTrip(tripId) {
         return;
       });
     }
-
     window.location.href = "/trips/".concat(tripId, "/admin");
   });
 }
-
 function tripsSendMessage(tripId, form) {
   if (!confirm("Please confirm you want to send a custom message.")) {
     return;
   }
-
   var emailData = {
     body: form.body.value,
     notificationTypeId: form.notificationTypeId.value,
@@ -352,12 +321,10 @@ function tripsSendMessage(tripId, form) {
     }
   });
 }
-
 function tripsSendReminder(tripId) {
   if (!confirm("Are you sure you want to send a reminder to everyone on the trip?")) {
     return;
   }
-
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/reminder"), {
     credentials: "include",
     method: "POST"
@@ -370,14 +337,11 @@ function tripsSendReminder(tripId) {
     }
   });
 }
-
 function tripSignupStatusBoot(tripId, memberId) {
   var bootReason = prompt("Please enter a boot reason");
-
   if (!bootReason) {
     return;
   }
-
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/signup/").concat(memberId, "/boot"), {
     credentials: "include",
     method: "PATCH",
@@ -394,11 +358,9 @@ function tripSignupStatusBoot(tripId, memberId) {
         return;
       });
     }
-
     window.location.reload(true);
   });
 }
-
 function tripSignupStatusGeneric(tripId, memberId, action) {
   fetch("".concat(API_URL, "/trips/").concat(tripId, "/admin/signup/").concat(memberId, "/").concat(action), {
     credentials: "include",
@@ -410,11 +372,9 @@ function tripSignupStatusGeneric(tripId, memberId, action) {
         return;
       });
     }
-
     window.location.reload(true);
   });
 }
-
 function unsubscribe(form) {
   fetch("".concat(API_URL, "/unsubscribe/all"), {
     method: "POST",
@@ -431,12 +391,10 @@ function unsubscribe(form) {
         return;
       });
     }
-
     document.getElementById("updateUnsubscribeInfo").textContent = "Success!";
   });
 }
 /* payments */
-
 
 function ocvtDues(form) {
   // requires stripe js library
@@ -450,7 +408,6 @@ function ocvtDues(form) {
         return;
       });
     }
-
     r.json().then(function (rj) {
       return stripe.redirectToCheckout({
         sessionId: rj.sessionId
@@ -462,7 +419,6 @@ function ocvtDues(form) {
     });
   });
 }
-
 function ocvtRedeemCode(form) {
   var code = form.code.value;
   fetch("".concat(API_URL, "/payment/redeem"), {
@@ -484,7 +440,6 @@ function ocvtRedeemCode(form) {
         return;
       });
     }
-
     document.getElementById("redeemCodeInfo").textContent = "Success! Visit your account page to view when your membership expires.";
   });
 }

@@ -1,8 +1,8 @@
-const aH = require('express-async-handler');
-const express = require('express');
+import aH from 'express-async-handler';
+import express from 'express';
 
-const d = require('./data');
-const h = require('./helpers');
+import * as d from './data.js';
+import * as h from './helpers.js';
 
 const router = express.Router();
 
@@ -57,4 +57,5 @@ router.get('/', aH(async (req, res) => {
   });
 }));
 
-module.exports = router;
+/* eslint-disable import/prefer-default-export */
+export { router };

@@ -20,6 +20,6 @@ Created `ocvt-site.env` (copy `ocvt-site.env.sample`) with the following variabl
 
 ### Testing
 
-- `./launch test`: Lints javascript
-- `./launch build`: Compiles javascript and builds `ocvt/ocvt-site:latest` docker image
+- `./launch.sh test`: Lints javascript
+- `./launch.sh build`: Compiles javascript and builds `ocvt/ocvt-site:latest` docker image
 - See `launch.sh` for more functions

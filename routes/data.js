@@ -103,7 +103,7 @@ const tripTypes = {
   },
 };
 
-module.exports = {
+export {
   dayString,
   monthShortString,
   generalTypes,

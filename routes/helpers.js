@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
+
+import * as d from './data.js';
 
 const { API_URL, MIGRATE_ENABLED } = process.env;
-
-const d = require('./data');
 
 async function fetchHelper(url, req) {
   const opts = {
@@ -36,7 +36,7 @@ function prettyDateISO8601ish(dateString) {
 ${date.toLocaleTimeString()}`;
 }
 
-module.exports = {
+export {
   API_URL,
   MIGRATE_ENABLED,
   fetchHelper,

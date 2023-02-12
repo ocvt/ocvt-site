@@ -1,6 +1,6 @@
 "use strict";
-/* Front-end */
 
+/* Front-end */
 function webtoolsOrderToggle(showId) {
   var hideId = {
     manualOrder: "generateCode",
@@ -9,7 +9,6 @@ function webtoolsOrderToggle(showId) {
   document.getElementById(hideId[showId]).style.display = "none";
   document.getElementById(showId).style.display = "block";
 }
-
 function sortMembers() {
   var filter = document.getElementById("memberFilter").value.toLowerCase();
   var rows = document.getElementById("filterMembers").getElementsByTagName("tr"); // Skip header row
@@ -22,12 +21,10 @@ function sortMembers() {
     }
   }
 }
-
 function webtoolsOrderSelectMember(memberId) {
   document.getElementById("manualOrderMemberId").value = memberId;
 }
 /* Trip Approvers */
-
 
 function webtoolsAddApprover(form) {
   var approverData = {
@@ -45,12 +42,10 @@ function webtoolsAddApprover(form) {
     window.location.reload(true);
   });
 }
-
 function webtoolsDeleteApprover(memberId) {
   if (!confirm("Are you sure you want to remove this trip approver?!?")) {
     return;
   }
-
   fetch("".concat(API_URL, "/webtools/approvers/").concat(memberId), {
     credentials: "include",
     method: "DELETE"
@@ -59,7 +54,6 @@ function webtoolsDeleteApprover(memberId) {
   });
 }
 /* Officers */
-
 
 function webtoolsAddOfficer(form) {
   var officerData = {
@@ -79,12 +73,10 @@ function webtoolsAddOfficer(form) {
     window.location.reload(true);
   });
 }
-
 function webtoolsDeleteOfficer(memberId) {
   if (!confirm("Are you sure you want to remove this officer?!?")) {
     return;
   }
-
   fetch("".concat(API_URL, "/webtools/officers/").concat(memberId), {
     credentials: "include",
     method: "DELETE"
@@ -94,7 +86,6 @@ function webtoolsDeleteOfficer(memberId) {
 }
 /* Payments */
 
-
 function webtoolsAddYear(memberId) {
   fetch("".concat(API_URL, "/webtools/members/").concat(memberId, "/dues/grant"), {
     credentials: "include",
@@ -103,7 +94,6 @@ function webtoolsAddYear(memberId) {
     window.location.reload(true);
   });
 }
-
 function webtoolsCompleteOrder(paymentRowId) {
   fetch("".concat(API_URL, "/webtools/payments/").concat(paymentRowId, "/completed"), {
     credentials: "include",
@@ -112,7 +102,6 @@ function webtoolsCompleteOrder(paymentRowId) {
     window.location.reload(true);
   });
 } // Code Generation
-
 
 function generateCode(codeData) {
   return fetch("".concat(API_URL, "/webtools/payments/generateCode"), {
@@ -128,11 +117,9 @@ function generateCode(codeData) {
     return c.code;
   });
 }
-
 function showCode(code) {
   document.getElementById("generateCodeResult").textContent = code;
 }
-
 function webtoolsGenerateCode(form) {
   var itemId = form.storeItemId.value;
   var amounts = {
@@ -148,7 +135,6 @@ function webtoolsGenerateCode(form) {
     amount: amounts[itemId],
     code: ""
   };
-
   if (itemId === "dues") {
     codeData.storeItemId = "MEMBERSHIP";
     generateCode(codeData).then(function (code) {
@@ -185,7 +171,6 @@ function webtoolsGenerateCode(form) {
   }
 } // Order Submission
 
-
 function submitOrder(orderData) {
   return fetch("".concat(API_URL, "/webtools/payments"), {
     credentials: "include",
@@ -200,7 +185,6 @@ function submitOrder(orderData) {
     return p.paymentId;
   });
 }
-
 function webtoolsSubmitOrder(form) {
   var itemId = form.storeItemId.value;
   var amounts = {
@@ -217,7 +201,6 @@ function webtoolsSubmitOrder(form) {
     amount: amounts[itemId],
     paymentId: ""
   };
-
   if (itemId === "dues") {
     orderData.storeItemId = "MEMBERSHIP";
     submitOrder(orderData).then(function (paymentId) {
@@ -261,7 +244,6 @@ function webtoolsSubmitOrder(form) {
 }
 /* News / Announcements */
 
-
 function webtoolsDeleteNews(newsId) {
   fetch("".concat(API_URL, "/webtools/news/").concat(newsId), {
     credentials: "include",
@@ -270,7 +252,6 @@ function webtoolsDeleteNews(newsId) {
     window.location.reload(true);
   });
 }
-
 function webtoolsSubmitEmail(form) {
   var emailData = {
     subject: form.subject.value,
@@ -287,7 +268,6 @@ function webtoolsSubmitEmail(form) {
     window.location.href = "/";
   });
 }
-
 function webtoolsSubmitNews(form) {
   var newsData = {
     title: form.title.value,
@@ -307,7 +287,6 @@ function webtoolsSubmitNews(form) {
 }
 /* Equipment */
 
-
 function webtoolsAddItem(form) {
   var itemData = {
     count: parseInt(form.itemCount.value),
@@ -324,7 +303,6 @@ function webtoolsAddItem(form) {
     window.location.reload(true);
   });
 }
-
 function webtoolsUpdateItem(form, id) {
   var count = parseInt(form.itemCount.value);
   fetch("".concat(API_URL, "/webtools/equipment/").concat(id, "/").concat(count), {
@@ -335,7 +313,6 @@ function webtoolsUpdateItem(form, id) {
   });
 }
 /* Quicksignups */
-
 
 function webtoolsQuicksignup(form) {
   var bulkEmailData = {

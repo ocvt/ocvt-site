@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "OCVT Site Frontend",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "compile": "babel ./static/js/ocvt.js -o ./static/js/ocvt.js && babel ./static/js/ocvt_quicksignup.js -o ./static/js/ocvt_quicksignup.js && babel ./static/js/ocvt_webtools.js -o ./static/js/ocvt_webtools.js",
     "up": "docker-compose up",
@@ -30,8 +31,11 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
-    "eslint": "^7.3.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.21.2"
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0"
   }
 }

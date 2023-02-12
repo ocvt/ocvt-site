@@ -1,7 +1,7 @@
-const aH = require('express-async-handler');
-const express = require('express');
+import aH from 'express-async-handler';
+import express from 'express';
 
-const h = require('./helpers');
+import * as h from './helpers.js';
 
 const router = express.Router();
 
@@ -71,4 +71,5 @@ router.get('/success', aH(async (req, res) => {
   });
 }));
 
-module.exports = router;
+/* eslint-disable import/prefer-default-export */
+export { router };
