@@ -1,5 +1,11 @@
 "use strict";
 
+/* helpers */
+function getQueryParam(param) {
+  var urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
 /* myocvt */
 function myocvtMigrateMyAccount(form) {
   var memberData = {
