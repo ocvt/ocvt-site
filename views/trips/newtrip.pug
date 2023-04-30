@@ -34,17 +34,17 @@ block content
           <tr>
             <td valign="top">Meet-up Date:</td>
             <td><input type="text" name="startDate" id="startDate" placeholder="Select Date..." required></td>
-            <script>flatpickr("#startDate", { altInput: true, altFormat: "F j, Y", dateFormat: "Y-m-d", minDate: "today" })</script>
+            <script>flatpickr("#startDate", { allowInput: true, altInput: true, altFormat: "F j, Y", dateFormat: "Y-m-d", minDate: "today" })</script>
           </tr>
           <tr>
             <td valign="top">Meet-up Time</td>
             <td><input type="text" name="startTime" id="startTime" placeholder="Select Start Time..." required></td>
-            <script>flatpickr("#startTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
+            <script>flatpickr("#startTime", { allowInput: true, enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
           </tr>
           <tr>
             <td valign="top">End Time:</td>
             <td><input type="text" name="endTime" id="endTime" placeholder="Select End Time..." required></td>
-            <script>flatpickr("#endTime", { enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
+            <script>flatpickr("#endTime", { allowInput: true, enableTime: true, noCalendar: true, dateFormat: "H:i" })</script>
           </tr>
           <tr>
             <td valign="top">Max Attendees:</td>
