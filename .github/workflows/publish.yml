@@ -20,5 +20,5 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          repository: ocvt/ocvt-site
-          tag_with_ref: true
+          push: true
+          tags: ocvt/ocvt-site:latest
