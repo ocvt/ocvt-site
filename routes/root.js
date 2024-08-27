@@ -49,19 +49,10 @@ router.get('/error', aH(async (req, res) => {
 
 /* Gallery */
 router.get('/gallery', aH(async (req, res) => {
-  // eslint-disable-next-line no-unused-vars
-  const [homePhotos, tripsPhotos] = await Promise.all([
-    h.fetchHelper(`${h.API_URL}/homephotos`, req).then((p) => p.json()),
-    h.fetchHelper(`${h.API_URL}/noauth/trips/photos`, req).then((t) => t.json()),
-  ]);
-  const images = (homePhotos.images.concat(tripsPhotos.images)).reverse();
-
   res.render('gallery', {
     title: 'Gallery',
     header: 'GALLERY',
     name: await h.getName(req),
-    API_URL: h.API_URL,
-    images,
   });
 }));
 
