@@ -21,4 +21,4 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/ocvt/ocvt-site:latest
+          tags: ghcr.io/ocvt/ocvt-site:${{ github.event.release.tag_name }}
