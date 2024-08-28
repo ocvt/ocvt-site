@@ -32,7 +32,7 @@ logs () {
 ###
 
 build () {
-  yarn compile
+  #yarn compile
   docker build -t ocvt/ocvt-site:latest .
 }
 

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   if STRIPE_PUBLIC_KEY
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL} https://api.stripe.com https://checkout.stripe.com; font-src 'self' data:; frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; img-src 'self' #{API_URL} https://*.stripe.com data:; script-src 'self' https://js.stripe.com https://checkout.stripe.com 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL} https://api.stripe.com https://checkout.stripe.com; font-src 'self' data:; frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com https://www.instagram.com; img-src 'self' #{API_URL} https://*.stripe.com data:; script-src 'self' https://js.stripe.com https://checkout.stripe.com https://www.instagram.com 'unsafe-inline'">
     <script>var API_URL="#{API_URL}"</script>
   else if API_URL
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL}; font-src 'self' data:; frame-src 'self'; img-src 'self' #{API_URL} data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' #{API_URL}; font-src 'self' data:; frame-src 'self' https://www.instagram.com; img-src 'self' #{API_URL} data:; script-src 'self' https://www.instagram.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
     <script>var API_URL="#{API_URL}"</script>
   else
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data:; img-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data:; frame-src 'self' https://www.instagram.com; img-src *; script-src 'self' https://www.instagram.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
   <link rel="stylesheet" href="/css/ocvt.css">
   <script src="/js/ocvt.js"></script>
   <script src="/js/promise-8.1.3.min.js"></script>
