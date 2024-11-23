@@ -405,7 +405,7 @@ function unsubscribe(form) {
 function ocvtDues(form) {
   // requires stripe js library
   var stripe = Stripe(STRIPE_PUBLIC_KEY);
-  fetch("".concat(API_URL, "/payment/").concat(form.paymentOption.value).concat("?amount=", form.customAmount.value), {
+  fetch("".concat(API_URL, "/payment/").concat(form.paymentOption.value).concat("/", form.customAmount.value), {
     credentials: "include"
   }).then(function (r) {
     if (r.status !== 200) {
