@@ -47,11 +47,11 @@ router.get('/error', aH(async (req, res) => {
   });
 }));
 
-/* Gallery */
-router.get('/gallery', aH(async (req, res) => {
-  res.render('gallery', {
-    title: 'Gallery',
-    header: 'GALLERY',
+/* Instagram */
+router.get('/instagram', aH(async (req, res) => {
+  res.render('instagram', {
+    title: 'Instagram',
+    header: 'INSTAGRAM',
     name: await h.getName(req),
   });
 }));
