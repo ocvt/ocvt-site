@@ -315,8 +315,22 @@ function webtoolsUpdateItem(form, id) {
 /* Quicksignups */
 
 function webtoolsQuicksignup(form) {
+  var emails = form.emails.value.split("\n").map(function (e) {
+    return e.trim();
+  }).filter(function (e) {
+    return e.length > 0;
+  });
+  if (form.action.value === "add") {
+    var invalid = emails.filter(function (e) {
+      return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+    });
+    if (invalid.length > 0) {
+      alert("Invalid email address(es):\n" + invalid.join("\n"));
+      return;
+    }
+  }
   var bulkEmailData = {
-    emails: form.emails.value.split("\n")
+    emails: emails
   };
   fetch("".concat(API_URL, "/webtools/quicksignups/").concat(form.action.value), {
     credentials: "include",
