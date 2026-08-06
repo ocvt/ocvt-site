@@ -24,7 +24,11 @@ const app = express();
 app.use(compression());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(express.static('static'));
+// Version-named library dirs never change; everything else revalidates hourly
+app.use('/tinymce-6.8.6', express.static('static/tinymce-6.8.6', { immutable: true, maxAge: '365d' }));
+app.use('/leaflet-1.6.0', express.static('static/leaflet-1.6.0', { immutable: true, maxAge: '365d' }));
+app.use('/galleria-1.6.1', express.static('static/galleria-1.6.1', { immutable: true, maxAge: '365d' }));
+app.use(express.static('static', { maxAge: '1h' }));
 
 app.use('/', rootRouter);
 app.use('/about', aboutRouter);

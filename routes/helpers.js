@@ -4,6 +4,10 @@ import * as d from './data.js';
 
 const { API_URL, MIGRATE_ENABLED } = process.env;
 
+// Server-side fetches go straight to the api container instead of round
+// tripping through cloudflare; browsers still use API_URL
+const INTERNAL_API_URL = process.env.INTERNAL_API_URL || API_URL;
+
 async function fetchHelper(url, req) {
   const opts = {
     credentials: 'include',
@@ -11,7 +15,7 @@ async function fetchHelper(url, req) {
       Cookie: req.headers.cookie,
     },
   };
-  return fetch(url, opts);
+  return fetch(url.replace(API_URL, INTERNAL_API_URL), opts);
 }
 
 /* Frequently used route. Gets account name and auth status */
