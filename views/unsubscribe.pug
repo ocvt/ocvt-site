@@ -3,9 +3,10 @@ extends _base
 block content
   <div class="fullCenter">
     <h2>Unsubscribe</h2>
-    <p>Enter your email below to unsubscribe from all OCVT emails</p>
+    <p>Confirm your email below to unsubscribe from all OCVT emails</p>
     <form onsubmit="unsubscribe(this);return false">
       <input type="email" id="email" name="email" required></td>
+      <input type="hidden" id="sig" name="sig">
       <button type="submit" name="user">Submit</button>
       <p id="updateUnsubscribeInfo"></p>
     </form>
@@ -14,6 +15,14 @@ block content
       | var email = getQueryParam("email");
       | if (email) {
       |   document.getElementById("email").setAttribute("value", email);
+      | }
+      | var sig = getQueryParam("sig");
+      | if (sig) {
+      |   document.getElementById("sig").setAttribute("value", sig);
+      | } else {
+      |   document.getElementById("updateUnsubscribeInfo").textContent =
+      |     "Please use the unsubscribe link from an OCVT email to unsubscribe, " +
+      |     "or manage notifications from the MyOCVT page.";
       | }
     </script>
   </div>

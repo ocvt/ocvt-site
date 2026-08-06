@@ -388,9 +388,14 @@ function unsubscribe(form) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      email: form.email.value
+      email: form.email.value,
+      sig: form.sig.value
     })
   }).then(function (r) {
+    if (r.status === 403) {
+      document.getElementById("updateUnsubscribeInfo").textContent = "Invalid unsubscribe link - please use the link from a recent OCVT email.";
+      return;
+    }
     if (r.status !== 204) {
       r.text().then(function (rt) {
         window.location.href = "/error?status=".concat(r.status, "&code=error-update-myaccount&text=").concat(rt);

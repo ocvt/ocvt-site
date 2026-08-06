@@ -1,4 +1,4 @@
-FROM node:18.14.0-alpine
+FROM node:22-alpine
 
 LABEL org.opencontainers.image.source https://github.com/ocvt/ocvt-site
 LABEL maintainer="Paul Walko <paulsw.pw@gmail.com>"
@@ -18,6 +18,8 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
+
+USER node
 
 EXPOSE 4000
 CMD ["node", "app.js"]
