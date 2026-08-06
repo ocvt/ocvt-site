@@ -56,6 +56,29 @@ router.get('/email', aH(async (req, res) => {
   });
 }));
 
+/* Email, direct - send an email to specific members */
+router.get('/email/direct', aH(async (req, res) => {
+  const name = await h.getName(req);
+
+  if (!name.json.officer) {
+    res.redirect('/');
+    return;
+  }
+
+  let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
+  if (members.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+  members = await members.json().then((m) => m.members);
+  members.sort((a, b) => a.name.localeCompare(b.name));
+
+  res.render('webtools/email_direct', {
+    API_URL: h.API_URL,
+    members,
+  });
+}));
+
 /* Email, view - view sent emails */
 router.get('/email/view', aH(async (req, res) => {
   let emails = await h.fetchHelper(`${h.API_URL}/webtools/emails`, req);

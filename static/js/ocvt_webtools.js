@@ -268,6 +268,32 @@ function webtoolsSubmitEmail(form) {
     window.location.href = "/";
   });
 }
+function webtoolsSubmitEmailDirect(form) {
+  var memberIds = Array.prototype.slice.call(form.members.selectedOptions).map(function (o) {
+    return parseInt(o.value);
+  });
+  var emailData = {
+    subject: form.subject.value,
+    body: tinymce.activeEditor.getContent(),
+    memberIds: memberIds
+  };
+  fetch("".concat(API_URL, "/webtools/emails/direct"), {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(emailData)
+  }).then(function (r) {
+    if (r.status === 204) {
+      document.getElementById("emailDirectInfo").textContent = "Sent to " + memberIds.length + " member(s)! Emails go out within a minute.";
+    } else {
+      r.json().then(function (rj) {
+        document.getElementById("emailDirectInfo").textContent = "ERROR: " + rj.error;
+      });
+    }
+  });
+}
 function webtoolsSubmitNews(form) {
   var newsData = {
     title: form.title.value,

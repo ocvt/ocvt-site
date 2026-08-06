@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>const API_URL="#{API_URL}"</script>
+  <script src="/js/ocvt_webtools.js"></script>
+  <script src="/tinymce-6.8.6/tinymce.min.js"></script>
+  <title>Send Direct Email</title>
+</head>
+<body style="background-color: #D7CEAE;">
+  <a href="/webtools">&lt;-- Back to Webtools Home</a>
+
+  <h2>Send a Direct Email</h2>
+  <p>
+    | Send an email to specific members only, e.g. to test what an email looks like by
+    | sending it to yourself. Ignores notification preferences; inactive members are skipped.
+  </p>
+
+  <form onsubmit="webtoolsSubmitEmailDirect(this);return false">
+    <strong>Recipients</strong> <span class="mild">(ctrl/cmd-click for multiple)</span>:
+    <br>
+    <select name="members" multiple size="12" required>
+      each m in members
+        <option value="#{m.id}">#{m.name} (#{m.email})</option>
+    </select>
+    <br>
+    <br>
+
+    <strong>Subject</strong>:
+    <input type="text" name="subject" size="100">
+    <br>
+    <br>
+
+    <strong>Body</strong>:
+    <br>
+    <textarea id="content" name="body"></textarea>
+    <br>
+    <br>
+
+    <button type="submit">Send!</button>
+    <p id="emailDirectInfo"></p>
+  </form>
+
+  <script>
+    | tinymce.init({
+    |   selector: '#content',
+    |   height: 600,
+    |   width: 900,
+    |   plugins: ['image'],
+    |   toolbar1: 'undo redo | insert | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    |   image_advtab: true,
+    |   remove_script_host: false,
+    |   relative_urls: false,
+    |   convert_urls: false,
+    | });
+  </script>
+</body>
