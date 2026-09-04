@@ -1,5 +1,7 @@
 import compression from 'compression';
+import crypto from 'crypto';
 import express from 'express';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -29,6 +31,15 @@ app.use('/tinymce-6.8.6', express.static('static/tinymce-6.8.6', { immutable: tr
 app.use('/leaflet-1.6.0', express.static('static/leaflet-1.6.0', { immutable: true, maxAge: '365d' }));
 app.use('/galleria-1.6.1', express.static('static/galleria-1.6.1', { immutable: true, maxAge: '365d' }));
 app.use(express.static('static', { maxAge: '1h' }));
+
+// Our own JS/CSS change between releases but sit in the Cloudflare edge and
+// browser caches for hours, so templates reference them with ?v=#{assetV}: a
+// content hash that changes exactly when the files do. Library files are
+// version-named and never need it.
+const ownAssets = ['css/ocvt.css', 'js/ocvt.js', 'js/ocvt_quicksignup.js', 'js/ocvt_webtools.js'];
+const assetHash = crypto.createHash('sha256');
+ownAssets.forEach((f) => assetHash.update(fs.readFileSync(path.join(__dirname, 'static', f))));
+app.locals.assetV = assetHash.digest('hex').slice(0, 10);
 
 app.use('/', rootRouter);
 app.use('/about', aboutRouter);
