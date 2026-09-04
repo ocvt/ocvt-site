@@ -192,10 +192,25 @@ router.get('/officers', aH(async (req, res) => {
     officers[i].date = h.prettyDateISO8601ish(officers[i].expireDatetime);
   }
 
+  // Member list backs the find-by-name picker on the add-officer form
+  let members = await h.fetchHelper(`${h.API_URL}/webtools/members`, req);
+
+  if (members.status !== 200) {
+    res.redirect('/');
+    return;
+  }
+
+  members = await members.json().then((m) => m.members);
+  members.sort((a, b) => a.name.localeCompare(b.name));
+  for (let i = 0; i < members.length; i += 1) {
+    members[i].date = h.prettyDateISO8601ish(members[i].paidExpireDatetime);
+  }
+
   res.render('webtools/officers', {
     name: await h.getName(req),
     API_URL: h.API_URL,
     oicers: officers,
+    members,
   });
 }));
 

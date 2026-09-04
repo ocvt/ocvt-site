@@ -17,7 +17,11 @@
     <table>
       <tr>
         <td>Member #:</td>
-        <td><input type="number" name="memberId"></td>
+        <td><input type="number" name="memberId" id="officerMemberId"></td>
+      </tr>
+      <tr>
+        <td>Look up by name:</td>
+        <td><input type="text" id="officerMemberFilter" size="30" onkeyup="webtoolsOfficerFilterMembers()" placeholder="name, email, or member #"></td>
       </tr>
       <tr>
         <td>Expiration (YYYY-MM-DD):</td>
@@ -34,6 +38,31 @@
     </table>
     <button type="submit">Submit</button>
   </form>
+
+  <table id="officerFilterMembers" cellpadding="2" cellspacing="0">
+    <tr style="display: none">
+      <th>&nbsp;</th>
+      <th>Member #&nbsp;</th>
+      <th>Active?&nbsp;</th>
+      <th>Name&nbsp;</th>
+      <th>Email&nbsp;</th>
+      <th>Membership Expiration</th>
+    </tr>
+
+    each member in members
+      <tr style="display: none">
+      <td><button type="button" onclick="webtoolsOfficerSelectMember('#{member.id}')">Select Member</button></td>
+      <td>#{member.id}</td>
+      if member.active
+        <td>Yes</td>
+      else
+        <td>No</td>
+      <td>#{member.name}</td>
+      <td>#{member.email}</td>
+      <td>#{member.date}</td>
+      </tr>
+  </table>
+  <p id="officerFilterInfo"></p>
   <br>
 
   <table cellpadding="2" cellspacing="0">

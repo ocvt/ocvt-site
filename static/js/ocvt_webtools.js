@@ -55,6 +55,30 @@ function webtoolsDeleteApprover(memberId) {
 }
 /* Officers */
 
+// Member picker for the add-officer form. Rows stay hidden until 2+ characters
+// are typed so the whole member list never sits under the form.
+function webtoolsOfficerFilterMembers() {
+  var filter = document.getElementById("officerMemberFilter").value.toLowerCase().trim();
+  var rows = document.getElementById("officerFilterMembers").getElementsByTagName("tr");
+  var shown = 0;
+  for (var i = 1; i < rows.length; i++) {
+    if (filter.length >= 2 && rows[i].textContent.toLowerCase().indexOf(filter) >= 0) {
+      rows[i].style.display = "";
+      rows[i].style.backgroundColor = shown % 2 === 0 ? "#CCCCCC" : "";
+      shown++;
+    } else {
+      rows[i].style.display = "none";
+    }
+  }
+  // Header row is only useful when something matched
+  rows[0].style.display = shown > 0 ? "" : "none";
+  document.getElementById("officerFilterInfo").textContent = filter.length >= 2 && shown === 0 ? "No members match '" + filter + "'." : "";
+}
+function webtoolsOfficerSelectMember(memberId) {
+  document.getElementById("officerMemberId").value = memberId;
+  document.getElementById("officerMemberFilter").value = "";
+  webtoolsOfficerFilterMembers();
+}
 function webtoolsAddOfficer(form) {
   var officerData = {
     memberId: parseInt(form.memberId.value),
